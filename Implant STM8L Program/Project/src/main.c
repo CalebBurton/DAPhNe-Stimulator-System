@@ -24,17 +24,8 @@ int      pulse_counter     = RESET;
 *******************************************************************************/
 void main(void)
 {
-  Switch_To_HSI();
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM2,ENABLE);
-  GPIO_Config();
-  TIM2_Config();
-  RTC_Config();
-  enableInterrupts();
-  
-  while(1)
-  {
-    wfi();
-  }
+  initialize();
+  while(1){wfi();}
 }
 /*******************************************************************************
 **********************************   END   *************************************

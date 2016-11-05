@@ -17,9 +17,8 @@
 *******************************************************************************/
 void    initialize(void)
 {
-  //Switch_To_HSI();
-  //CLK_PeripheralClockConfig(CLK_Peripheral_TIM2,ENABLE);
-  disableInterrupts();
+  Switch_To_HSI();
+  CLK_PeripheralClockConfig(CLK_Peripheral_TIM2,ENABLE);
   GPIO_Config();
   TIM2_Config();
   RTC_Config();
@@ -27,36 +26,28 @@ void    initialize(void)
 }
 
 /*******************************************************************************
-*  PRIVATE FUNCTION:    startInspiration()
+*  PRIVATE FUNCTION:    start_Inspiration()
 *******************************************************************************/
-void start_Inspiration(void)
+void    start_Inspiration(void)
 {
-  RTC_WakeUpCmd(DISABLE);
-  Switch_To_HSI();
-  RTC_ITConfig(RTC_IT_WUT,DISABLE);
-}
-/*******************************************************************************
-*  PRIVATE FUNCTION:    startExpiration()
-*******************************************************************************/
-void start_Expiration(void)
-{
-  TIM2_Cmd(DISABLE);
-  Switch_To_LSI();
-  CLK_PeripheralClockConfig(CLK_Peripheral_RTC,ENABLE); // Enable RTC
-  RTC_WakeUpCmd(ENABLE);
-  RTC_ITConfig(RTC_IT_WUT,ENABLE);
+  RTC_WakeUpCmd(DISABLE);                       // Stop RTC WakeUp module
+  RTC_ClearITPendingBit(RTC_IT_WUT);            // Clear RTC IT flag
+  TIM2_ClearITPendingBit(TIM2_IT_Update);       // Clear TIM2 IT flag
+  Switch_To_HSI();                              // Switch to HSI source
+  TIM2_Cmd(ENABLE);                             // Start TIM2
+  
 }
 
 /*******************************************************************************
-*  PRIVATE FUNCTION:    GPO_Configuration
-*       * Configures used and unused GPIO pins on the microcontroller
+*  PRIVATE FUNCTION:    start_Expiration()
 *******************************************************************************/
-void    GPIO_Config(void)
+void    start_Expiration(void)
 {
-  GPIO_Init(PE7_PORT,PE7_PIN,GPIO_Mode_Out_PP_Low_Slow);
-  GPIO_Init(PC7_PORT,PC7_PIN,GPIO_Mode_Out_PP_Low_Slow);
-  GPIO_SetBits(PE7_PORT, PE7_PIN);
-  GPIO_ResetBits(PC7_PORT, PC7_PIN);
+  TIM2_Cmd(DISABLE);                            // Disable TIM2
+  RTC_ClearITPendingBit(RTC_IT_WUT);            // Clear RTC IT flag
+  TIM2_ClearITPendingBit(TIM2_IT_Update);       // Clear TIM2 IT flag
+  Switch_To_LSI();                              // Switch to LSI source
+  RTC_WakeUpCmd(ENABLE);                        // Start RTC WakeUp module
 }
 
 /*******************************************************************************
@@ -83,6 +74,18 @@ void    Switch_To_LSI(void)
   CLK_SYSCLKSourceConfig(CLK_SYSCLKSource_LSI);         // Switch to Low Speed Internal Oscillator
   CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);                 // Divide clock by 1(38000/1 = 38000 Hz)
   while(CLK_GetSYSCLKSource()!=CLK_SYSCLKSource_LSI){;} // Wait until conversion occurs
+}
+
+/*******************************************************************************
+*  PRIVATE FUNCTION:    GPIO_Config
+*       * Configures LED pins
+*******************************************************************************/
+void    GPIO_Config(void)
+{
+  GPIO_Init(PE7_PORT,PE7_PIN,GPIO_Mode_Out_PP_Low_Slow);
+  GPIO_Init(PC7_PORT,PC7_PIN,GPIO_Mode_Out_PP_Low_Slow);
+  GPIO_SetBits(PE7_PORT, PE7_PIN);
+  GPIO_ResetBits(PC7_PORT, PC7_PIN);
 }
 
 /*******************************************************************************
