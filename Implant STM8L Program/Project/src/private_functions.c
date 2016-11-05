@@ -31,6 +31,9 @@ void    initialize(void)
 *******************************************************************************/
 void start_Inspiration(void)
 {
+  RTC_WakeUpCmd(DISABLE);                               // Disable WakeUp unit
+  RTC_SetWakeUpCounter(32768);
+  RTC_WakeUpCmd(ENABLE);                                // Disable WakeUp unit
   TIM2_Cmd(ENABLE);                     // Start Timer 2
 }
 
@@ -39,7 +42,9 @@ void start_Inspiration(void)
 *******************************************************************************/
 void start_Expiration(void)
 {
-  TIM2_Cmd(DISABLE);                    // Turn off Timer 2
+  RTC_WakeUpCmd(DISABLE);                               // Disable WakeUp unit
+  RTC_SetWakeUpCounter(16384);
+  RTC_WakeUpCmd(ENABLE);                                // Disable WakeUp unit
   PWR_UltraLowPowerCmd(ENABLE);         // Put MCU into ultra low power
   halt();                               // Kill everything except RTC
 }
@@ -50,11 +55,9 @@ void start_Expiration(void)
 *******************************************************************************/
 void    GPIO_Config(void)
 {
-  GPIO_Init(PE7_PORT,PE7_PIN,           // GREEN LED output
-            GPIO_Mode_Out_PP_Low_Slow);
-  GPIO_Init(PC7_PORT,PC7_PIN,           // BLUE LED output
-            GPIO_Mode_Out_PP_Low_Slow);
-  GPIO_SetBits(PE7_PORT, PE7_PIN);      // Turn on GREEN LED
+  GPIO_Init(PE7_PORT,PE7_PIN,GPIO_Mode_Out_PP_Low_Slow); // GREEN LED output
+  GPIO_Init(PC7_PORT,PC7_PIN,GPIO_Mode_Out_PP_Low_Slow); // BLUE LED output
+  GPIO_ResetBits(PE7_PORT, PE7_PIN);    // Turn off GREEN LED
   GPIO_ResetBits(PC7_PORT, PC7_PIN);    // Turn off BLUE LED
 }
 
@@ -66,8 +69,8 @@ void    GPIO_Config(void)
 void    TIM2_Config(void)
 {
   CLK_PeripheralClockConfig(CLK_Peripheral_TIM2,ENABLE);// Enable TIM2 clocking
-  TIM2_TimeBaseInit(TIM2_Prescaler_1,
-                    TIM2_CounterMode_Up,TIME_BASE);     // Initialize time base
+  TIM2_TimeBaseInit(TIM2_Prescaler_1,                   // Initialize time base
+                    TIM2_CounterMode_Up,TIME_BASE);     
   TIM2_ClearITPendingBit(TIM2_IT_Update);               // Clear TIM2 IT flag
   TIM2_ITConfig(TIM2_IT_Update, ENABLE);                // Enable timer ITs
 }
@@ -78,13 +81,13 @@ void    TIM2_Config(void)
 void    RTC_Config(void)
 {
   CLK_PeripheralClockConfig(CLK_Peripheral_RTC, ENABLE);// Enable RTC clocking
-  CLK_RTCClockConfig(CLK_RTCCLKSource_LSE,
-                     CLK_RTCCLKDiv_1);                  // Set LSE as RTC source
+  CLK_RTCClockConfig(CLK_RTCCLKSource_LSE,              // Set LSE as RTC source
+                     CLK_RTCCLKDiv_1);                  
   RTC_RatioCmd(ENABLE);                                 // No sync(fclk=frtc)
   RTC_WakeUpCmd(DISABLE);                               // Disable WakeUp unit
-  RTC_WakeUpClockConfig(RTC_WakeUpClock_RTCCLK_Div16);  // frtc/16 = 2048
+  RTC_WakeUpClockConfig(RTC_WakeUpClock_RTCCLK_Div2);  // frtc/16 = 2048
   RTC_ITConfig(RTC_IT_WUT, ENABLE);                     // Enable interrupts
-  RTC_SetWakeUpCounter(2048);                           // WakeUp counter
+  RTC_SetWakeUpCounter(1000);                             // WakeUp counter
 }
 
 /*******************************************************************************

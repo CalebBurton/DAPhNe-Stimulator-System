@@ -79,19 +79,17 @@ INTERRUPT_HANDLER(RTC_IRQHandler, 4)
   */
   disableInterrupts();
   GPIO_ToggleBits(PE7_PORT,PE7_PIN);
+  RTC_ClearITPendingBit(RTC_IT_WUT);
+  enableInterrupts();
   if (sleeping)
   {
     sleeping = FALSE;
-    RTC_ClearITPendingBit(RTC_IT_WUT);
-    enableInterrupts();
     pulse_counter=0;
     start_Inspiration();
   }
   else
   {
     sleeping = TRUE;
-    RTC_ClearITPendingBit(RTC_IT_WUT);
-    enableInterrupts();
     start_Expiration();
   }
 
@@ -281,6 +279,7 @@ INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19)
   {
     pulse_counter++;
     GPIO_ToggleBits(PC7_PORT, PC7_PIN);
+    wfi();
   }
   else{;}
   enableInterrupts();
