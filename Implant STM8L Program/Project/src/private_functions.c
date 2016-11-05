@@ -17,9 +17,8 @@
 *******************************************************************************/
 void    initialize(void)
 {
-  //Switch_To_HSI();
-  //CLK_PeripheralClockConfig(CLK_Peripheral_TIM2,ENABLE);
-  disableInterrupts();
+  Switch_To_HSI();
+  CLK_PeripheralClockConfig(CLK_Peripheral_TIM2,ENABLE);
   GPIO_Config();
   TIM2_Config();
   RTC_Config();
@@ -89,15 +88,6 @@ void    Switch_To_LSI(void)
 *  PRIVATE FUNCTION:    TIM_Configuration
 *       * Initializes 1 s, 16 bit timer (TIM2)
 *       * Sets up timer update interrupt
-*       * Calculations:
-*               F_clk = 16000000/128 = 125000;
-*               F_tim = 125000/1 = 125000;
-*               Period = (0.05*125000Hz)-1 = 6249 cycles;
-*               Actual time period = 1s.
-*
-*       CLK:    1:2:4:8:16:32:64:128
-*       TIM:    1:2:4:8:16:32:64:128
-*       BASE:   1:65535
 ******************************************************************************/
 void    TIM2_Config(void)
 {
