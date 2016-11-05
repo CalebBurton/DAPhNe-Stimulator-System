@@ -17,8 +17,9 @@
 *******************************************************************************/
 void    initialize(void)
 {
-  Switch_To_HSI();
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM2,ENABLE);
+  //Switch_To_HSI();
+  //CLK_PeripheralClockConfig(CLK_Peripheral_TIM2,ENABLE);
+  disableInterrupts();
   GPIO_Config();
   TIM2_Config();
   RTC_Config();
@@ -26,28 +27,36 @@ void    initialize(void)
 }
 
 /*******************************************************************************
-*  PRIVATE FUNCTION:    start_Inspiration()
+*  PRIVATE FUNCTION:    startInspiration()
 *******************************************************************************/
-void    start_Inspiration(void)
+void start_Inspiration(void)
 {
-  RTC_WakeUpCmd(DISABLE);                       // Stop RTC WakeUp module
-  RTC_ClearITPendingBit(RTC_IT_WUT);            // Clear RTC IT flag
-  TIM2_ClearITPendingBit(TIM2_IT_Update);       // Clear TIM2 IT flag
-  Switch_To_HSI();                              // Switch to HSI source
-  TIM2_Cmd(ENABLE);                             // Start TIM2
-  
+  RTC_WakeUpCmd(DISABLE);
+  Switch_To_HSI();
+  RTC_ITConfig(RTC_IT_WUT,DISABLE);
+}
+/*******************************************************************************
+*  PRIVATE FUNCTION:    startExpiration()
+*******************************************************************************/
+void start_Expiration(void)
+{
+  TIM2_Cmd(DISABLE);
+  Switch_To_LSI();
+  CLK_PeripheralClockConfig(CLK_Peripheral_RTC,ENABLE); // Enable RTC
+  RTC_WakeUpCmd(ENABLE);
+  RTC_ITConfig(RTC_IT_WUT,ENABLE);
 }
 
 /*******************************************************************************
-*  PRIVATE FUNCTION:    start_Expiration()
+*  PRIVATE FUNCTION:    GPO_Configuration
+*       * Configures used and unused GPIO pins on the microcontroller
 *******************************************************************************/
-void    start_Expiration(void)
+void    GPIO_Config(void)
 {
-  TIM2_Cmd(DISABLE);                            // Disable TIM2
-  RTC_ClearITPendingBit(RTC_IT_WUT);            // Clear RTC IT flag
-  TIM2_ClearITPendingBit(TIM2_IT_Update);       // Clear TIM2 IT flag
-  Switch_To_LSI();                              // Switch to LSI source
-  RTC_WakeUpCmd(ENABLE);                        // Start RTC WakeUp module
+  GPIO_Init(PE7_PORT,PE7_PIN,GPIO_Mode_Out_PP_Low_Slow);
+  GPIO_Init(PC7_PORT,PC7_PIN,GPIO_Mode_Out_PP_Low_Slow);
+  GPIO_SetBits(PE7_PORT, PE7_PIN);
+  GPIO_ResetBits(PC7_PORT, PC7_PIN);
 }
 
 /*******************************************************************************
@@ -77,18 +86,6 @@ void    Switch_To_LSI(void)
 }
 
 /*******************************************************************************
-*  PRIVATE FUNCTION:    GPIO_Config
-*       * Configures LED pins
-*******************************************************************************/
-void    GPIO_Config(void)
-{
-  GPIO_Init(PE7_PORT,PE7_PIN,GPIO_Mode_Out_PP_Low_Slow);
-  GPIO_Init(PC7_PORT,PC7_PIN,GPIO_Mode_Out_PP_Low_Slow);
-  GPIO_SetBits(PE7_PORT, PE7_PIN);
-  GPIO_ResetBits(PC7_PORT, PC7_PIN);
-}
-
-/*******************************************************************************
 *  PRIVATE FUNCTION:    TIM_Configuration
 *       * Initializes 1 s, 16 bit timer (TIM2)
 *       * Sets up timer update interrupt
@@ -101,7 +98,7 @@ void    GPIO_Config(void)
 *       CLK:    1:2:4:8:16:32:64:128
 *       TIM:    1:2:4:8:16:32:64:128
 *       BASE:   1:65535
-*******************************************************************************/
+******************************************************************************/
 void    TIM2_Config(void)
 {
   TIM2_TimeBaseInit(TIM2_Prescaler_1,

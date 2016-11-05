@@ -78,6 +78,9 @@ INTERRUPT_HANDLER(RTC_IRQHandler, 4)
   */
     // LED CONTROL
   disableInterrupts();
+  TIM2_ClearITPendingBit(TIM2_IT_Update);               // Clear TIM2 interrupt flag
+  TIM2_ITConfig(TIM2_IT_Update, ENABLE);                // Enable timer interrupts
+  TIM2_Cmd(ENABLE);                                     // Start timer
   start_Inspiration();
   RTC_ClearITPendingBit(RTC_IT_WUT);
   enableInterrupts();
@@ -285,8 +288,6 @@ INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19)
     halt();
     GPIO_SetBits(PE7_PORT, PE7_PIN);
   }
-  
-  
 }
 
 /**
