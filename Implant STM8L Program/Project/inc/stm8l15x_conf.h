@@ -1,17 +1,12 @@
 /*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%                                                                        %%%%
-%%%%          PICO Negative Pressure Wound Therapy Device Program           %%%%
-%%%%                            stm8l15x_conf.h                             %%%%
+%%%%           BME 390: Phrenic Nerve Stimulation: Implant Program          %%%%
+%%%%                                 main.c                                 %%%%
 %%%%                                                                        %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-*  This program is intended for re-programming the commercial PICO
-*  Negative Pressure Wound Therapy Device. Some of the features include:
-*       - Ability to change the device's pressure thresholds
-*       - Ability to change the device's algorithm timing
-*       - Ability to use the device indefinitely
 ********************************************************************************
 *	Author:		Alexey Revinski
-*	Last Revised:	01/21/2016
+*	Last Revised:	__/__/2016
 *******************************************************************************/
 
 #ifndef __STM8L15x_CONF_H

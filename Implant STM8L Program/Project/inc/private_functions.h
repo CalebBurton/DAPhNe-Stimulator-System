@@ -28,13 +28,14 @@
 *******************************************************************************/
 
 void    initialize(void);
-void    GPIO_Config(void);        // Configure GPIO pins
-void    Switch_To_HSI(void);
-void    Switch_To_LSI(void);            
-void    TIM2_Config(void);
-void    RTC_Config(void);
 void    start_Inspiration(void);
 void    start_Expiration(void);
+void    Switch_To_HSI(void);
+void    Switch_To_LSI(void); 
+void    GPIO_Config(void);
+void    TIM2_Config(void);
+void    RTC_Config(void);
+
 
 #endif /* __STM8L15x_IT_H */
 

@@ -23,6 +23,7 @@ void    initialize(void)
   TIM2_Config();
   RTC_Config();
   enableInterrupts();
+  TIM2_Cmd(ENABLE);                             // Start timer 
 }
 
 /*******************************************************************************
@@ -34,8 +35,8 @@ void    start_Inspiration(void)
   RTC_ClearITPendingBit(RTC_IT_WUT);            // Clear RTC IT flag
   TIM2_ClearITPendingBit(TIM2_IT_Update);       // Clear TIM2 IT flag
   Switch_To_HSI();                              // Switch to HSI source
+  GPIO_SetBits(PE7_PORT, PE7_PIN);              // Turn on LED
   TIM2_Cmd(ENABLE);                             // Start TIM2
-  
 }
 
 /*******************************************************************************
@@ -46,8 +47,10 @@ void    start_Expiration(void)
   TIM2_Cmd(DISABLE);                            // Disable TIM2
   RTC_ClearITPendingBit(RTC_IT_WUT);            // Clear RTC IT flag
   TIM2_ClearITPendingBit(TIM2_IT_Update);       // Clear TIM2 IT flag
+  GPIO_ResetBits(PE7_PORT, PE7_PIN);            // Turn off LED
   Switch_To_LSI();                              // Switch to LSI source
   RTC_WakeUpCmd(ENABLE);                        // Start RTC WakeUp module
+  halt();                                       // Go into HALT mode
 }
 
 /*******************************************************************************
@@ -90,25 +93,14 @@ void    GPIO_Config(void)
 
 /*******************************************************************************
 *  PRIVATE FUNCTION:    TIM_Configuration
-*       * Initializes 1 s, 16 bit timer (TIM2)
+*       * Initializes 16 bit timer (TIM2)
 *       * Sets up timer update interrupt
-*       * Calculations:
-*               F_clk = 16000000/128 = 125000;
-*               F_tim = 125000/1 = 125000;
-*               Period = (0.05*125000Hz)-1 = 6249 cycles;
-*               Actual time period = 1s.
-*
-*       CLK:    1:2:4:8:16:32:64:128
-*       TIM:    1:2:4:8:16:32:64:128
-*       BASE:   1:65535
 *******************************************************************************/
 void    TIM2_Config(void)
 {
-  TIM2_TimeBaseInit(TIM2_Prescaler_1,
-                    TIM2_CounterMode_Up,TIME_BASE);     // Initialize time base
+  TIM2_TimeBaseInit(TIM2_Prescaler_1,TIM2_CounterMode_Up,TIME_BASE); // Initialize timer
   TIM2_ClearITPendingBit(TIM2_IT_Update);               // Clear interrupt flag
   TIM2_ITConfig(TIM2_IT_Update, ENABLE);                // Enable timer ITs
-  TIM2_Cmd(ENABLE);                                     // Start timer 
 }
 
 /*******************************************************************************
@@ -117,11 +109,11 @@ void    TIM2_Config(void)
 void    RTC_Config(void)
 {  
   CLK_RTCClockConfig(CLK_RTCCLKSource_LSI, CLK_RTCCLKDiv_1);    // Set RTC to use LSI (38kHz)
-  RTC_RatioCmd(ENABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_RTC, ENABLE);
-  RTC_WakeUpCmd(DISABLE);
-  RTC_WakeUpClockConfig(RTC_WakeUpClock_RTCCLK_Div16);
-  RTC_SetWakeUpCounter(4600); //SHOULD BE 2375
+  RTC_RatioCmd(ENABLE);                                         // Fclk = Frtc
+  CLK_PeripheralClockConfig(CLK_Peripheral_RTC, ENABLE);        // Enable RTC clock
+  RTC_WakeUpCmd(DISABLE);                                       // Disable WakeUp feature
+  RTC_WakeUpClockConfig(RTC_WakeUpClock_RTCCLK_Div16);          // Configure Wakeup
+  RTC_SetWakeUpCounter(4600); //SHOULD BE 2375                  // Set WakeUp counter
 }
 
 /*******************************************************************************
