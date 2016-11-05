@@ -32,7 +32,7 @@ void    initialize(void);
 void    start_Inspiration(void);
 void    start_Expiration(void);
 void    Switch_To_HSI(void);
-void    Switch_To_LSI(void); 
+void    Switch_To_LSE(void); 
 void    GPIO_Config(void);
 void    TIM2_Config(void);
 void    PWM2_Config(void);
