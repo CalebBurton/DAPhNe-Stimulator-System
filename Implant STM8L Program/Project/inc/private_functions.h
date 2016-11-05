@@ -34,6 +34,7 @@ void    Switch_To_HSI(void);
 void    Switch_To_LSI(void); 
 void    GPIO_Config(void);
 void    TIM2_Config(void);
+void    PWM2_Config(void);
 void    RTC_Config(void);
 
 
