@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 ********************************************************************************
 *	Author:		Alexey Revinski
-*	Last Revised:	__/__/2016
+*	Last Revised:	11/05/2016
 *******************************************************************************/
 
 #include "stm8l15x_conf.h"
@@ -266,13 +266,15 @@ INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19)
   {
     pulse_counter++;
     GPIO_ToggleBits(PC7_PORT, PC7_PIN);
+    enableInterrupts(); 
   }
   else
   {
     pulse_counter = 0;
+    enableInterrupts(); 
     start_Expiration();
   }
-  enableInterrupts(); 
+  
 }
 
 /**

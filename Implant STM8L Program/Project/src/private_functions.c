@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 ********************************************************************************
 *	Author:		Alexey Revinski
-*	Last Revised:	__/__/2016
+*	Last Revised:	11/05/2016
 *******************************************************************************/
 
 #include "stm8l15x.h"
@@ -17,12 +17,14 @@
 *******************************************************************************/
 void    initialize(void)
 {
-  Switch_To_HSI();
-  GPIO_Config();
-  TIM2_Config(); 
-  RTC_Config();
-  TIM2_Cmd(ENABLE);
-  enableInterrupts();
+  CLK_DeInit();                         // Reset to default clock values
+  CLK_LSICmd(ENABLE);                   // Enable LSI
+  Switch_To_HSI();                      // Switch core to HSI
+  GPIO_Config();                        // Configure GPIO pins
+  TIM2_Config();                        // Configure Timer 2
+  RTC_Config();                         // Configure Real Time Clock
+  TIM2_Cmd(ENABLE);                     // Start Timer 2
+  enableInterrupts();                   // Enable interrupts
 }
 
 /*******************************************************************************
@@ -30,10 +32,10 @@ void    initialize(void)
 *******************************************************************************/
 void start_Inspiration(void)
 {
-  RTC_WakeUpCmd(DISABLE);
-  Switch_To_HSI();
-  GPIO_SetBits(PE7_PORT, PE7_PIN);
-  TIM2_Cmd(ENABLE);
+  RTC_WakeUpCmd(DISABLE);               // Turn off RTC wake up unit
+  Switch_To_HSI();                      // Switch core to HSI
+  GPIO_SetBits(PE7_PORT, PE7_PIN);      // Turn on GREEN LED
+  TIM2_Cmd(ENABLE);                     // Start Timer 2
 }
 
 /*******************************************************************************
@@ -41,11 +43,12 @@ void start_Inspiration(void)
 *******************************************************************************/
 void start_Expiration(void)
 {
-  TIM2_Cmd(DISABLE);
-  GPIO_ResetBits(PE7_PORT, PE7_PIN);
-  Switch_To_LSI();
-  RTC_WakeUpCmd(ENABLE);
-  halt();
+  TIM2_Cmd(DISABLE);                    // Turn off Timer 2
+  GPIO_ResetBits(PE7_PORT, PE7_PIN);    // Turn off GREEN LED
+  Switch_To_LSI();                      // Switch core to LSI
+  RTC_WakeUpCmd(ENABLE);                // Turn on RTC wake up unit
+  PWR_UltraLowPowerCmd(ENABLE);         // Put MCU into ultra low power
+  halt();                               // Kill everything except RTC
 }
 
 /*******************************************************************************
@@ -54,10 +57,12 @@ void start_Expiration(void)
 *******************************************************************************/
 void    GPIO_Config(void)
 {
-  GPIO_Init(PE7_PORT,PE7_PIN,GPIO_Mode_Out_PP_Low_Slow);
-  GPIO_Init(PC7_PORT,PC7_PIN,GPIO_Mode_Out_PP_Low_Slow);
-  GPIO_SetBits(PE7_PORT, PE7_PIN);
-  GPIO_ResetBits(PC7_PORT, PC7_PIN);
+  GPIO_Init(PE7_PORT,PE7_PIN,           // GREEN LED output
+            GPIO_Mode_Out_PP_Low_Slow);
+  GPIO_Init(PC7_PORT,PC7_PIN,           // BLUE LED output
+            GPIO_Mode_Out_PP_Low_Slow);
+  GPIO_SetBits(PE7_PORT, PE7_PIN);      // Turn on GREEN LED
+  GPIO_ResetBits(PC7_PORT, PC7_PIN);    // Turn off BLUE LED
 }
 
 /*******************************************************************************
@@ -67,10 +72,11 @@ void    GPIO_Config(void)
 *******************************************************************************/
 void    Switch_To_HSI(void)
 {
-  CLK_SYSCLKSourceSwitchCmd(ENABLE);                    // Enable switching clock sources
-  CLK_SYSCLKSourceConfig(CLK_SYSCLKSource_HSI);         // Switch to High Speed Internal Oscillator
-  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_128);               // Divide clock by 128 (16000000/128 = 125000 Hz)
-  while(CLK_GetSYSCLKSource()!=CLK_SYSCLKSource_HSI){;} // Wait until conversion occurs
+  CLK_SYSCLKSourceSwitchCmd(ENABLE);    // Enable switching clock sources
+  CLK_SYSCLKSourceConfig(CLK_SYSCLKSource_HSI); // Set HSI as source
+  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_128);       // Divide clock to get 125000 Hz
+  while(CLK_GetSYSCLKSource()!=
+        CLK_SYSCLKSource_HSI){;}        // Wait until conversion occurs
 }
 
 /*******************************************************************************
@@ -79,11 +85,12 @@ void    Switch_To_HSI(void)
 *       * Divides the clock by 1 ==> 38000 Hz
 *******************************************************************************/
 void    Switch_To_LSI(void)
-{
-  CLK_SYSCLKSourceSwitchCmd(ENABLE);                    // Enable switching clock sources
-  CLK_SYSCLKSourceConfig(CLK_SYSCLKSource_LSI);         // Switch to Low Speed Internal Oscillator
-  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);                 // Divide clock by 1(38000/1 = 38000 Hz)
-  while(CLK_GetSYSCLKSource()!=CLK_SYSCLKSource_LSI){;} // Wait until conversion occurs
+{ 
+  CLK_SYSCLKSourceSwitchCmd(ENABLE);    // Enable switching clock sources
+  CLK_SYSCLKSourceConfig(CLK_SYSCLKSource_LSI); // Set LSI as source
+  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1); // Do not divide the clock 38000 Hz
+  while(CLK_GetSYSCLKSource()!=
+        CLK_SYSCLKSource_LSI){;}        // Wait until conversion occurs
 }
 
 /*******************************************************************************
@@ -93,10 +100,10 @@ void    Switch_To_LSI(void)
 ******************************************************************************/
 void    TIM2_Config(void)
 {
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM2,ENABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_TIM2,ENABLE);// Enable TIM2 clocking
   TIM2_TimeBaseInit(TIM2_Prescaler_1,
                     TIM2_CounterMode_Up,TIME_BASE);     // Initialize time base
-  TIM2_ClearITPendingBit(TIM2_IT_Update);               // Clear interrupt flag
+  TIM2_ClearITPendingBit(TIM2_IT_Update);               // Clear TIM2 IT flag
   TIM2_ITConfig(TIM2_IT_Update, ENABLE);                // Enable timer ITs
 }
 
@@ -104,13 +111,15 @@ void    TIM2_Config(void)
 *  PRIVATE FUNCTION:    RTC_Configuration
 *******************************************************************************/
 void    RTC_Config(void)
-{  
-  CLK_RTCClockConfig(CLK_RTCCLKSource_LSI, CLK_RTCCLKDiv_1);    // Set RTC to use LSI (38kHz)
-  RTC_RatioCmd(ENABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_RTC, ENABLE);
-  RTC_WakeUpCmd(DISABLE);
-  RTC_WakeUpClockConfig(RTC_WakeUpClock_RTCCLK_Div16);
-  RTC_SetWakeUpCounter(4600); //SHOULD BE 2375
+{
+  CLK_PeripheralClockConfig(CLK_Peripheral_RTC, ENABLE);// Enable RTC clocking
+  CLK_RTCClockConfig(CLK_RTCCLKSource_LSI,
+                     CLK_RTCCLKDiv_1);                  // Set LSI as RTC source
+  RTC_RatioCmd(ENABLE);                                 // No sync(fclk=frtc)
+  RTC_WakeUpCmd(DISABLE);                               // Disable WakeUp unit
+  RTC_WakeUpClockConfig(RTC_WakeUpClock_RTCCLK_Div16);  // Configure WakeUp unit
+  RTC_ITConfig(RTC_IT_WUT, ENABLE);                     // Enable interrupts
+  RTC_SetWakeUpCounter(4600);    //SHOULD BE 2375       // WakeUp counter
 }
 
 /*******************************************************************************

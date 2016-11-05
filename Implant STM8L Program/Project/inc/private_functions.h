@@ -22,6 +22,7 @@
 #include "stm8l15x_tim2.h"
 #include "stm8l15x_it.h"
 #include "stm8l15x_rtc.h"
+#include "stm8l15x_pwr.h"
 
 /*******************************************************************************
 *  FUNCTION PROTOTYPES
