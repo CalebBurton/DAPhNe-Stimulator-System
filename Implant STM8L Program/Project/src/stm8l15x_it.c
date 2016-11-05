@@ -76,7 +76,6 @@ INTERRUPT_HANDLER(RTC_IRQHandler, 4)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
-    // LED CONTROL
   disableInterrupts();
   RTC_ClearITPendingBit(RTC_IT_WUT);
   start_Inspiration();
@@ -164,13 +163,6 @@ INTERRUPT_HANDLER(EXTI3_IRQHandler, 11)
 {
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
-  */
-  /*
-  disableInterrupts();                  // Disable all interrupts
-  EXTI_ClearITPendingBit(EXTI_IT_Pin3); // Clear "EXTI interrupt pending" flag
-  button = TRUE;                        // Button has been pressed
-  for (uint16_t ii = 0; ii<2000; ii++); // Debouncing using CPU
-  enableInterrupts();                   // Enable all interrupts
   */
 }
 
@@ -269,22 +261,18 @@ INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19)
      it is recommended to set a breakpoint on the following instruction.
   */
   disableInterrupts();
+  TIM2_ClearITPendingBit(TIM2_IT_Update);
   if (pulse_counter < 20)
   {
-    GPIO_ToggleBits(PC7_PORT, PC7_PIN);
     pulse_counter++;
-    TIM2_ClearITPendingBit(TIM2_IT_Update);
-    enableInterrupts(); 
+    GPIO_ToggleBits(PC7_PORT, PC7_PIN);
   }
   else
   {
     pulse_counter = 0;
-    TIM2_ClearITPendingBit(TIM2_IT_Update);
     start_Expiration();
-    GPIO_ResetBits(PE7_PORT, PE7_PIN);
-    halt();
-    GPIO_SetBits(PE7_PORT, PE7_PIN);
   }
+  enableInterrupts(); 
 }
 
 /**

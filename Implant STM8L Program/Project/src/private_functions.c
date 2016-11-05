@@ -18,11 +18,10 @@
 void    initialize(void)
 {
   Switch_To_HSI();
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM2,ENABLE);
   GPIO_Config();
-  TIM2_Config();
-  TIM2_Cmd(ENABLE);                                     // Start timer 
+  TIM2_Config(); 
   RTC_Config();
+  TIM2_Cmd(ENABLE);
   enableInterrupts();
 }
 
@@ -33,16 +32,20 @@ void start_Inspiration(void)
 {
   RTC_WakeUpCmd(DISABLE);
   Switch_To_HSI();
+  GPIO_SetBits(PE7_PORT, PE7_PIN);
   TIM2_Cmd(ENABLE);
 }
+
 /*******************************************************************************
 *  PRIVATE FUNCTION:    startExpiration()
 *******************************************************************************/
 void start_Expiration(void)
 {
-  TIM2_Cmd(DISABLE);    
+  TIM2_Cmd(DISABLE);
+  GPIO_ResetBits(PE7_PORT, PE7_PIN);
   Switch_To_LSI();
   RTC_WakeUpCmd(ENABLE);
+  halt();
 }
 
 /*******************************************************************************
@@ -90,6 +93,7 @@ void    Switch_To_LSI(void)
 ******************************************************************************/
 void    TIM2_Config(void)
 {
+  CLK_PeripheralClockConfig(CLK_Peripheral_TIM2,ENABLE);
   TIM2_TimeBaseInit(TIM2_Prescaler_1,
                     TIM2_CounterMode_Up,TIME_BASE);     // Initialize time base
   TIM2_ClearITPendingBit(TIM2_IT_Update);               // Clear interrupt flag
