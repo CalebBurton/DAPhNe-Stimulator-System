@@ -30,14 +30,6 @@
 #define LED_START       ((uint16_t) 1)          // ms, when to light up LEDs
 #define LED_STOP        ((uint16_t) 20)         // ms, when to turn off LEDs
 #define S_MS            ((uint16_t) 1000)       // Seconds-to-milliseconds factor
-//#define TIME_BASE       ((uint16_t) 15624)      // Time base for TIM2 (1Hz)
-
-
-// USED GPIO PORT AND PIN DEFINITIONS
-#define PE7_PORT        GPIOE
-#define PE7_PIN         GPIO_Pin_7
-#define PC7_PORT        GPIOC
-#define PC7_PIN         GPIO_Pin_7
 
 /*******************************************************************************
 *  MACROS
