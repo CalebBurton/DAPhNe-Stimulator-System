@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 ********************************************************************************
 *	Author:		Alexey Revinski
-*	Last Revised:	11/05/2016
+*	Last Revised:	11/06/2016
 *******************************************************************************/
 
 #include "stm8l15x.h"
@@ -15,15 +15,17 @@
 extern uint16_t time_in;
 extern uint16_t time_ex;
 extern uint16_t CCR1_Val;
-extern uint16_t CCR2_Val;
-extern uint16_t CCR3_Val;
+extern uint32_t bpm;
+extern uint32_t ie_ratio;
+extern uint32_t TIM1_period;
+extern uint32_t f_pulse;
 
 /*******************************************************************************
 *  PRIVATE FUNCTION:    initialize()
 *******************************************************************************/
 void    initialize(void)
 {
-  calculate_RTC();
+  calculations();
   CLK_DeInit();                         // Reset to default clock values (HSI)
   CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_64);// Divide clock to get 125000 Hz
   GPIO_Config();                        // Configure GPIO pins
@@ -45,6 +47,7 @@ void start_Inspiration(void)
   TIM1_SetCounter(0);
   TIM1_Cmd(ENABLE);                     // Start Timer 1
   TIM1_CtrlPWMOutputs(ENABLE);
+  wfe();
 }
 
 /*******************************************************************************
@@ -94,7 +97,7 @@ void    TIM2_Config(void)
 void    TIM1_Config(void)
 {
   CLK_PeripheralClockConfig(CLK_Peripheral_TIM1,ENABLE);// Enable TIM2 clocking
-  TIM1_TimeBaseInit(TIM1_PSR,TIM1_CounterMode_Up,TIM1_PER,TIM1_REP);
+  TIM1_TimeBaseInit(TIM1_PSR,TIM1_CounterMode_Up,TIM1_period,TIM1_REP);
   TIM1_OC1Init(TIM1_OCMode_PWM1, TIM1_OutputState_Enable, TIM1_OutputNState_Disable,
                CCR1_Val, TIM1_OCPolarity_High, TIM1_OCNPolarity_High, TIM1_OCIdleState_Set,
                TIM1_OCNIdleState_Set);
@@ -120,11 +123,14 @@ void    RTC_Config(void)
 /*******************************************************************************
 *  PRIVATE FUNCTION:    calculate_RTC
 *******************************************************************************/
-void    calculate_RTC(void)
+void    calculations(void)
 {
-  uint32_t xy = ((uint32_t)16384*6000)/(uint32_t)BPM;
-  time_in = (uint16_t)((IE_RATIO*xy)/1000);
+  uint32_t xy = ((uint32_t)16384*6000)/(uint32_t)bpm;
+  time_in = (uint16_t)((ie_ratio*xy)/10000);
   time_ex = ((uint16_t)xy-time_in);
+  
+  
+  
 }
 
 

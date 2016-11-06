@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 ********************************************************************************
 *	Author:		Alexey Revinski
-*	Last Revised:	11/05/2016
+*	Last Revised:	11/06/2016
 *******************************************************************************/
 
 #include "stm8l15x_conf.h"
@@ -22,8 +22,15 @@ bool            sleeping        = TRUE;
 uint16_t        time_in         = 0;
 uint16_t        time_ex         = 0;
 
-// PER = 6249
-uint16_t        CCR1_Val        = 1250;
+// Physiological values
+//uint32_t        pulse_freq      = 2000;         //(  20.00 Hz )
+//uint32_t        pulse_width     = 35000;        //( 350.00 us )
+uint32_t        bpm             = 3000;         //(  30.00 bpm) - 2s period
+uint32_t        ie_ratio        = 4000;         //(  40.00 %  )
+
+// Calculated (updated) variables
+uint16_t        CCR1_Val        = 1250;         //DEFAULT (10000 us for now)
+uint32_t        TIM1_period     = 6249;         //DEFAULT (20Hz), 125000/20-1
 
 /*******************************************************************************
 *  MAIN FUNCTION

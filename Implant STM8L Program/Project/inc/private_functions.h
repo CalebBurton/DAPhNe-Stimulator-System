@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 ********************************************************************************
 *	Author:		Alexey Revinski
-*	Last Revised:	11/05/2016
+*	Last Revised:	11/06/2016
 *******************************************************************************/
 
 /* Define to prevent recursive inclusion -------------------------------------*/
@@ -40,15 +40,7 @@
 
 #define TIM1_PSR        ((uint16_t) 1)
 #define TIM1_REP        ((uint16_t) 0)
-
-#define TIM1_PER        ((uint16_t) 6249)       // Time base for TIM1 (20Hz)
 #define TIM2_PER        ((uint16_t) 6249)       // Time base for TIM2 (20Hz)
-#define BPM             ((uint32_t) 3000)       // Breaths Per Minute (out of 100)
-#define IE_RATIO        ((uint32_t) 400)        // Insp:Exp. (out of 1000)
-
-
-
-
 
 /*******************************************************************************
 *  FUNCTION PROTOTYPES
@@ -64,7 +56,7 @@ void    TIM1_Config(void);
 void    TIM2_Config(void);
 void    PWM2_Config(void);
 void    RTC_Config(void);
-void    calculate_RTC(void);
+void    calculations(void);
 
 
 #endif /* __STM8L15x_IT_H */

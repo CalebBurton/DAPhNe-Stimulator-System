@@ -109,7 +109,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 38 41 10 46 48 13 44 54 47 45 42 43 39</file>
+          <file> 41 48 45 43 42 39 10 13 44 38 54 46 47</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
@@ -132,7 +132,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 39 42 45 41 43 48 10 13 44 38 54 46 47</file>
+          <file> 39 41 42 45 43 48 10 13 44 38 54 46 47</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
@@ -155,7 +155,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 41 38 39 10 46 13 44 54 47 45 42 43 48</file>
+          <file> 48 41 39 45 43 42 10 13 44 38 54 46 47</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
@@ -210,7 +210,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 41 48 13 43 10 45 42 39 44 38 54 46 47</file>
+          <file> 54 41 44 47 10 45 38 46 13 42 43 39 48</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
@@ -233,7 +233,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 41 13 54 44 47 10 38 46 45 42 43 39 48</file>
+          <file> 41 42 39 45 43 48 47 10 13 44 38 54 46</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
@@ -256,7 +256,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 41 45 48 13 43 10 42 39 44 38 54 46 47</file>
+          <file> 45 54 41 44 47 38 46 10 13 42 43 39 48</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
@@ -302,7 +302,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 44 41 47 13 54 45 10 38 46 42 43 39 48</file>
+          <file> 43 45 41 48 42 39 10 13 44 38 54 46 47</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
@@ -325,7 +325,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 39 42 41 45 43 48 44 10 13 38 54 46 47</file>
+          <file> 39 42 45 41 43 48 44 10 13 38 54 46 47</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
@@ -348,7 +348,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 43 45 41 48 54 42 39 10 13 44 38 46 47</file>
+          <file> 44 47 13 54 41 10 38 46 45 42 43 39 48</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
