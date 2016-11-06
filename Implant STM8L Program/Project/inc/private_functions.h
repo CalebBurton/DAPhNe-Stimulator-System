@@ -24,6 +24,10 @@
 #include "stm8l15x_rtc.h"
 #include "stm8l15x_pwr.h"
 
+#define TIME_BASE       ((uint16_t) 6249)       // Time base for TIM2 (20Hz)
+#define BPM             ((uint32_t) 3500)       // Breaths Per Minute (out of 100)
+#define IE_RATIO        ((uint32_t) 450)        // Insp:Exp. (out of 1000)
+
 /*******************************************************************************
 *  FUNCTION PROTOTYPES
 *******************************************************************************/
@@ -37,6 +41,7 @@ void    GPIO_Config(void);
 void    TIM2_Config(void);
 void    PWM2_Config(void);
 void    RTC_Config(void);
+void    calculate_RTC(void);
 
 
 #endif /* __STM8L15x_IT_H */
