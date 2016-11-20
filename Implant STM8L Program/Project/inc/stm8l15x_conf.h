@@ -19,18 +19,6 @@
 #include "stm8l15x.h"
 #include "private_functions.h"
 
-// BATTERY LEVEL CONSTANTS
-#define ADC_INIT        ((uint16_t) 5000)       // Initial sensor ADC value
-#define ADC12BIT        ((uint16_t) 4095)       // 2^12-1 = 4095
-#define BATT_CORRECTION ((uint32_t) 215)        // Experimental constant (ADC_unit)
-#define VREF            ((uint16_t) 2870)       // Voltage supplied by the board
-
-// TIMING CONSTANTS
-#define CYCLE_END       ((uint16_t) 1000)       // ms, end of second-long cycle
-#define LED_START       ((uint16_t) 1)          // ms, when to light up LEDs
-#define LED_STOP        ((uint16_t) 20)         // ms, when to turn off LEDs
-#define S_MS            ((uint16_t) 1000)       // Seconds-to-milliseconds factor
-
 /*******************************************************************************
 *  MACROS
 *******************************************************************************/

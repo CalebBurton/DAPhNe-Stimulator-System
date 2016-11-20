@@ -59,6 +59,7 @@ void    PWM2_Config(void);
 void    RTC_Config(void);
 void    DAC_Config(void);
 void    calculations(void);
+void    reset_RTC_counter(uint16_t time);
 
 
 #endif /* __STM8L15x_IT_H */

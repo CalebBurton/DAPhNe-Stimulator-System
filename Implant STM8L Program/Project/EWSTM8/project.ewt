@@ -98,9 +98,6 @@
     <name>User</name>
     <group>
       <name>inc</name>
-      <file>
-        <name>$PROJ_DIR$\..\inc\stm8l15x_conf.h</name>
-      </file>
     </group>
     <group>
       <name>src</name>

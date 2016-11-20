@@ -8,10 +8,11 @@
 *	Author:		Alexey Revinski
 *	Last Revised:	11/20/2016
 *******************************************************************************/
-
-#include "stm8l15x.h"
 #include "private_functions.h"
 
+/*******************************************************************************
+*  GLOBAL VARIABLES
+*******************************************************************************/
 bool            sleeping        = TRUE;                 // State variable
 uint16_t        time_in         = RESET;
 uint16_t        time_ex         = RESET;
@@ -25,6 +26,10 @@ uint16_t        mod_100         = 100;
 uint16_t        res_8bit        = 256;
 uint16_t        Vref            = 270;
 uint16_t        minpersec       = 6000;
+
+/*******************************************************************************
+*  EXTERNAL VARIABLES
+*******************************************************************************/
 extern uint32_t pulse_freq;
 extern uint32_t pulse_width;
 extern uint32_t pulse_amp;
@@ -53,10 +58,8 @@ void    initialize(void)
 *******************************************************************************/
 void start_Inspiration(void)
 {
-  sleeping = FALSE;
-  RTC_WakeUpCmd(DISABLE);                               // Disable WakeUp unit
-  RTC_SetWakeUpCounter(time_in);                        // RTC counter to insp.
-  while(!RTC_WakeUpCmd(ENABLE)){;}                      // Enable WakeUp unit
+  sleeping = FALSE;                                     // Change state
+  reset_RTC_counter(time_in);                           // Reset RTC
   TIM1_SetCounter(0);                                   // Reset counter
   TIM1_Cmd(ENABLE);                                     // Start Timer 1
   TIM1_CtrlPWMOutputs(ENABLE);                          // Enable PWM output
@@ -68,13 +71,21 @@ void start_Inspiration(void)
 *******************************************************************************/
 void start_Expiration(void)
 {
-  sleeping = TRUE;
+  sleeping = TRUE;                                      // Change state
   TIM1_CtrlPWMOutputs(DISABLE);                         // Disable PWM output
-  RTC_WakeUpCmd(DISABLE);                               // Disable WakeUp unit
-  RTC_SetWakeUpCounter(time_ex);                        // RTC counter to exp.
-  RTC_WakeUpCmd(ENABLE);                                // Disable WakeUp unit
+  reset_RTC_counter(time_ex);                           // Reset RTC
   PWR_UltraLowPowerCmd(ENABLE);                         // Ultra low power mode
   halt();                                               // Stop all except RTC
+}
+
+/*******************************************************************************
+*  PRIVATE FUNCTION:    reset_RTC_counter()
+*******************************************************************************/
+void reset_RTC_counter(uint16_t time)
+{
+  while(!RTC_WakeUpCmd(DISABLE)){;}                     // Disable WakeUp unit
+  RTC_SetWakeUpCounter(time);                        // RTC counter to insp.
+  while(!RTC_WakeUpCmd(ENABLE)){;}                      // Enable WakeUp unit;
 }
 
 /*******************************************************************************
