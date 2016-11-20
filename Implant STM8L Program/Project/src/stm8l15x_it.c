@@ -14,7 +14,6 @@
 /*******************************************************************************
 *  GLOBAL FLAGS
 *******************************************************************************/
-extern int pulse_counter;
 extern bool sleeping;
 
 // INTERRUPT HANDLERS (only EXTI3 and TIM4 are currently used)
@@ -81,17 +80,8 @@ INTERRUPT_HANDLER(RTC_IRQHandler, 4)
   GPIO_ToggleBits(PE7_PORT,PE7_PIN);
   RTC_ClearITPendingBit(RTC_IT_WUT);
   enableInterrupts();
-  if (sleeping)
-  {
-    sleeping = FALSE;
-    pulse_counter=0;
-    start_Inspiration();
-  }
-  else
-  {
-    sleeping = TRUE;
-    start_Expiration();
-  }
+  if (sleeping) {start_Inspiration();}
+  else          {start_Expiration();}
 
 }
 
@@ -273,16 +263,6 @@ INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
-  disableInterrupts();
-  TIM2_ClearITPendingBit(TIM2_IT_Update);
-  if (pulse_counter < 10)
-  {
-    pulse_counter++;
-    GPIO_ToggleBits(PC7_PORT, PC7_PIN);
-    wfi();
-  }
-  else{;}
-  enableInterrupts();
 }
 
 /**
