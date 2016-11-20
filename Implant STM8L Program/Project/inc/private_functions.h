@@ -40,7 +40,6 @@
 
 #define TIM1_PSR        ((uint16_t) 1)
 #define TIM1_REP        ((uint16_t) 0)
-#define TIM2_PER        ((uint16_t) 6249)       // Time base for TIM2 (20Hz)
 
 /*******************************************************************************
 *  FUNCTION PROTOTYPES

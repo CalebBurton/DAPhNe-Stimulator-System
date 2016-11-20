@@ -12,25 +12,12 @@
 #include "stm8l15x_conf.h"
 
 /*******************************************************************************
-*  GLOBAL FLAGS
+*  PHYSIOLOGICAL VALUES
 *******************************************************************************/
-/*******************************************************************************
-*  OTHER GLOBAL VARIABLES
-*******************************************************************************/
-int             pulse_counter   = RESET;
-bool            sleeping        = TRUE;
-uint16_t        time_in         = 0;
-uint16_t        time_ex         = 0;
-
-// Physiological values
-//uint32_t        pulse_freq      = 2000;         //(  20.00 Hz )
-//uint32_t        pulse_width     = 35000;        //( 350.00 us )
-uint32_t        bpm             = 3000;         //(  30.00 bpm) - 2s period
-uint32_t        ie_ratio        = 4000;         //(  40.00 %  )
-
-// Calculated (updated) variables
-uint16_t        CCR1_Val        = 1250;         //DEFAULT (10000 us for now)
-uint32_t        TIM1_period     = 6249;         //DEFAULT (20Hz), 125000/20-1
+uint32_t        pulse_freq      = 2000;         //( 1000 = 10.00 Hz )
+uint32_t        pulse_width     = 423;          //( 100  = 100 us )
+uint32_t        bpm             = 3000;         //( 1000 = 10.00 bpm)
+uint32_t        ie_ratio        = 4000;         //( 1000 = 10.00 %  )
 
 /*******************************************************************************
 *  MAIN FUNCTION
