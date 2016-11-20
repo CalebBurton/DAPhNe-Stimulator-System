@@ -8,12 +8,12 @@
 *	Author:		Alexey Revinski
 *	Last Revised:	11/20/2016
 *******************************************************************************/
+#ifndef PRIVATE_FUNCTIONS_H
+#define PRIVATE_FUNCTIONS_H
 
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM8L15x_IT_H
-#define __STM8L15x_IT_H
-
-/* Includes ------------------------------------------------------------------*/
+/*******************************************************************************
+*  INCLUDES
+*******************************************************************************/
 #include "stm8l15x.h"
 #include "stm8l15x_adc.h"
 #include "stm8l15x_clk.h"
@@ -26,8 +26,9 @@
 #include "stm8l15x_rtc.h"
 #include "stm8l15x_pwr.h"
 
-
-// USED GPIO PORT AND PIN DEFINITIONS
+/*******************************************************************************
+*  CONSTANT DEFINITIONS
+*******************************************************************************/
 #define PE7_PORT        GPIOE
 #define PE7_PIN         GPIO_Pin_7
 #define PC7_PORT        GPIOC
@@ -40,14 +41,13 @@
 #define PD5_PIN         GPIO_Pin_5
 #define PF0_PORT        GPIOF
 #define PF0_PIN         GPIO_Pin_0
-
 #define TIM1_PSR        ((uint16_t) 1)
 #define TIM1_REP        ((uint16_t) 0)
 #define LSE_FREQ        ((uint32_t) 32768)
+
 /*******************************************************************************
 *  FUNCTION PROTOTYPES
 *******************************************************************************/
-
 void    initialize(void);
 void    start_Inspiration(void);
 void    start_Expiration(void);
@@ -61,9 +61,7 @@ void    DAC_Config(void);
 void    calculations(void);
 void    reset_RTC_counter(uint16_t time);
 
-
-#endif /* __STM8L15x_IT_H */
-
+#endif /* PRIVATE_FUNCTIONS_H */
 /*******************************************************************************
 **********************************   END   *************************************
 *******************************************************************************/

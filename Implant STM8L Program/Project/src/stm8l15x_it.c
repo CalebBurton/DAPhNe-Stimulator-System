@@ -9,7 +9,7 @@
 *	Last Revised:	11/20/2016
 *******************************************************************************/
 
-#include "stm8l15x_conf.h"
+#include "private_functions.h"
 
 /*******************************************************************************
 *  GLOBAL FLAGS
@@ -82,7 +82,6 @@ INTERRUPT_HANDLER(RTC_IRQHandler, 4)
   enableInterrupts();
   if (sleeping) {start_Inspiration();}
   else          {start_Expiration();}
-
 }
 
 /**

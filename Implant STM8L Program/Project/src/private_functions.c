@@ -89,8 +89,7 @@ void reset_RTC_counter(uint16_t time)
 }
 
 /*******************************************************************************
-*  PRIVATE FUNCTION:    GPIO_Config
-*       * Configures used and unused GPIO pins on the microcontroller
+*  PRIVATE FUNCTION:    GPIO_Config()
 *******************************************************************************/
 void    GPIO_Config(void)
 {
@@ -103,8 +102,7 @@ void    GPIO_Config(void)
 }
 
 /*******************************************************************************
-*  PRIVATE FUNCTION:    TIM1_Config
-*       * Initializes TIM1
+*  PRIVATE FUNCTION:    TIM1_Config()
 ******************************************************************************/
 void    TIM1_Config(void)
 {
@@ -123,7 +121,7 @@ void    TIM1_Config(void)
 }
 
 /*******************************************************************************
-*  PRIVATE FUNCTION:    RTC_Config
+*  PRIVATE FUNCTION:    RTC_Config()
 *******************************************************************************/
 void    RTC_Config(void)
 {
@@ -138,7 +136,7 @@ void    RTC_Config(void)
 }
 
 /*******************************************************************************
-*  PRIVATE FUNCTION:    DAC_Config
+*  PRIVATE FUNCTION:    DAC_Config()
 *******************************************************************************/
 void    DAC_Config(void)
 {
@@ -151,7 +149,7 @@ void    DAC_Config(void)
 }
 
 /*******************************************************************************
-*  PRIVATE FUNCTION:    calculate_RTC
+*  PRIVATE FUNCTION:    calculations()
 *******************************************************************************/
 void    calculations(void)
 {
@@ -166,7 +164,6 @@ void    calculations(void)
                         (uint32_t)res_8bit)/
                         (uint32_t)Vref)/2;
 }
-
 
 /*******************************************************************************
 **********************************   END   *************************************

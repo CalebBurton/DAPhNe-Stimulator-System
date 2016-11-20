@@ -1592,9 +1592,6 @@
     <group>
       <name>inc</name>
       <file>
-        <name>$PROJ_DIR$\..\inc\private_functions.h</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x.h</name>
       </file>
       <file>
@@ -1631,9 +1628,6 @@
     <group>
       <name>src</name>
       <file>
-        <name>$PROJ_DIR$\..\src\private_functions.c</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_adc.c</name>
       </file>
       <file>
@@ -1669,11 +1663,17 @@
     <name>User</name>
     <group>
       <name>inc</name>
+      <file>
+        <name>$PROJ_DIR$\..\inc\private_functions.h</name>
+      </file>
     </group>
     <group>
       <name>src</name>
       <file>
         <name>$PROJ_DIR$\..\src\main.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\private_functions.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\src\stm8l15x_it.c</name>
