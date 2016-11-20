@@ -33,6 +33,9 @@
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_clk.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_dac.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_exti.h</name>
       </file>
       <file>
@@ -64,6 +67,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_clk.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_dac.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_exti.c</name>

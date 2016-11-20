@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 ********************************************************************************
 *	Author:		Alexey Revinski
-*	Last Revised:	11/06/2016
+*	Last Revised:	11/20/2016
 *******************************************************************************/
 
 /* Define to prevent recursive inclusion -------------------------------------*/
@@ -21,6 +21,7 @@
 #include "stm8l15x_gpio.h"
 #include "stm8l15x_tim1.h"
 #include "stm8l15x_tim2.h"
+#include "stm8l15x_dac.h"
 #include "stm8l15x_it.h"
 #include "stm8l15x_rtc.h"
 #include "stm8l15x_pwr.h"
@@ -37,6 +38,8 @@
 #define PD4_PIN         GPIO_Pin_4
 #define PD5_PORT        GPIOD
 #define PD5_PIN         GPIO_Pin_5
+#define PF0_PORT        GPIOF
+#define PF0_PIN         GPIO_Pin_0
 
 #define TIM1_PSR        ((uint16_t) 1)
 #define TIM1_REP        ((uint16_t) 0)
@@ -52,9 +55,9 @@ void    Switch_To_HSI(void);
 void    Switch_To_LSE(void); 
 void    GPIO_Config(void);
 void    TIM1_Config(void);
-void    TIM2_Config(void);
 void    PWM2_Config(void);
 void    RTC_Config(void);
+void    DAC_Config(void);
 void    calculations(void);
 
 

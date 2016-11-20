@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 ********************************************************************************
 *	Author:		Alexey Revinski
-*	Last Revised:	11/06/2016
+*	Last Revised:	11/20/2016
 *******************************************************************************/
 
 #include "stm8l15x.h"
@@ -18,8 +18,10 @@ uint16_t        time_in         = 0;
 uint16_t        time_ex         = 0;
 uint16_t        CCR1_Val        = 0;
 uint16_t        TIM1_period     = 0;
+uint16_t        dummy_time      = 1000;
 extern uint32_t pulse_freq;
 extern uint32_t pulse_width;
+extern uint32_t pulse_amp;
 extern uint32_t bpm;
 extern uint32_t ie_ratio;
 
@@ -32,6 +34,7 @@ void    initialize(void)
   CLK_DeInit();                         // Reset to default clock values (HSI)
   CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_8); // Divide clock to get 1000000 Hz
   GPIO_Config();                        // Configure GPIO pins
+  DAC_Config();                         // Configure DAC output
   TIM1_Config();                        // TIM1 Configuratio
   RTC_Config();                         // Configure Real Time Clock
   RTC_WakeUpCmd(ENABLE);                // Enable RTC WakeUp
@@ -74,6 +77,7 @@ void    GPIO_Config(void)
   GPIO_Init(PE7_PORT,PE7_PIN,GPIO_Mode_Out_PP_Low_Slow); // GREEN LED output
   GPIO_Init(PC7_PORT,PC7_PIN,GPIO_Mode_Out_PP_Low_Slow); // BLUE LED output
   GPIO_Init(PD2_PORT,PD2_PIN,GPIO_Mode_Out_PP_Low_Fast); // TIM1 Channel 1
+  GPIO_Init(PF0_PORT,PF0_PIN,GPIO_Mode_In_FL_No_IT);     // DAC Channel 1
   GPIO_ResetBits(PE7_PORT, PE7_PIN);                     // Turn off GREEN LED
   GPIO_ResetBits(PC7_PORT, PC7_PIN);                     // Turn off BLUE LED
 }
@@ -105,7 +109,19 @@ void    RTC_Config(void)
   RTC_WakeUpCmd(DISABLE);                               // Disable WakeUp unit
   RTC_WakeUpClockConfig(RTC_WakeUpClock_RTCCLK_Div2);   // frtc/2 = 
   RTC_ITConfig(RTC_IT_WUT, ENABLE);                     // Enable interrupts
-  RTC_SetWakeUpCounter(1000);                           // Dummy counter value
+  RTC_SetWakeUpCounter(dummy_time);                     // Dummy counter value
+}
+
+/*******************************************************************************
+*  PRIVATE FUNCTION:    DAC_Config
+*******************************************************************************/
+void    DAC_Config(void)
+{
+  CLK_PeripheralClockConfig(CLK_Peripheral_DAC, ENABLE);
+  DAC_DeInit();
+  DAC_Init(DAC_Channel_1,DAC_Trigger_None,DAC_OutputBuffer_Enable);
+  DAC_SetChannel1Data(DAC_Align_8b_R, 128);
+  DAC_Cmd(DAC_Channel_1, ENABLE);                       // Enable DAC output
 }
 
 /*******************************************************************************
@@ -117,7 +133,7 @@ void    calculations(void)
   time_in = (uint16_t)((ie_ratio*xy)/10000);
   time_ex = ((uint16_t)xy-time_in);
   CCR1_Val = pulse_width;
-  TIM1_period = (CLK_GetClockFreq()*100)/pulse_freq-1;               //fclk/20Hz-1
+  TIM1_period = (CLK_GetClockFreq()*100)/pulse_freq-1;    //fclk/20Hz-1
 }
 
 
