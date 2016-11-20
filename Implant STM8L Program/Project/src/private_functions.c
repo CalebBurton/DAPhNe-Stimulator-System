@@ -17,9 +17,13 @@ uint16_t        time_in         = RESET;
 uint16_t        time_ex         = RESET;
 uint16_t        CCR1_Val        = RESET;
 uint16_t        TIM1_period     = RESET;
+uint16_t        DAC_Val         = RESET;
 uint16_t        RTC_Div         = 2;
 uint16_t        dummy_time      = 1000;
-uint16_t        ratio_mod       = 10000;
+uint16_t        mod_10k         = 10000;
+uint16_t        mod_100         = 100;
+uint16_t        res_8bit        = 256;
+uint16_t        Vref            = 270;
 uint16_t        minpersec       = 6000;
 extern uint32_t pulse_freq;
 extern uint32_t pulse_width;
@@ -35,6 +39,7 @@ void    initialize(void)
   calculations();
   CLK_DeInit();                                         // Reset to HSI
   CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_8);                 // 1000000 Hz
+  PWR_FastWakeUpCmd(DISABLE);
   GPIO_Config();                                        // Configure GPIO pins
   DAC_Config();                                         // Configure DAC output
   TIM1_Config();                                        // Configure TIM1
@@ -51,7 +56,7 @@ void start_Inspiration(void)
   sleeping = FALSE;
   RTC_WakeUpCmd(DISABLE);                               // Disable WakeUp unit
   RTC_SetWakeUpCounter(time_in);                        // RTC counter to insp.
-  RTC_WakeUpCmd(ENABLE);                                // Enable WakeUp unit
+  while(!RTC_WakeUpCmd(ENABLE)){;}                      // Enable WakeUp unit
   TIM1_SetCounter(0);                                   // Reset counter
   TIM1_Cmd(ENABLE);                                     // Start Timer 1
   TIM1_CtrlPWMOutputs(ENABLE);                          // Enable PWM output
@@ -130,7 +135,7 @@ void    DAC_Config(void)
   DAC_DeInit();                                         // Deinitialize DAC
   DAC_Init(DAC_Channel_1,DAC_Trigger_None,              // Initialize DAC
            DAC_OutputBuffer_Enable);
-  DAC_SetChannel1Data(DAC_Align_8b_R, 128);             // DAC output value
+  DAC_SetChannel1Data(DAC_Align_8b_R,DAC_Val);          // DAC output value
   DAC_Cmd(DAC_Channel_1, ENABLE);                       // Enable DAC output
 }
 
@@ -141,10 +146,14 @@ void    calculations(void)
 {
   uint32_t xy = ((uint32_t)LSE_FREQ/RTC_Div*minpersec)/ //Total breath
     (uint32_t)bpm;
-  time_in = (uint16_t)((ie_ratio*xy)/ratio_mod);        // Inspiration
+  time_in = (uint16_t)((ie_ratio*xy)/mod_10k);          // Inspiration
   time_ex = ((uint16_t)xy-time_in);                     // Expiration
   CCR1_Val = pulse_width;                               // Pulse width
-  TIM1_period = (CLK_GetClockFreq()*100)/pulse_freq-1;  //fclk/20Hz-1
+  TIM1_period = (CLK_GetClockFreq()*mod_100)/           // fclk/20Hz-1
+    pulse_freq-1;
+  DAC_Val = (uint16_t)(((uint32_t)pulse_amp*            // DAC value
+                        (uint32_t)res_8bit)/
+                        (uint32_t)Vref)/2;
 }
 
 
