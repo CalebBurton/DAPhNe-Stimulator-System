@@ -129,7 +129,8 @@ void delayLFO_ms (u16 n_ms)
 	#else
 		CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_2);
 		// Select 2MHz HSE as system clock source 
-		CLK_SYSCLKSourceConfig(CLK_SYSCLKSource_HSE);
+                // CLK_SYSCLKSourceConfig(CLK_SYSCLKSource_HSE);
+		CLK_SYSCLKSourceConfig(CLK_SYSCLKSource_HSI);
 		// wait until the target clock source is ready 
 		while (((CLK->SWCR)& 0x01)==0x01);
 		// wait until the target clock source is ready 
