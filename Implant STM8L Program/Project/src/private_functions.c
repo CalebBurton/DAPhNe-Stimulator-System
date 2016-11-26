@@ -84,7 +84,7 @@ void start_Expiration(void)
 void reset_RTC_counter(uint16_t time)
 {
   while(!RTC_WakeUpCmd(DISABLE)){;}                     // Disable WakeUp unit
-  RTC_SetWakeUpCounter(time);                        // RTC counter to insp.
+  RTC_SetWakeUpCounter(time);                           // RTC counter to insp.
   while(!RTC_WakeUpCmd(ENABLE)){;}                      // Enable WakeUp unit;
 }
 

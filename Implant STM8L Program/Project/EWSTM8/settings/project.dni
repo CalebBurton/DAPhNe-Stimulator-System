@@ -54,8 +54,6 @@ LogEnabled=0
 GraphEnabled=0
 ShowTimeLog=1
 ShowTimeSum=1
-[Breakpoints]
-Count=0
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -63,6 +61,8 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
+[Breakpoints]
+Count=0
 [Aliases]
 A0=_ "C:\Users\Alexey\Documents\2_ACTIVITIES\NPWT\Final Package\PICO Program\MCU Program 9\src\main.c" ""
 A1=_ "C:\Users\Alexey\Documents\2_ACTIVITIES\NPWT\Final Package\PICO Program\Project\src\main.c" ""
