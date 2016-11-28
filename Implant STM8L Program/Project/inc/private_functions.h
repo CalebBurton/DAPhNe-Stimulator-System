@@ -25,6 +25,9 @@
 #include "stm8l15x_it.h"
 #include "stm8l15x_rtc.h"
 #include "stm8l15x_pwr.h"
+#include "stm8l15x_i2c.h"
+#include "I2C_M24LR04E-R.h"
+#include "stm8l15x_flash.h"
 
 /*******************************************************************************
 *  CONSTANT DEFINITIONS
@@ -60,6 +63,7 @@ void    RTC_Config(void);
 void    DAC_Config(void);
 void    calculations(void);
 void    reset_RTC_counter(uint16_t time);
+
 
 #endif /* PRIVATE_FUNCTIONS_H */
 /*******************************************************************************

@@ -68,6 +68,7 @@ const uint8_t 	FirmwareVersion[2] = {0x13,0x00}; // 4 MSB bits major version num
   */
 void main(void)
 {
+  GPIO_HIGH(SUPPLY_PORT,SUPPLY_PIN);
   uint8_t PayloadLength,
   *bufMessage;
 		

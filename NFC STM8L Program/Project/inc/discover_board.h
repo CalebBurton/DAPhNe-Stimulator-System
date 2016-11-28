@@ -30,11 +30,14 @@
 #define GPIO_LOW(a,b)		a->ODR&=~b
 #define GPIO_TOGGLE(a,b) 	a->ODR^=b
 
-#define LED_GPIO_PORT			GPIOE
-#define LED_GPIO_PIN			GPIO_Pin_6
+#define LED_GPIO_PORT	        GPIOE
+#define LED_GPIO_PIN		GPIO_Pin_6
 
 #define BUTTON_GPIO_PORT	GPIOC
 #define USER_GPIO_PIN		GPIO_Pin_7
+
+#define SUPPLY_PORT             GPIOC
+#define SUPPLY_PIN              GPIO_Pin_2
 
 /*
 #define CTN_GPIO_PORT           GPIOC
