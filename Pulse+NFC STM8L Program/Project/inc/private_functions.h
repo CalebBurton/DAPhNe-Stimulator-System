@@ -77,6 +77,7 @@ static ErrorStatus User_GetPayloadLength(uint8_t *PayloadLength);
 static ErrorStatus User_GetNDEFMessage(uint8_t  PayloadLength,uint8_t *NDEFmessage);
 static void InitializeBuffer (uint8_t *Buffer ,uint8_t NbCar);
 void check_Message(void);
+static void DeInitClock ( void );
 
 
 #endif /* PRIVATE_FUNCTIONS_H */

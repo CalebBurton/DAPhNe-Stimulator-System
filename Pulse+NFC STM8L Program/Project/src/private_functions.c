@@ -47,8 +47,8 @@ volatile char FLASH_IAPSR   @0x5054;
 void    initialize(void)
 {
   calculations();
-  CLK_DeInit();                                         // Reset to HSI
-  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_8);                 // 1000000 Hz
+  DeInitClock();
+  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_16);                // 500000 Hz
   PWR_FastWakeUpCmd(DISABLE);
   GPIO_Config();                                        // Configure GPIO pins
   DAC_Config();                                         // Configure DAC output
@@ -59,31 +59,17 @@ void    initialize(void)
 }
 
 /*******************************************************************************
-*  PRIVATE FUNCTION:    startInspiration()
+*  PRIVATE FUNCTION:    reset_RTC_counter()
 *******************************************************************************/
-void start_Inspiration(void)
+void reset_RTC_counter(uint16_t time)
 {
-  sleeping = FALSE;                                     // Change state
-  check_Message();
-  reset_RTC_counter(time_in);                           // Reset RTC
-  TIM1_SetCounter(0);                                   // Reset counter
-  TIM1_Cmd(ENABLE);                                     // Start Timer 1
-  TIM1_CtrlPWMOutputs(ENABLE);                          // Enable PWM output
-  wfi();                                                // Wait for event mode
+  while(!RTC_WakeUpCmd(DISABLE)){;}                     // Disable WakeUp unit
+  RTC_SetWakeUpCounter(time);                           // RTC counter to insp.
+  while(!RTC_WakeUpCmd(ENABLE)){;}                      // Enable WakeUp unit;
 }
 
-/*******************************************************************************
-*  PRIVATE FUNCTION:    startExpiration()
-*******************************************************************************/
-void start_Expiration(void)
-{
-  sleeping = TRUE;                                      // Change state
-  TIM1_CtrlPWMOutputs(DISABLE);                         // Disable PWM output
-  reset_RTC_counter(time_ex);                           // Reset RTC
-  PWR_UltraLowPowerCmd(ENABLE);                         // Ultra low power mode
-  halt();                                               // Stop all except RTC
-}
 
+/*
 static int8_t User_ReadNDEFMessage ( uint8_t *PayloadLength )			
 {
   uint8_t NthAttempt=0,NbAttempt = 2;
@@ -113,8 +99,8 @@ static int8_t User_ReadNDEFMessage ( uint8_t *PayloadLength )
   }	
   return ERROR;
 }
-
-
+*/
+/*
 static ErrorStatus User_CheckNDEFMessage(void)
 {
   uint8_t *OneByte = 0x00;
@@ -127,7 +113,7 @@ static ErrorStatus User_CheckNDEFMessage(void)
   ReadAddr = 0x0009;
   M24LR04E_ReadOneByte (M24LR16_EEPROM_ADDRESS_USER, ReadAddr, OneByte);	
   // text or URL message
-  if (*OneByte != 0x54 /*&& *OneByte != 0x55*/)
+  //if (*OneByte != 0x54 && *OneByte != 0x55)
           return ERROR;  
   return SUCCESS;	
 }
@@ -179,16 +165,8 @@ void check_Message(void)
     ;//GPIO_SetBits(PC7_PORT,PC7_PIN);
   }
 }
+*/
 
-/*******************************************************************************
-*  PRIVATE FUNCTION:    reset_RTC_counter()
-*******************************************************************************/
-void reset_RTC_counter(uint16_t time)
-{
-  while(!RTC_WakeUpCmd(DISABLE)){;}                     // Disable WakeUp unit
-  RTC_SetWakeUpCounter(time);                           // RTC counter to insp.
-  while(!RTC_WakeUpCmd(ENABLE)){;}                      // Enable WakeUp unit;
-}
 
 /*******************************************************************************
 *  PRIVATE FUNCTION:    GPIO_Config()
@@ -265,6 +243,37 @@ void    calculations(void)
   DAC_Val = (uint16_t)(((uint32_t)pulse_amp*            // DAC value
                         (uint32_t)res_8bit)/
                         (uint32_t)Vref)/2;
+}
+
+/*******************************************************************************
+*  PRIVATE FUNCTION:    DeInitClock()
+*******************************************************************************/
+static void DeInitClock ( void )
+{
+  CLK_DeInit();                                                 // Reset to HSI
+  CLK_PeripheralClockConfig(CLK_Peripheral_TIM2, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_TIM3, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_TIM4, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_I2C1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_SPI1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_USART1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_BEEP, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_DAC, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_TIM1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_RTC, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_LCD, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_BOOTROM, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_AES, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_TIM5, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_SPI2, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_USART2, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_USART3, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_CSSLSE, DISABLE);
 }
 
 /*******************************************************************************

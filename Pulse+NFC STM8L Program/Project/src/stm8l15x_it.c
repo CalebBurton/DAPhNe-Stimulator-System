@@ -15,9 +15,8 @@
 *  GLOBAL FLAGS
 *******************************************************************************/
 extern bool sleeping;
-
-// INTERRUPT HANDLERS (only EXTI3 and TIM4 are currently used)
-
+extern uint16_t time_in;
+extern uint16_t time_ex;
 /**
   * @brief  TRAP interrupt routine
   * @param  None
@@ -78,10 +77,29 @@ INTERRUPT_HANDLER(RTC_IRQHandler, 4)
   */
   disableInterrupts();
   GPIO_ToggleBits(PE7_PORT,PE7_PIN);
-  RTC_ClearITPendingBit(RTC_IT_WUT);
-  enableInterrupts();
-  if (sleeping) {start_Inspiration();}
-  else          {start_Expiration();}
+  if (sleeping)
+  {
+    sleeping = FALSE;                                     // Change state
+    //check_Message();
+    reset_RTC_counter(time_in);                           // Reset RTC
+    TIM1_SetCounter(0);                                   // Reset counter
+    TIM1_Cmd(ENABLE);                                     // Start Timer 1
+    TIM1_CtrlPWMOutputs(ENABLE);                          // Enable PWM output
+    RTC_ClearITPendingBit(RTC_IT_WUT);
+    enableInterrupts();
+    wfi();  
+  }
+  else
+  {
+    sleeping = TRUE;                                      // Change state
+    TIM1_CtrlPWMOutputs(DISABLE);                         // Disable PWM output
+    TIM1_Cmd(DISABLE);
+    reset_RTC_counter(time_ex);                           // Reset RTC
+    PWR_UltraLowPowerCmd(ENABLE);                         // Ultra low power mode
+    RTC_ClearITPendingBit(RTC_IT_WUT);
+    enableInterrupts();
+    halt();  
+  }
 }
 
 /**
@@ -333,8 +351,7 @@ INTERRUPT_HANDLER(TIM4_UPD_OVF_TRG_IRQHandler, 25)
 {
   /* In order to detect unexpected events during development,
      it is recommiended to set a breakpoint on the following instruction.
-  */
-  
+  */  
 }
 
 /**
