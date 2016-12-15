@@ -46,8 +46,6 @@ void    initialize(void)
   CLK_DeInit();                                         // Reset to HSI
   CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_8);                 // 1000000 Hz
   DeInitGPIO();                                         // Configure GPIO pins
-  GPIO_SetBits(PE7_PORT, PE7_PIN);                      // Turn off GREEN LED
-  GPIO_SetBits(PC7_PORT, PC7_PIN);                      // Turn off BLUE LED
   PWR_FastWakeUpCmd(DISABLE);
   
   
@@ -173,7 +171,7 @@ void    get_Message(void)
   }
   else
   {
-    GPIO_SetBits(PC7_PORT,PC7_PIN);;
+    GPIO_SetBits(PC7_PORT,PC7_PIN);
   }
 }
 
@@ -302,6 +300,8 @@ static void DeInitGPIO ( void )
   GPIOD->ODR = 0xFF;
   GPIOE->ODR = 0xFF;
 
+  GPIO_ResetBits(PC7_PORT,PC7_PIN);
+  GPIO_ResetBits(PE7_PORT,PE7_PIN);
 }
 
 /*******************************************************************************
@@ -309,30 +309,29 @@ static void DeInitGPIO ( void )
 *******************************************************************************/
 static void DeInitClock ( void )
 {
-	CLK_PeripheralClockConfig(CLK_Peripheral_TIM2, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_TIM3, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_TIM4, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_I2C1, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_SPI1, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_USART1, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_BEEP, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_DAC, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_TIM1, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_RTC, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_LCD, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_BOOTROM, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_AES, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_TIM5, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_SPI2, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_USART2, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_USART3, DISABLE);
-	CLK_PeripheralClockConfig(CLK_Peripheral_CSSLSE, DISABLE);
-	
+  CLK_PeripheralClockConfig(CLK_Peripheral_TIM2, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_TIM3, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_TIM4, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_I2C1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_SPI1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_USART1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_BEEP, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_DAC, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_TIM1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_RTC, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_LCD, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_BOOTROM, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_AES, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_TIM5, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_SPI2, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_USART2, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_USART3, DISABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_CSSLSE, DISABLE);
 }
 
 /*******************************************************************************

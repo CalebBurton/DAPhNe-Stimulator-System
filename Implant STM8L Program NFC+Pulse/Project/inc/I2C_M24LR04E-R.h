@@ -57,11 +57,11 @@
 #define M24LR04E_REG_TOS         0x03  /* Over-temp Shutdown threshold Register of LM75 */
 #define I2C_TIMEOUT         		(uint32_t)0x000FF /*!< I2C Time out */
 #define M24LR04E_ADDR           0x90   /*!< LM75 address */
-//#define M24LR04E_I2C_SPEED      100000 /*!< I2C Speed */
-#define M24LR04E_I2C_SPEED      20000 /*!< I2C Speed */
+#define M24LR04E_I2C_SPEED      100000 /*!< I2C Speed */
+//#define M24LR04E_I2C_SPEED      20000 /*!< I2C Speed */
 
 // I2C address for M24LR16-E Datalogger v2.0
-#define M24LR16_EEPROM_ADDRESS_USER			0xA6 /* I2C DeviceSelect */
+#define M24LR16_EEPROM_ADDRESS_USER		0xA6 /* I2C DeviceSelect */
 #define M24LR16_EEPROM_ADDRESS_SYSTEM		0xAE /* I2C DeviceSelect */
 
 /* Private macro -------------------------------------------------------------*/
