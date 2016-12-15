@@ -48,7 +48,6 @@
 #define TIM1_REP        ((uint16_t) 0)
 #define LSE_FREQ        ((uint32_t) 32768)
 
-
 #define M24LR04E_I2C                         I2C1
 #define M24LR04E_I2C_CLK                     CLK_Peripheral_I2C1
 #define M24LR04E_I2C_SCL_PIN                 GPIO_Pin_1                  /* PC.01 */

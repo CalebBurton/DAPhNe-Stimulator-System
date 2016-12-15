@@ -92,6 +92,8 @@
       <file>$PROJ_DIR$\Debug\Obj\eeprom.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\stm8l15x_rtc.o</file>
       <file>$PROJ_DIR$\..\..\..\Implant STM8L Program\STM8L15x_StdPeriph_Driver\inc\stm8l15x_tim2.h</file>
+      <file>$PROJ_DIR$\..\..\..\Implant STM8L Program\Project\src\main.c</file>
+      <file>$PROJ_DIR$\..\..\..\Implant STM8L Program\STM8L15x_StdPeriph_Driver\src\stm8l15x_i2c.c</file>
     </outputs>
     <file>
       <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_tim1.c</name>
@@ -425,7 +427,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 85 24 67 46 69 49 11 79 41 33 60 30 31 25 52 71 80</file>
+          <file> 69 46 67 85 24 49 11 79 41 33 60 30 31 25 52 71 80</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
@@ -471,7 +473,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 69 46 85 80 67 49 11 79 33 60 30 31 25 41 52 71 24</file>
+          <file> 31 60 41 80 33 30 25 52 67 46 49 85 11 69 79 71 24</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>

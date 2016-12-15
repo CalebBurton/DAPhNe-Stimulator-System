@@ -81,11 +81,8 @@ INTERRUPT_HANDLER(RTC_IRQHandler, 4)
   disableInterrupts();
   RTC_ITConfig(RTC_IT_WUT, DISABLE);
   RTC_ClearITPendingBit(RTC_IT_WUT);
-  GPIO_ResetBits(PE7_PORT,PE7_PIN);
-  //GPIO_ResetBits(PC7_PORT,PC7_PIN);
   if (sleeping)
   {
-    GPIO_SetBits(PE7_PORT,PE7_PIN);
     sleeping = FALSE;                                     // Change state
     
     get_Message();
@@ -101,7 +98,6 @@ INTERRUPT_HANDLER(RTC_IRQHandler, 4)
   }
   else
   {
-    //GPIO_SetBits(PC7_PORT,PC7_PIN);
     sleeping = TRUE;                                      // Change state
     TIM1_CtrlPWMOutputs(DISABLE);                         // Disable PWM output
     TIM1_Cmd(DISABLE);                                    // Start Timer 1

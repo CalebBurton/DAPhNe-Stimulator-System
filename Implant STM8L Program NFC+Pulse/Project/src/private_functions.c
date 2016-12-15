@@ -45,9 +45,14 @@ void    initialize(void)
   DeInitClock();
   CLK_DeInit();                                         // Reset to HSI
   CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_8);                 // 1000000 Hz
-  calculations();
+  DeInitGPIO();                                         // Configure GPIO pins
+  GPIO_SetBits(PE7_PORT, PE7_PIN);                      // Turn off GREEN LED
+  GPIO_SetBits(PC7_PORT, PC7_PIN);                      // Turn off BLUE LED
   PWR_FastWakeUpCmd(DISABLE);
-  GPIO_Config();                                        // Configure GPIO pins
+  
+  
+  calculations();
+  
   DAC_Config();                                         // Configure DAC output
   TIM1_Config();                                        // Configure TIM1
   RTC_Config();                                         // Configure RTC
@@ -74,8 +79,8 @@ void start_Inspiration(void)
 void start_Expiration(void)
 {
   sleeping = TRUE;                                      // Change state
-  TIM1_CtrlPWMOutputs(DISABLE);                         // Disable PWM output
   reset_RTC_counter(time_ex);                           // Reset RTC
+  TIM1_CtrlPWMOutputs(DISABLE);                         // Disable PWM output
   PWR_UltraLowPowerCmd(ENABLE);                         // Ultra low power mode
   halt();                                               // Stop all except RTC
 }
@@ -91,23 +96,11 @@ void reset_RTC_counter(uint16_t time)
 }
 
 /*******************************************************************************
-*  PRIVATE FUNCTION:    GPIO_Config()
-*******************************************************************************/
-void    GPIO_Config(void)
-{
-  GPIO_Init(PE7_PORT,PE7_PIN,GPIO_Mode_Out_PP_Low_Slow); // GREEN LED output
-  GPIO_Init(PC7_PORT,PC7_PIN,GPIO_Mode_Out_PP_Low_Slow); // BLUE LED output
-  GPIO_Init(PD2_PORT,PD2_PIN,GPIO_Mode_Out_PP_Low_Fast); // TIM1 Channel 1
-  GPIO_Init(PF0_PORT,PF0_PIN,GPIO_Mode_In_FL_No_IT);     // DAC Channel 1
-  GPIO_ResetBits(PE7_PORT, PE7_PIN);                     // Turn off GREEN LED
-  GPIO_ResetBits(PC7_PORT, PC7_PIN);                     // Turn off BLUE LED
-}
-
-/*******************************************************************************
 *  PRIVATE FUNCTION:    TIM1_Config()
 ******************************************************************************/
 void    TIM1_Config(void)
 {
+  GPIO_Init(PD2_PORT,PD2_PIN,GPIO_Mode_Out_PP_Low_Fast);// TIM1 Channel 1
   CLK_PeripheralClockConfig(CLK_Peripheral_TIM1,ENABLE);// Enable TIM1 clocking
   TIM1_TimeBaseInit(TIM1_PSR,TIM1_CounterMode_Up,       // Initialize time base
                     TIM1_period,TIM1_REP);
@@ -142,6 +135,7 @@ void    RTC_Config(void)
 *******************************************************************************/
 void    DAC_Config(void)
 {
+  GPIO_Init(PF0_PORT,PF0_PIN,GPIO_Mode_In_FL_No_IT);    // DAC Channel 1
   CLK_PeripheralClockConfig(CLK_Peripheral_DAC, ENABLE);// Route clock to DAC
   DAC_DeInit();                                         // Deinitialize DAC
   DAC_Init(DAC_Channel_1,DAC_Trigger_None,              // Initialize DAC
@@ -157,10 +151,10 @@ void    calculations(void)
 {
   uint32_t xy = ((uint32_t)LSE_FREQ/RTC_Div*minpersec)/ //Total breath
     (uint32_t)bpm;
-  time_in = (uint16_t)((ie_ratio*xy)/mod_10k);          // Inspiration
-  time_ex = ((uint16_t)xy-time_in);                     // Expiration
+  time_in = (uint16_t)((ie_ratio*xy)/mod_10k)-700;          // Inspiration
+  time_ex = ((uint16_t)xy-time_in)-700;                     // Expiration
   CCR1_Val = pulse_width;                               // Pulse width
-  TIM1_period = ((1000000*mod_100)/           // fclk/20Hz-1
+  TIM1_period = ((1000000*mod_100)/                     // fclk/20Hz-1
     pulse_freq)-1;
   DAC_Val = (uint16_t)(((uint32_t)pulse_amp*            // DAC value
                         (uint32_t)res_8bit)/
@@ -295,20 +289,18 @@ static void InitializeBuffer (uint8_t *Buffer ,uint8_t NbCar)
 *******************************************************************************/
 static void DeInitGPIO ( void )
 {
-		//GPIO_Mode_In_PU_No_IT
-	GPIO_Init( GPIOA, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
-	GPIO_Init( GPIOB, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
-//SSe	GPIO_Init( GPIOC, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
-  GPIO_Init( GPIOC, GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_5 |\
-	           GPIO_Pin_5 | GPIO_Pin_6 |GPIO_Pin_7, GPIO_Mode_Out_OD_Low_Fast);
-	GPIO_Init( GPIOD, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
-	GPIO_Init( GPIOE, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
-	// Set all the GPIO state to 1
-	GPIOA->ODR = 0xFF;
-	GPIOB->ODR = 0xFF;
-	GPIOC->ODR = 0xFF;
-	GPIOD->ODR = 0xFF;
-	GPIOE->ODR = 0xFF;
+  GPIO_Init( GPIOA, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
+  GPIO_Init( GPIOB, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
+  GPIO_Init( GPIOC, GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6, GPIO_Mode_Out_OD_Low_Fast);
+  GPIO_Init(PC7_PORT,PC7_PIN,GPIO_Mode_Out_PP_Low_Slow); // BLUE LED output
+  GPIO_Init( GPIOD, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
+  GPIO_Init( GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6, GPIO_Mode_Out_OD_Low_Fast);
+  GPIO_Init(PE7_PORT,PE7_PIN,GPIO_Mode_Out_PP_Low_Slow); // GREEN LED output
+  GPIOA->ODR = 0xFF;
+  GPIOB->ODR = 0xFF;
+  GPIOC->ODR = 0xFF;
+  GPIOD->ODR = 0xFF;
+  GPIOE->ODR = 0xFF;
 
 }
 
