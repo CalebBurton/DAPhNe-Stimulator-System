@@ -1,0 +1,75 @@
+[DebugChecksum]
+Checksum=27067498
+[DisAssemblyWindow]
+NumStates=_ 1
+State 1=_ 1
+[InstructionProfiling]
+Enabled=_ 0
+[CodeCoverage]
+Enabled=_ 0
+[Profiling]
+Enabled=0
+[StackPlugin]
+Enabled=1
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnHow=0
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[DriverProfiling]
+Enabled=0
+Source=1
+Graph=0
+[Interrupts]
+Enabled=1
+[MemoryMap]
+Enabled=0
+Base=0
+UseAuto=0
+TypeViolation=1
+UnspecRange=1
+ActionState=1
+[TraceHelper]
+Enabled=0
+ShowSource=1
+[Stack]
+FillEnabled=0
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnLogOnly=1
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
+[DataSample]
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[Breakpoints]
+Count=0
+[Aliases]
+A0=_ "C:\Users\Alexey\Documents\2_ACTIVITIES\NPWT\Final Package\PICO Program\MCU Program 9\src\main.c" ""
+A1=_ "C:\Users\Alexey\Documents\2_ACTIVITIES\NPWT\Final Package\PICO Program\Project\src\main.c" ""
+A2=_ "C:\Users\Alexey\Documents\2_ACTIVITIES\NPWT\IAR\IAR PROJECTS\STM8L-Discovery_dev\Project\MCU Program 8\src\main.c" "C:\Users\Alexey\Documents\2_ACTIVITIES\NPWT\IAR\IAR PROJECTS\STM8L-Discovery_dev\Project\MCU Program 7\src\main.c"
+A3=_ "C:\Users\Alexey\Documents\2_ACTIVITIES\NPWT\PICO Program\Project\src\main.c" ""
+A4=_ "C:\Users\Alexey\Documents\2_ACTIVITIES\NPWT\ST DEV PACKAGE\STM8L-Discovery_dev\Libraries\STM8L15x_StdPeriph_Driver\src\stm8l15x_gpio.c" ""
+A5=_ "C:\Users\Alexey\Documents\2_ACTIVITIES\NPWT\ST DEV PACKAGE\STM8L-Discovery_dev\Project\MCU Program 2\src\main.c" ""
+Count=6
+SuppressDialog=0
+[DebuggerSettings]
+DisableInterruptsWhenStepping=0
