@@ -1,16 +1,16 @@
-"C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program Dummy\STM8L15x_StdPeriph_Driver\src\stm8l15x_tim1.c"
+"C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program NFC+Pulse\STM8L15x_StdPeriph_Driver\src\stm8l15x_tim1.c"
 -std=c99
 -ferror-limit=100
 -I
-C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program Dummy\Project\EWSTM8\..\inc
+C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program NFC+Pulse\Project\EWSTM8\..\inc
 -I
-C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program Dummy\Project\EWSTM8\..\..\..\Implant STM8L Program\STM8L15x_StdPeriph_Driver\inc
+C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program NFC+Pulse\Project\EWSTM8\..\..\..\Implant STM8L Program\STM8L15x_StdPeriph_Driver\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\inc\c
 -I
-C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program Dummy\Project\inc
+C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program NFC+Pulse\Project\inc
 -I
 C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program\STM8L15x_StdPeriph_Driver\inc
 -D__CHAR_BITS__=8

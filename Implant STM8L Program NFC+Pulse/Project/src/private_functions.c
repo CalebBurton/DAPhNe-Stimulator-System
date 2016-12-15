@@ -42,9 +42,10 @@ uint8_t NDEFmessage[0x40];
 *******************************************************************************/
 void    initialize(void)
 {
-  calculations();
+  DeInitClock();
   CLK_DeInit();                                         // Reset to HSI
   CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_8);                 // 1000000 Hz
+  calculations();
   PWR_FastWakeUpCmd(DISABLE);
   GPIO_Config();                                        // Configure GPIO pins
   DAC_Config();                                         // Configure DAC output
