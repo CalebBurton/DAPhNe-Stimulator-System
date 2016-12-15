@@ -53,8 +53,6 @@ MixedMode=1
 LogEnabled=0
 GraphEnabled=0
 ShowTimeLog=1
-[Breakpoints]
-Count=0
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -62,6 +60,8 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
+[Breakpoints]
+Count=0
 [Aliases]
 A0=_ "C:\Users\Alexey\Documents\1_CLASS\BME 390-1\IAR Projects\BME390\Implant STM8L Program\Project\src\main.c" ""
 A1=_ "C:\Users\Alexey\Documents\1_CLASS\BME 390-1\IAR Projects\BME390\Implant STM8L Program\Project\src\private_functions.c" ""
