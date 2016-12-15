@@ -24,7 +24,7 @@ uint16_t        dummy_time      = 1000;
 uint16_t        mod_10k         = 10000;
 uint16_t        mod_100         = 100;
 uint16_t        res_8bit        = 256;
-uint16_t        Vref            = 270;
+uint16_t        Vref            = 290;
 uint16_t        minpersec       = 6000;
 
 /*******************************************************************************
@@ -158,8 +158,8 @@ void    calculations(void)
   time_in = (uint16_t)((ie_ratio*xy)/mod_10k);          // Inspiration
   time_ex = ((uint16_t)xy-time_in);                     // Expiration
   CCR1_Val = pulse_width;                               // Pulse width
-  TIM1_period = (CLK_GetClockFreq()*mod_100)/           // fclk/20Hz-1
-    pulse_freq-1;
+  TIM1_period = ((1000000*mod_100)/           // fclk/20Hz-1
+    pulse_freq)-1;
   DAC_Val = (uint16_t)(((uint32_t)pulse_amp*            // DAC value
                         (uint32_t)res_8bit)/
                         (uint32_t)Vref)/2;

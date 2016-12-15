@@ -1,18 +1,18 @@
-"C:\Users\Alexey\Documents\1_CLASS\BME 390-1\IAR Projects\BME390\Implant STM8L Program\STM8L15x_StdPeriph_Driver\src\stm8l15x_pwr.c"
+"C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program\STM8L15x_StdPeriph_Driver\src\stm8l15x_pwr.c"
 -std=c99
 -ferror-limit=100
 -I
-C:\Users\Alexey\Documents\1_CLASS\BME 390-1\IAR Projects\BME390\Implant STM8L Program\Project\EWSTM8\..\inc
+C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program\Project\EWSTM8\..\inc
 -I
-C:\Users\Alexey\Documents\1_CLASS\BME 390-1\IAR Projects\BME390\Implant STM8L Program\Project\EWSTM8\..\..\..\Implant STM8L Program\STM8L15x_StdPeriph_Driver\inc
+C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program\Project\EWSTM8\..\..\..\Implant STM8L Program\STM8L15x_StdPeriph_Driver\inc
 -I
-C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\stm8\inc
+C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\inc
 -I
-C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\stm8\inc\c
+C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\inc\c
 -I
-C:\Users\Alexey\Documents\1_CLASS\BME 390-1\IAR Projects\BME390\Implant STM8L Program\Project\inc
+C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program\Project\inc
 -I
-C:\Users\Alexey\Documents\1_CLASS\BME 390-1\IAR Projects\BME390\Implant STM8L Program\STM8L15x_StdPeriph_Driver\inc
+C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program\STM8L15x_StdPeriph_Driver\inc
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0
@@ -131,19 +131,23 @@ C:\Users\Alexey\Documents\1_CLASS\BME 390-1\IAR Projects\BME390\Implant STM8L Pr
 -D__JMP_BUF_ELEMENT_TYPE__=unsigned char
 -D__JMP_BUF_NUM_ELEMENTS__=28
 -D__TID__=0x3800
--D__VER__=210
--D__SUBVERSION__=3
--D__BUILD_NUMBER__=153
+-D__VER__=220
+-D__SUBVERSION__=1
+-D__BUILD_NUMBER__=176
 -D__IAR_SYSTEMS_ICC__=8
 -D__VA_STACK_DECREASING__=1
 -D__VA_STACK_ALIGN__=1
 -D__VA_STACK_ALIGN_EXTRA_BEFORE__=1
 -D__LITTLE_ENDIAN__=0
 -D__BOOL_TYPE__=unsigned char
+-D__BOOL_SIZE__=1
 -D__WCHAR_T_TYPE__=unsigned short int
 -D__WCHAR_T_SIZE__=2
 -D__WCHAR_T_MAX__=0xffffU
 -D__DEF_PTR_MEM__=__near
+-D__DEF_PTR_SIZE__=2
+-D__CODE_MEMORY_LIST3__(_P1,_P2)=__CODE_MEM_HELPER3__(__near_func, 0, _P1, _P2)
+-D__DATA_MEMORY_LIST3__(_P1,_P2)=__DATA_MEM_HELPER3__(__tiny, 0, _P1, _P2) __DATA_MEM_HELPER3__(__near, 1, _P1, _P2) __DATA_MEM_HELPER3__(__far, 2, _P1, _P2) __DATA_MEM_HELPER3__(__huge, 3, _P1, _P2) __DATA_MEM_HELPER3__(__eeprom, 4, _P1, _P2)
 -D__CODE_MEM0__=__near_func
 -D__CODE_MEM0_POINTER_OK__=1
 -D__CODE_MEM0_UNIQUE_POINTER__=1
@@ -199,8 +203,14 @@ C:\Users\Alexey\Documents\1_CLASS\BME 390-1\IAR Projects\BME390\Implant STM8L Pr
 -D__DATA_MEM4_UINTPTR_TYPE__=unsigned short int
 -D__DATA_MEM4_INTPTR_SIZE_PREFIX__="h"
 -D__DATA_MEM4_MAX_SIZE__=0xffff
+-D__CODE_PTR_MEMORY_LIST3__(_P1,_P2)=__CODE_PTR_MEM_HELPER3__(__near_func, 0, _P1, _P2)
+-D__DATA_PTR_MEMORY_LIST3__(_P1,_P2)=__DATA_PTR_MEM_HELPER3__(__tiny, 0, _P1, _P2) __DATA_PTR_MEM_HELPER3__(__near, 1, _P1, _P2) __DATA_PTR_MEM_HELPER3__(__far, 2, _P1, _P2) __DATA_PTR_MEM_HELPER3__(__huge, 3, _P1, _P2) __DATA_PTR_MEM_HELPER3__(__eeprom, 4, _P1, _P2)
+-D__VAR_MEMORY_LIST3__(_P1,_P2)=__VAR_MEM_HELPER3__(__tiny, 0, _P1, _P2) __VAR_MEM_HELPER3__(__near, 1, _P1, _P2) __VAR_MEM_HELPER3__(__far, 2, _P1, _P2) __VAR_MEM_HELPER3__(__huge, 3, _P1, _P2) __VAR_MEM_HELPER3__(__eeprom, 4, _P1, _P2)
 -D__HEAP_MEM0__=1
+-D__HEAP_MEMORY_LIST3__(_P1,_P2)=__HEAP_MEM_HELPER3__(__near, 1, _P1, _P2)
 -D__MULTIPLE_HEAPS__=0
+-D__TOPM_DATA_MEMORY_LIST3__(_P1,_P2)=__TOPM_DATA_MEM_HELPER3__(__huge, 3, _P1, _P2) __TOPM_DATA_MEM_HELPER3__(__eeprom, 4, _P1, _P2)
+-D__TOPP_DATA_MEMORY_LIST3__(_P1,_P2)=__TOPP_DATA_MEM_HELPER3__(__near, 1, _P1, _P2) __TOPP_DATA_MEM_HELPER3__(__huge, 3, _P1, _P2) __TOPP_DATA_MEM_HELPER3__(__eeprom, 4, _P1, _P2)
 -D__DEF_HEAP_MEM__=__near
 -D__MULTIPLE_INHERITANCE__=1
 -D_RTSL_COMPARE_T=unsigned char
@@ -219,10 +229,7 @@ C:\Users\Alexey\Documents\1_CLASS\BME 390-1\IAR Projects\BME390\Implant STM8L Pr
 -D__HAS_WEAK__=1
 -D__HAS_LOCATED_DECLARATION__=1
 -D__HAS_LOCATED_WITH_INIT__=1
--D__IAR_COMPILERBASE__=594179
--D_GOANNA=1
--D__DATE__="Nov 28 2016"
--D__TIME__="18:20:39"
+-D__IAR_COMPILERBASE__=594444
 -D__STDC__=1
 -D__STDC_VERSION__=199901L
 -D__STDC_HOSTED__=1
@@ -249,9 +256,9 @@ C:\Users\Alexey\Documents\1_CLASS\BME 390-1\IAR Projects\BME390\Implant STM8L Pr
 -D__EDG_SYSV=0
 -D__EDG_ANSIC=1
 -D__EDG_CPP11_IL_EXTENSIONS_SUPPORTED=1
--D_DLIB_CONFIG_FILE_HEADER_NAME="C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\stm8\LIB\dlstm8smn.h"
--D_DLIB_CONFIG_FILE_STRING="C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 7.0\\stm8\\LIB\\dlstm8smn.h"
--D__VERSION__="IAR C/C++ Compiler V2.10.3.153 for STM8"
+-D_DLIB_CONFIG_FILE_HEADER_NAME="C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\LIB\dlstm8smn.h"
+-D_DLIB_CONFIG_FILE_STRING="C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 7.3\\stm8\\LIB\\dlstm8smn.h"
+-D__VERSION__="IAR C/C++ Compiler V2.20.1.176 for STM8"
 -D__CODE_MEMORY_LIST1__()=__CODE_MEM_HELPER1__(__code, 0 )
 -D__CODE_MEMORY_LIST2__(_P1)=__CODE_MEM_HELPER2__(__code, 0 ,  _P1 )
 -D__CODE_MEMORY_LIST3__(_P1, _P2)=__CODE_MEM_HELPER3__(__code, 0 ,  _P1 ,  _P2 )
