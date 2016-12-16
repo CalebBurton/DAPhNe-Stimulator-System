@@ -217,41 +217,31 @@ void    parse_Message(void)
 *******************************************************************************/
 static int8_t User_ReadNDEFMessage ( uint8_t *PayloadLength )			
 {
-uint8_t NthAttempt=0,NbAttempt = 2;
-				
-	*PayloadLength = 0;
-		
-	for (NthAttempt = 0; NthAttempt < NbAttempt ; NthAttempt++)
-	{
-		M24LR04E_Init();
-		// check if a NDEF message is available in the M24LR04 EEPROM					
-		if (User_CheckNDEFMessage() == SUCCESS)
-		{
-			User_GetPayloadLength(PayloadLength);
-			if (PayloadLength !=0x00)
-			{
-				(*PayloadLength) -=2;
-				InitializeBuffer (NDEFmessage,(*PayloadLength)+10);
-				User_GetNDEFMessage(*PayloadLength,NDEFmessage);
-			
-				I2C_Cmd(M24LR04E_I2C, DISABLE);			
-				
-				CLK_PeripheralClockConfig(CLK_Peripheral_I2C1, DISABLE);	
-	
-				GPIO_SetBits(M24LR04E_I2C_SCL_GPIO_PORT,M24LR04E_I2C_SCL_PIN);	
-				GPIO_SetBits(M24LR04E_I2C_SCL_GPIO_PORT,M24LR04E_I2C_SDA_PIN);	
-		
-				//ToUpperCase (*PayloadLength,NDEFmessage);
-				
-				return SUCCESS;
-			}
-		}
-		
-		M24LR04E_DeInit();
-		I2C_Cmd(M24LR04E_I2C, DISABLE);
-	}
-	
-	return ERROR;
+  uint8_t NthAttempt=0,NbAttempt = 2;
+  *PayloadLength = 0;
+  for (NthAttempt = 0; NthAttempt < NbAttempt ; NthAttempt++)
+  {
+    M24LR04E_Init();
+    // check if a NDEF message is available in the M24LR04 EEPROM
+    if (User_CheckNDEFMessage() == SUCCESS)
+    {
+      User_GetPayloadLength(PayloadLength);
+      if (PayloadLength !=0x00)
+      {
+        (*PayloadLength) -=2;
+        InitializeBuffer (NDEFmessage,(*PayloadLength)+10);
+        User_GetNDEFMessage(*PayloadLength,NDEFmessage);
+        I2C_Cmd(M24LR04E_I2C, DISABLE);	
+        CLK_PeripheralClockConfig(CLK_Peripheral_I2C1, DISABLE);
+        GPIO_SetBits(M24LR04E_I2C_SCL_GPIO_PORT,M24LR04E_I2C_SCL_PIN);
+        GPIO_SetBits(M24LR04E_I2C_SCL_GPIO_PORT,M24LR04E_I2C_SDA_PIN);
+	return SUCCESS;
+      }
+    }
+    M24LR04E_DeInit();
+    I2C_Cmd(M24LR04E_I2C, DISABLE);
+  }
+  return ERROR;
 }
 
 /*******************************************************************************
@@ -259,22 +249,20 @@ uint8_t NthAttempt=0,NbAttempt = 2;
 *******************************************************************************/
 static ErrorStatus User_CheckNDEFMessage(void)
 {
-uint8_t data = 0x00;
-uint8_t *OneByte;
-OneByte = &data;
-uint16_t ReadAddr = 0x0000;
-	// check the E1 at address 0
-	M24LR04E_ReadOneByte (M24LR16_EEPROM_ADDRESS_USER, ReadAddr, OneByte);
-	if (*OneByte != 0xE1)
-		return ERROR;
-	
-	ReadAddr = 0x0009;
-	M24LR04E_ReadOneByte (M24LR16_EEPROM_ADDRESS_USER, ReadAddr, OneByte);	
-	// check the 54 at address 9
-	if (*OneByte != 0x54 /*&& *OneByte != 0x55*/)
-		return ERROR;
-		
-	return SUCCESS;	
+  uint8_t data = 0x00;
+  uint8_t *OneByte;
+  OneByte = &data;
+  uint16_t ReadAddr = 0x0000;
+  // check the E1 at address 0
+  M24LR04E_ReadOneByte (M24LR16_EEPROM_ADDRESS_USER, ReadAddr, OneByte);
+  if (*OneByte != 0xE1)
+    return ERROR;
+  ReadAddr = 0x0009;
+  M24LR04E_ReadOneByte (M24LR16_EEPROM_ADDRESS_USER, ReadAddr, OneByte);
+  // check the 54 at address 9
+  if (*OneByte != 0x54 /*&& *OneByte != 0x55*/)
+    return ERROR;
+  return SUCCESS;	
 }
 
 /*******************************************************************************
@@ -282,15 +270,12 @@ uint16_t ReadAddr = 0x0000;
 *******************************************************************************/
 static ErrorStatus User_GetPayloadLength(uint8_t *PayloadLength)
 {
-uint16_t ReadAddr = 0x0008;
-	
-	*PayloadLength = 0x00;
-	
-	M24LR04E_ReadOneByte (M24LR16_EEPROM_ADDRESS_USER, ReadAddr, PayloadLength);	
-	if (*PayloadLength == 0x00)
-		return ERROR;
-		
-	return SUCCESS;	
+  uint16_t ReadAddr = 0x0008;
+  *PayloadLength = 0x00;
+  M24LR04E_ReadOneByte (M24LR16_EEPROM_ADDRESS_USER, ReadAddr, PayloadLength);
+  if (*PayloadLength == 0x00)
+    return ERROR;
+  return SUCCESS;	
 }
 
 /*******************************************************************************
@@ -298,14 +283,11 @@ uint16_t ReadAddr = 0x0008;
 *******************************************************************************/
 static ErrorStatus User_GetNDEFMessage(uint8_t  PayloadLength,uint8_t *NDEFmessage)
 {
-uint16_t ReadAddr = 0x000D;
-
-	if (PayloadLength == 0x00)
-		return SUCCESS;		
-		
-	M24LR04E_ReadBuffer (M24LR16_EEPROM_ADDRESS_USER, ReadAddr,PayloadLength, NDEFmessage);	
-		
-	return SUCCESS;	
+  uint16_t ReadAddr = 0x000D;
+  if (PayloadLength == 0x00)
+    return SUCCESS;
+  M24LR04E_ReadBuffer (M24LR16_EEPROM_ADDRESS_USER, ReadAddr,PayloadLength, NDEFmessage);
+  return SUCCESS;	
 }
 
 /*******************************************************************************
@@ -313,11 +295,9 @@ uint16_t ReadAddr = 0x000D;
 *******************************************************************************/
 static void InitializeBuffer (uint8_t *Buffer ,uint8_t NbCar)
 {
-	
-	do{
-		
-		Buffer[NbCar]= 0;
-	}	while (NbCar--);
+  do{
+    Buffer[NbCar]= 0;
+  } while (NbCar--);
 }
 
 /*******************************************************************************
