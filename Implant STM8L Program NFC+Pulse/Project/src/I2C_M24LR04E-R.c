@@ -373,19 +373,18 @@ int32_t I2C_TimeOut = I2C_TIMEOUT;
   {
   }
 
-  // Store M24LR04E_I2C received data 
+  // Store M24LR04E_I2C received data
   *pBuffer = I2C_ReceiveData(M24LR04E_I2C);
-
+  
   // Disable M24LR04E_I2C acknowledgement 
   I2C_AcknowledgeConfig(M24LR04E_I2C, DISABLE);
 
   // Send M24LR04E_I2C STOP Condition 
   I2C_GenerateSTOP(M24LR04E_I2C, ENABLE);
 
-  // Test on RXNE flag 
+  // Test on RXNE flag
   while (I2C_GetFlagStatus(M24LR04E_I2C, I2C_FLAG_RXNE) == RESET && I2C_TimeOut-->0)
   {}
-
 }
 
 /**

@@ -168,10 +168,27 @@ void    get_Message(void)
   if (User_ReadNDEFMessage (&PayloadLength) == SUCCESS)
   {
     GPIO_ResetBits(PC7_PORT,PC7_PIN);
+    parse_Message();
   }
   else
   {
     GPIO_SetBits(PC7_PORT,PC7_PIN);
+  }
+}
+
+
+void    parse_Message(void)
+{
+  uint8_t breaks[3] = {0,0,0};
+  uint8_t breaks_ind = 0;
+  uint8_t message_length = sizeof(NDEFmessage) / sizeof(NDEFmessage[0]);
+
+  for (uint8_t i=0;i<message_length;i++)
+  {
+    if (NDEFmessage[i]==','){
+      breaks[breaks_ind] = i;
+      breaks_ind++;
+    }
   }
 }
 
@@ -222,17 +239,18 @@ uint8_t NthAttempt=0,NbAttempt = 2;
 *******************************************************************************/
 static ErrorStatus User_CheckNDEFMessage(void)
 {
-uint8_t *OneByte = 0x00;
+uint8_t data = 0x00;
+uint8_t *OneByte;
+OneByte = &data;
 uint16_t ReadAddr = 0x0000;
-	
 	// check the E1 at address 0
-	M24LR04E_ReadOneByte (M24LR16_EEPROM_ADDRESS_USER, ReadAddr, OneByte);	
+	M24LR04E_ReadOneByte (M24LR16_EEPROM_ADDRESS_USER, ReadAddr, OneByte);
 	if (*OneByte != 0xE1)
 		return ERROR;
 	
 	ReadAddr = 0x0009;
 	M24LR04E_ReadOneByte (M24LR16_EEPROM_ADDRESS_USER, ReadAddr, OneByte);	
-	// text or URL message
+	// check the 54 at address 9
 	if (*OneByte != 0x54 /*&& *OneByte != 0x55*/)
 		return ERROR;
 		
@@ -299,7 +317,6 @@ static void DeInitGPIO ( void )
   GPIOC->ODR = 0xFF;
   GPIOD->ODR = 0xFF;
   GPIOE->ODR = 0xFF;
-
   GPIO_ResetBits(PC7_PORT,PC7_PIN);
   GPIO_ResetBits(PE7_PORT,PE7_PIN);
 }
