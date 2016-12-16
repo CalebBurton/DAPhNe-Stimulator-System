@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 ********************************************************************************
 *	Author:		Alexey Revinski
-*	Last Revised:	11/20/2016
+*	Last Revised:	12/15/2016
 *******************************************************************************/
 #include "private_functions.h"
 
@@ -55,7 +55,9 @@ void    initialize(void)
   enableInterrupts();                                   // Enable interrupts
 }
 
-
+/*******************************************************************************
+*  PRIVATE FUNCTION:    reconfigure()
+*******************************************************************************/
 void reconfigure(void)
 {
   calculations();                                       // re-do calculations
@@ -182,26 +184,19 @@ void    get_Message(void)
   }
 }
 
-
+/*******************************************************************************
+*  PRIVATE FUNCTION:    parse_Message()
+*******************************************************************************/
 void    parse_Message(void)
 {
-  uint8_t breaks[5] = {0,0,0,0,0};
+  uint8_t breaks[5] = {0,4,9,14,19};
   uint32_t data[4]={0,0,0,0};
-  uint8_t breaks_ind = 0;
   uint32_t digit = 0;
-  uint8_t message_length = sizeof(NDEFmessage) / sizeof(NDEFmessage[0]);
 
-  // Parody on sscanf()
-  for (uint8_t i=0;i<message_length;i++)
+  // Parody on sscanf(); input will be always of type "xxxx,xxxx,xxxx,xxxx"
+  for (uint8_t i=0;i<4;i++)
   {
-    if (NDEFmessage[i]==',' || NDEFmessage[i]=='(' || NDEFmessage[i]==')'){
-      breaks[breaks_ind] = i;
-      breaks_ind++;
-    }
-  }
-  for (uint8_t i=0;i<breaks_ind;i++)
-  {
-    for (uint8_t j=1;j<(breaks[i+1]-breaks[i]);j++)
+    for (uint8_t j=1;j<5;j++)
     {
       digit = (uint32_t)(NDEFmessage[breaks[i+1]-j]-48);
       for (uint8_t k=j-1;k>0;k--)
