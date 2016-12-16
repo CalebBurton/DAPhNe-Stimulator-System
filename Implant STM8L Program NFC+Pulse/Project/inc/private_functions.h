@@ -59,6 +59,7 @@
 *  FUNCTION PROTOTYPES
 *******************************************************************************/
 void                    initialize(void);
+void                    reconfigure(void);
 void                    Switch_To_HSI(void);
 void                    Switch_To_LSE(void); 
 void                    GPIO_Config(void);

@@ -47,15 +47,20 @@ void    initialize(void)
   CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_8);                 // 1000000 Hz
   DeInitGPIO();                                         // Configure GPIO pins
   PWR_FastWakeUpCmd(DISABLE);
-  
-  
   calculations();
-  
   DAC_Config();                                         // Configure DAC output
   TIM1_Config();                                        // Configure TIM1
   RTC_Config();                                         // Configure RTC
   RTC_WakeUpCmd(ENABLE);                                // Enable RTC WakeUp
   enableInterrupts();                                   // Enable interrupts
+}
+
+
+void reconfigure(void)
+{
+  calculations();                                       // re-do calculations
+  DAC_Config();                                         // Configure DAC output
+  TIM1_Config();                                        // Configure TIM1;
 }
 
 /*******************************************************************************
@@ -169,6 +174,7 @@ void    get_Message(void)
   {
     GPIO_ResetBits(PC7_PORT,PC7_PIN);
     parse_Message();
+    reconfigure();
   }
   else
   {
@@ -179,17 +185,36 @@ void    get_Message(void)
 
 void    parse_Message(void)
 {
-  uint8_t breaks[3] = {0,0,0};
+  uint8_t breaks[5] = {0,0,0,0,0};
+  uint32_t data[4]={0,0,0,0};
   uint8_t breaks_ind = 0;
+  uint32_t digit = 0;
   uint8_t message_length = sizeof(NDEFmessage) / sizeof(NDEFmessage[0]);
 
+  // Parody on sscanf()
   for (uint8_t i=0;i<message_length;i++)
   {
-    if (NDEFmessage[i]==','){
+    if (NDEFmessage[i]==',' || NDEFmessage[i]=='(' || NDEFmessage[i]==')'){
       breaks[breaks_ind] = i;
       breaks_ind++;
     }
   }
+  for (uint8_t i=0;i<breaks_ind;i++)
+  {
+    for (uint8_t j=1;j<(breaks[i+1]-breaks[i]);j++)
+    {
+      digit = (uint32_t)(NDEFmessage[breaks[i+1]-j]-48);
+      for (uint8_t k=j-1;k>0;k--)
+      {
+        digit = (digit << 3) + (digit << 1);
+      }
+      data[i] = data[i]+digit;
+    }
+  }
+  pulse_width = data[0];
+  pulse_amp = data[1];
+  bpm = data[2];
+  ie_ratio = data[3];
 }
 
 /*******************************************************************************
