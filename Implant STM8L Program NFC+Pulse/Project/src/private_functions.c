@@ -13,7 +13,7 @@
 /*******************************************************************************
 *  GLOBAL VARIABLES
 *******************************************************************************/
-bool            sleeping        = TRUE;                 // State variable
+extern bool     sleeping;                 // State variable
 uint16_t        time_in         = RESET;
 uint16_t        time_ex         = RESET;
 uint16_t        CCR1_Val        = RESET;
@@ -69,12 +69,13 @@ void reconfigure(void)
 *  PRIVATE FUNCTION:    startInspiration()
 *******************************************************************************/
 void start_Inspiration(void)
-{
-  sleeping = FALSE;                                     // Change state
-  reset_RTC_counter(time_in);                           // Reset RTC
+{ 
+  get_Message();
   TIM1_SetCounter(0);                                   // Reset counter
   TIM1_Cmd(ENABLE);                                     // Start Timer 1
   TIM1_CtrlPWMOutputs(ENABLE);                          // Enable PWM output
+  reset_RTC_counter(time_in);                           // Reset RTC
+  RTC_ITConfig(RTC_IT_WUT, ENABLE);
   wfi();                                                // Wait for event mode
 }
 
@@ -83,10 +84,11 @@ void start_Inspiration(void)
 *******************************************************************************/
 void start_Expiration(void)
 {
-  sleeping = TRUE;                                      // Change state
-  reset_RTC_counter(time_ex);                           // Reset RTC
   TIM1_CtrlPWMOutputs(DISABLE);                         // Disable PWM output
+  TIM1_Cmd(DISABLE);                                    // Start Timer 1
   PWR_UltraLowPowerCmd(ENABLE);                         // Ultra low power mode
+  reset_RTC_counter(time_ex);                           // Reset RTC
+  RTC_ITConfig(RTC_IT_WUT, ENABLE);
   halt();                                               // Stop all except RTC
 }
 

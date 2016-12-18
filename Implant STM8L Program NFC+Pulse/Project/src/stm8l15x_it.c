@@ -83,31 +83,14 @@ INTERRUPT_HANDLER(RTC_IRQHandler, 4)
   RTC_ClearITPendingBit(RTC_IT_WUT);
   if (sleeping)
   {
-    sleeping = FALSE;                                     // Change state
+    sleeping = FALSE;                                     // Change state 
     
-    get_Message();
-    
-    TIM1_SetCounter(0);                                   // Reset counter
-    TIM1_Cmd(ENABLE);                                     // Start Timer 1
-    TIM1_CtrlPWMOutputs(ENABLE);                          // Enable PWM output
-    
-    reset_RTC_counter(time_in);                           // Reset RTC
-    RTC_ITConfig(RTC_IT_WUT, ENABLE);
-    enableInterrupts();
-    wfi();                                                // Wait for event mode
   }
   else
   {
     sleeping = TRUE;                                      // Change state
-    TIM1_CtrlPWMOutputs(DISABLE);                         // Disable PWM output
-    TIM1_Cmd(DISABLE);                                    // Start Timer 1
-    PWR_UltraLowPowerCmd(ENABLE);                         // Ultra low power mode
-    
-    reset_RTC_counter(time_ex);                           // Reset RTC
-    RTC_ITConfig(RTC_IT_WUT, ENABLE);
-    enableInterrupts();
-    halt(); 
   }
+  enableInterrupts();
 }
 
 /**

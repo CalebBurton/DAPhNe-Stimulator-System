@@ -26,6 +26,7 @@
 #include "stm8l15x_rtc.h"
 #include "stm8l15x_pwr.h"
 #include "stm8l15x_i2c.h"
+#include "stm8l15x_iwdg.h"
 #include "I2C_M24LR04E-R.h"
 #include "stm8l15x_flash.h"
 
@@ -60,6 +61,8 @@
 *******************************************************************************/
 void                    initialize(void);
 void                    reconfigure(void);
+void                    start_Inspiration(void);
+void                    start_Expiration(void);
 void                    Switch_To_HSI(void);
 void                    Switch_To_LSE(void); 
 void                    GPIO_Config(void);

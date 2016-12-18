@@ -1969,10 +1969,16 @@
         <name>$PROJ_DIR$\..\inc\stm8l15x_it.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_iwdg.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_pwr.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_rtc.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_wwdg.h</name>
       </file>
     </group>
     <group>
@@ -1996,6 +2002,9 @@
         <name>$PROJ_DIR$\..\..\..\..\..\ST\en.stsw-m24lr016\M24LR04E-R discovery board 1.3.1\Libraries\STM8L15x_StdPeriph_Driver\src\stm8l15x_i2c.c</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_iwdg.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_pwr.c</name>
       </file>
       <file>
@@ -2003,6 +2012,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_tim1.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_wwdg.c</name>
       </file>
     </group>
   </group>
