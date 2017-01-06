@@ -28,7 +28,7 @@ void main(void)
   initialize();
   while(1)
   {
-    if (sleeping)       { start_Expiration();}
+    if (sleeping)       {start_Expiration(); }
     else                {start_Inspiration();}
   }
 }

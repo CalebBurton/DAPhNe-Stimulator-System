@@ -36,6 +36,8 @@ extern uint32_t pulse_amp;
 extern uint32_t bpm;
 extern uint32_t ie_ratio;
 uint8_t NDEFmessage[0x40];
+//uint8_t sentMail[0x40];
+uint8_t sentMail[] = {'n','o','t','h','i','n','g'};
 
 /*******************************************************************************
 *  PRIVATE FUNCTION:    initialize()
@@ -191,27 +193,52 @@ void    get_Message(void)
 *******************************************************************************/
 void    parse_Message(void)
 {
-  uint8_t breaks[5] = {0,4,9,14,19};
-  uint32_t data[4]={0,0,0,0};
-  uint32_t digit = 0;
-
-  // Parody on sscanf(); input will be always of type "xxxx,xxxx,xxxx,xxxx"
-  for (uint8_t i=0;i<4;i++)
+  bool ERROR = FALSE;
+  // Check if message changed (reader wrote new settings)
+  if (NDEFmessage==sentMail){return;}
+  // Format check (dddd,dddd,dddd,dddd) 
+  for (int i=0;i<19;i++)
   {
-    for (uint8_t j=1;j<5;j++)
-    {
-      digit = (uint32_t)(NDEFmessage[breaks[i+1]-j]-48);
-      for (uint8_t k=j-1;k>0;k--)
-      {
-        digit = (digit << 3) + (digit << 1);
-      }
-      data[i] = data[i]+digit;
-    }
+    if (i==4||i==9||i==14){if(NDEFmessage[i]!=',')ERROR = TRUE;}
+    else{if(!isdigit(NDEFmessage[i])){ERROR = TRUE;}}
   }
-  pulse_width = data[0];
-  pulse_amp = data[1];
-  bpm = data[2];
-  ie_ratio = data[3];
+  // Scan the message (if format is wrong, skip scanning)
+  if (ERROR)
+    GPIO_SetBits(PC7_PORT,PC7_PIN);
+  else
+  {
+    // Parody on sscanf(); input will be always of type "xxxx,xxxx,xxxx,xxxx"
+    uint8_t breaks[5] = {0,4,9,14,19};
+    uint32_t data[4]={0,0,0,0}, digit = 0;
+    for (uint8_t i=0;i<4;i++)
+    {
+      for (uint8_t j=1;j<5;j++)
+      {
+        digit = (uint32_t)(NDEFmessage[breaks[i+1]-j]-48);
+        for (uint8_t k=j-1;k>0;k--)
+        {
+          digit = (digit << 3) + (digit << 1);
+        }
+        data[i] = data[i]+digit;
+      }
+    }
+    // Establish ceilings and floors for pulsing controls
+    if      (data[0]>MAX_PW){pulse_width = MAX_PW;}
+    else if (data[0]<MIN_PW){pulse_width = MIN_PW;}
+    else                    {pulse_width = data[0];}
+    
+    if      (data[1]>MAX_PA){pulse_amp = MAX_PA;}
+    else if (data[1]<MIN_PA){pulse_amp = MIN_PA;}
+    else                    {pulse_amp = data[1];}
+    
+    if      (data[2]>MAX_BR){bpm = MAX_BR;}
+    else if (data[2]<MIN_BR){bpm = MIN_BR;}
+    else                    {bpm = data[2];}
+    
+    if      (data[3]>MAX_IE){ie_ratio = MAX_IE;}
+    else if (data[3]<MIN_IE){ie_ratio = MIN_IE;}
+    else                    {ie_ratio = data[3];}
+  }
 }
 
 /*******************************************************************************

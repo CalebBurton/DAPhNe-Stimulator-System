@@ -1,4 +1,4 @@
-"C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\ST\en.stsw-m24lr016\M24LR04E-R discovery board 1.3.1\Libraries\STM8L15x_StdPeriph_Driver\src\stm8l15x_flash.c"
+"C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program NFC+Pulse\STM8L15x_StdPeriph_Driver\src\stm8l15x_flash.c"
 -std=c99
 -ferror-limit=100
 -I

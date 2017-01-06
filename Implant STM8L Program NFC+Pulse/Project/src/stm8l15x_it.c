@@ -84,7 +84,6 @@ INTERRUPT_HANDLER(RTC_IRQHandler, 4)
   if (sleeping)
   {
     sleeping = FALSE;                                     // Change state 
-    
   }
   else
   {

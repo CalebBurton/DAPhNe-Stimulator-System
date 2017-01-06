@@ -29,6 +29,7 @@
 #include "stm8l15x_iwdg.h"
 #include "I2C_M24LR04E-R.h"
 #include "stm8l15x_flash.h"
+#include <ctype.h>
 
 /*******************************************************************************
 *  CONSTANT DEFINITIONS
@@ -55,6 +56,15 @@
 #define M24LR04E_I2C_SCL_GPIO_PORT           GPIOC                       /* GPIOC */
 #define M24LR04E_I2C_SDA_PIN                 GPIO_Pin_0                  /* PC.00 */
 #define M24LR04E_I2C_SDA_GPIO_PORT           GPIOC                       /* GPIOC */
+
+#define MAX_PW          (uint32_t) 1000
+#define MIN_PW          (uint32_t) 100
+#define MAX_PA          (uint32_t) 500
+#define MIN_PA          (uint32_t) 100
+#define MAX_BR          (uint32_t) 2500
+#define MIN_BR          (uint32_t) 1200
+#define MAX_IE          (uint32_t) 7000
+#define MIN_IE          (uint32_t) 2000
 
 /*******************************************************************************
 *  FUNCTION PROTOTYPES
