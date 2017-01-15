@@ -1,0 +1,23 @@
+* C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\LTSpice\PulseGenerator1\PulseGen1.asc
+M1 Velectrode N003 V3 V3 Si9410DY
+R1 N003 N002 100
+C1 N002 Vin 100p
+R2 V3 Vin 1k
+Rload Vcase Velectrode 1.5k
+V1 Vcase 0 15
+XU1 N004 Vin N001 0 N002 LT1492
+R5 Vin 0 1k
+R3 V3 0 1k
+V3 N001 0 10
+M2 Vdac Vpwm N004 N004 Si9410DY
+V2 Vdac 0 1
+V4 Vpwm 0 PULSE(0 3.3 0 10n 10n 150u 50m 20)
+R4 N004 0 100k
+C2 Vcase Velectrode 1pF
+.model NMOS NMOS
+.model PMOS PMOS
+.lib C:\PROGRA~2\LTC\LTSPIC~1\lib\cmp\standard.mos
+.tran 1
+.lib LTC.lib
+.backanno
+.end

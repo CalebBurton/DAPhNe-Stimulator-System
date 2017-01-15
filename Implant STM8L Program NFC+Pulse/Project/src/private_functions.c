@@ -160,8 +160,8 @@ void    calculations(void)
 {
   uint32_t xy = ((uint32_t)LSE_FREQ/RTC_Div*minpersec)/ //Total breath
     (uint32_t)bpm;
-  time_in = (uint16_t)((ie_ratio*xy)/mod_10k)-700;          // Inspiration
-  time_ex = ((uint16_t)xy-time_in)-700;                     // Expiration
+  time_in = (uint16_t)((ie_ratio*xy)/mod_10k)-700;      // Inspiration
+  time_ex = ((uint16_t)xy-time_in)-700;                 // Expiration
   CCR1_Val = pulse_width;                               // Pulse width
   TIM1_period = ((1000000*mod_100)/                     // fclk/20Hz-1
     pulse_freq)-1;
@@ -180,12 +180,30 @@ void    get_Message(void)
   {
     GPIO_ResetBits(PC7_PORT,PC7_PIN);
     parse_Message();
-    reconfigure();
+    if(write_Back()==SUCCESS) GPIO_SetBits(PE7_PORT,PE7_PIN);
   }
   else
   {
     GPIO_SetBits(PC7_PORT,PC7_PIN);
   }
+}
+
+/*******************************************************************************
+*  PRIVATE FUNCTION:    write_Back();
+*******************************************************************************/
+int8_t    write_Back(void)
+{
+  uint8_t data = 0x61;
+  uint16_t WriteAddr = 0x000D;				
+  M24LR04E_Init();     
+  M24LR04E_WriteOneByte (M24LR16_EEPROM_ADDRESS_USER, WriteAddr++, data);			
+  I2C_Cmd(M24LR04E_I2C, DISABLE);			      
+  CLK_PeripheralClockConfig(CLK_Peripheral_I2C1, DISABLE);	
+  GPIO_SetBits(M24LR04E_I2C_SCL_GPIO_PORT,M24LR04E_I2C_SCL_PIN);	
+  GPIO_SetBits(M24LR04E_I2C_SCL_GPIO_PORT,M24LR04E_I2C_SDA_PIN);	     
+  M24LR04E_DeInit();
+  I2C_Cmd(M24LR04E_I2C, DISABLE);
+  return SUCCESS;
 }
 
 /*******************************************************************************
@@ -207,7 +225,7 @@ void    parse_Message(void)
     GPIO_SetBits(PC7_PORT,PC7_PIN);
   else
   {
-    // Parody on sscanf(); input will be always of type "xxxx,xxxx,xxxx,xxxx"
+    // Parody on sscanf(); NDEF is of type (dddd,dddd,dddd,dddd, where d = digit
     uint8_t breaks[5] = {0,4,9,14,19};
     uint32_t data[4]={0,0,0,0}, digit = 0;
     for (uint8_t i=0;i<4;i++)
@@ -238,6 +256,7 @@ void    parse_Message(void)
     if      (data[3]>MAX_IE){ie_ratio = MAX_IE;}
     else if (data[3]<MIN_IE){ie_ratio = MIN_IE;}
     else                    {ie_ratio = data[3];}
+    reconfigure();
   }
 }
 
