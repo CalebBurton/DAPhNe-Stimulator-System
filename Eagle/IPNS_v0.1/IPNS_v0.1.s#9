@@ -4101,6 +4101,41 @@ Metric Code Size 5664</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="supply2">
+<description>&lt;b&gt;Supply Symbols&lt;/b&gt;&lt;p&gt;
+GND, VCC, 0V, +5V, -5V, etc.&lt;p&gt;
+Please keep in mind, that these devices are necessary for the
+automatic wiring of the supply signals.&lt;p&gt;
+The pin name defined in the symbol is identical to the net which is to be wired automatically.&lt;p&gt;
+In this library the device names are the same as the pin names of the symbols, therefore the correct signal names appear next to the supply symbols in the schematic.&lt;p&gt;
+&lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
+<packages>
+</packages>
+<symbols>
+<symbol name="GND">
+<wire x1="-1.27" y1="0" x2="1.27" y2="0" width="0.254" layer="94"/>
+<wire x1="1.27" y1="0" x2="0" y2="-1.27" width="0.254" layer="94"/>
+<wire x1="0" y1="-1.27" x2="-1.27" y2="0" width="0.254" layer="94"/>
+<text x="-1.905" y="-3.175" size="1.778" layer="96">&gt;VALUE</text>
+<pin name="GND" x="0" y="2.54" visible="off" length="short" direction="sup" rot="R270"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="GND" prefix="SUPPLY">
+<description>&lt;b&gt;SUPPLY SYMBOL&lt;/b&gt;</description>
+<gates>
+<gate name="GND" symbol="GND" x="0" y="0"/>
+</gates>
+<devices>
+<device name="">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -4115,6 +4150,7 @@ Metric Code Size 5664</description>
 <part name="Q1" library="adafruit" deviceset="CRYSTAL" device="HC49S"/>
 <part name="C1" library="adafruit" deviceset="C-US" device="C0402"/>
 <part name="C2" library="adafruit" deviceset="C-US" device="C0402"/>
+<part name="SUPPLY1" library="supply2" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -4122,9 +4158,10 @@ Metric Code Size 5664</description>
 </plain>
 <instances>
 <instance part="U1" gate="A" x="25.4" y="76.2"/>
-<instance part="Q1" gate="G$1" x="5.08" y="68.58" rot="R90"/>
-<instance part="C1" gate="G$1" x="-2.54" y="73.66" rot="R90"/>
-<instance part="C2" gate="G$1" x="-2.54" y="63.5" rot="R90"/>
+<instance part="Q1" gate="G$1" x="12.7" y="68.58" rot="R90"/>
+<instance part="C1" gate="G$1" x="5.08" y="73.66" rot="R90"/>
+<instance part="C2" gate="G$1" x="5.08" y="63.5" rot="R90"/>
+<instance part="SUPPLY1" gate="GND" x="-5.08" y="63.5"/>
 </instances>
 <busses>
 </busses>
@@ -4132,9 +4169,41 @@ Metric Code Size 5664</description>
 <net name="N$1" class="0">
 <segment>
 <pinref part="Q1" gate="G$1" pin="2"/>
-<wire x1="5.08" y1="71.12" x2="5.08" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="12.7" y1="71.12" x2="12.7" y2="73.66" width="0.1524" layer="91"/>
 <pinref part="C1" gate="G$1" pin="2"/>
-<wire x1="5.08" y1="73.66" x2="2.54" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="12.7" y1="73.66" x2="10.16" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="12.7" y1="73.66" x2="15.24" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="15.24" y1="73.66" x2="15.24" y2="71.12" width="0.1524" layer="91"/>
+<junction x="12.7" y="73.66"/>
+<pinref part="U1" gate="A" pin="PA2/OSC_IN"/>
+<wire x1="15.24" y1="71.12" x2="25.4" y2="71.12" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$2" class="0">
+<segment>
+<pinref part="Q1" gate="G$1" pin="1"/>
+<wire x1="12.7" y1="66.04" x2="12.7" y2="63.5" width="0.1524" layer="91"/>
+<pinref part="C2" gate="G$1" pin="2"/>
+<wire x1="12.7" y1="63.5" x2="10.16" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="12.7" y1="63.5" x2="15.24" y2="63.5" width="0.1524" layer="91"/>
+<junction x="12.7" y="63.5"/>
+<wire x1="15.24" y1="63.5" x2="15.24" y2="68.58" width="0.1524" layer="91"/>
+<pinref part="U1" gate="A" pin="PA3/OSC_OUT"/>
+<wire x1="15.24" y1="68.58" x2="25.4" y2="68.58" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="GND" class="0">
+<segment>
+<pinref part="C2" gate="G$1" pin="1"/>
+<wire x1="2.54" y1="63.5" x2="0" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="0" y1="63.5" x2="0" y2="68.58" width="0.1524" layer="91"/>
+<pinref part="C1" gate="G$1" pin="1"/>
+<wire x1="0" y1="68.58" x2="0" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="0" y1="73.66" x2="2.54" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="0" y1="68.58" x2="-5.08" y2="68.58" width="0.1524" layer="91"/>
+<junction x="0" y="68.58"/>
+<wire x1="-5.08" y1="68.58" x2="-5.08" y2="66.04" width="0.1524" layer="91"/>
+<pinref part="SUPPLY1" gate="GND" pin="GND"/>
 </segment>
 </net>
 </nets>
