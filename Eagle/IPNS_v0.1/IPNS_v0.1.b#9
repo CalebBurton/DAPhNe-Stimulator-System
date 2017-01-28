@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -824,7 +824,7 @@ design rules under a new name.</description>
 <attribute name="VENDOR" value="ST Microelectronics" x="22.86" y="24.13" size="1.778" layer="27" display="off"/>
 <attribute name="COPYRIGHT" value="Copyright (C) 2016 Accelerated Designs. All rights reserved" x="22.86" y="24.13" size="1.778" layer="27" display="off"/>
 </element>
-<element name="C1" library="IPNS_Lib_v0.1" package="C0805" value="1u" x="74.93" y="20.32" rot="R270"/>
+<element name="C1" library="IPNS_Lib_v0.1" package="C0805" value="1u" x="72.39" y="22.86" rot="R270"/>
 <element name="Q1" library="IPNS_Lib_v0.1" package="HC49/S" value="16MHz" x="12.7" y="24.13" rot="R90">
 <attribute name="MF" value="" x="12.7" y="24.13" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="OC_FARNELL" value="1667008" x="12.7" y="24.13" size="1.778" layer="27" rot="R90" display="off"/>
@@ -833,24 +833,24 @@ design rules under a new name.</description>
 </element>
 <element name="C2" library="IPNS_Lib_v0.1" package="C0805" value="20pF" x="12.7" y="31.75" rot="R270"/>
 <element name="C3" library="IPNS_Lib_v0.1" package="C0805" value="20pF" x="12.7" y="16.51" rot="R90"/>
-<element name="J1" library="IPNS_Lib_v0.1" package="1X04" value="" x="31.75" y="35.56" rot="R180">
-<attribute name="PROD_ID" value="CONN-09696" x="31.75" y="35.56" size="1.778" layer="27" rot="R180" display="off"/>
+<element name="J1" library="IPNS_Lib_v0.1" package="1X04" value="" x="31.75" y="36.83" rot="R180">
+<attribute name="PROD_ID" value="CONN-09696" x="31.75" y="36.83" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
-<element name="U$1" library="IPNS_Lib_v0.1" package="PUSH-BUTTON" value="PUSH-BUTTON" x="15.24" y="38.1"/>
-<element name="C4" library="IPNS_Lib_v0.1" package="C0805" value="100n" x="20.828" y="37.846" rot="R90"/>
+<element name="U$1" library="IPNS_Lib_v0.1" package="PUSH-BUTTON" value="PUSH-BUTTON" x="15.24" y="36.83"/>
+<element name="C4" library="IPNS_Lib_v0.1" package="C0805" value="100n" x="63.5" y="22.86" rot="R270"/>
 <element name="C5" library="IPNS_Lib_v0.1" package="C0805" value="1u" x="58.42" y="29.21" rot="R270"/>
 <element name="C6" library="IPNS_Lib_v0.1" package="C0805" value="100n" x="53.34" y="29.21" rot="R270"/>
 <element name="C7" library="IPNS_Lib_v0.1" package="C0805" value="100n" x="48.26" y="29.21" rot="R270"/>
-<element name="C8" library="IPNS_Lib_v0.1" package="C0805" value="1u" x="43.18" y="29.21" rot="R270"/>
-<element name="C9" library="IPNS_Lib_v0.1" package="C0805" value="100n" x="38.1" y="29.21" rot="R270"/>
+<element name="C8" library="IPNS_Lib_v0.1" package="C0805" value="1u" x="43.18" y="25.4" rot="R270"/>
+<element name="C9" library="IPNS_Lib_v0.1" package="C0805" value="100n" x="38.1" y="25.4" rot="R270"/>
 <element name="Q2" library="IPNS_Lib_v0.1" package="TC26H" value="32.768 kHz" x="20.32" y="31.75" rot="R270">
 <attribute name="MF" value="" x="20.32" y="31.75" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="OC_FARNELL" value="unknown" x="20.32" y="31.75" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="OC_NEWARK" value="unknown" x="20.32" y="31.75" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="MPN" value="" x="20.32" y="31.75" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="C10" library="IPNS_Lib_v0.1" package="C0805" value="7pF" x="17.018" y="30.48"/>
-<element name="C11" library="IPNS_Lib_v0.1" package="C0805" value="7pF" x="17.018" y="33.02"/>
+<element name="C10" library="IPNS_Lib_v0.1" package="C0805" value="7pF" x="16.51" y="30.48"/>
+<element name="C11" library="IPNS_Lib_v0.1" package="C0805" value="7pF" x="16.51" y="33.02"/>
 <element name="R3" library="IPNS_Lib_v0.1" package="R0805" value="" x="26.67" y="17.78" rot="R180"/>
 <element name="R4" library="IPNS_Lib_v0.1" package="R0805" value="" x="26.67" y="15.24" rot="R180"/>
 <element name="R5" library="IPNS_Lib_v0.1" package="R0805" value="" x="26.67" y="12.7" rot="R180"/>
@@ -860,7 +860,7 @@ design rules under a new name.</description>
 <element name="J2" library="IPNS_Lib_v0.1" package="1X04" value="" x="31.75" y="20.32" rot="R90">
 <attribute name="PROD_ID" value="CONN-09696" x="31.75" y="20.32" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="C12" library="IPNS_Lib_v0.1" package="C0805" value="" x="66.04" y="16.51" rot="R90"/>
+<element name="C12" library="IPNS_Lib_v0.1" package="C0805" value="" x="68.58" y="22.86" rot="R90"/>
 <element name="R6" library="IPNS_Lib_v0.1" package="R0805" value="" x="30.48" y="33.02"/>
 <element name="R7" library="IPNS_Lib_v0.1" package="R0805" value="" x="30.48" y="30.48"/>
 <element name="U$3" library="IPNS_Lib_v0.1" package="SLIDE_SWITCH" value="SLIDE_SWITCH" x="16.51" y="12.7"/>
@@ -884,17 +884,17 @@ design rules under a new name.</description>
 <contactref element="C7" pad="1"/>
 <contactref element="U1" pad="11"/>
 <contactref element="U1" pad="12"/>
-<wire x1="66.04" y1="17.46" x2="74.93" y2="21.27" width="0" layer="19" extent="1-1"/>
-<wire x1="58.42" y1="30.16" x2="66.04" y2="17.46" width="0" layer="19" extent="1-1"/>
+<wire x1="68.58" y1="23.81" x2="72.39" y2="23.81" width="0" layer="19" extent="1-1"/>
+<wire x1="58.42" y1="30.16" x2="68.58" y2="23.81" width="0" layer="19" extent="1-1"/>
 <wire x1="53.34" y1="30.16" x2="58.42" y2="30.16" width="0" layer="19" extent="1-1"/>
 <wire x1="48.26" y1="30.16" x2="53.34" y2="30.16" width="0" layer="19" extent="1-1"/>
-<wire x1="43.18" y1="30.16" x2="48.26" y2="30.16" width="0" layer="19" extent="1-1"/>
-<wire x1="38.1" y1="30.16" x2="43.18" y2="30.16" width="0" layer="19" extent="1-1"/>
-<wire x1="31.43" y1="30.48" x2="38.1" y2="30.16" width="0" layer="19" extent="1-1"/>
+<wire x1="43.18" y1="26.35" x2="48.26" y2="30.16" width="0" layer="19" extent="1-1"/>
+<wire x1="38.1" y1="26.35" x2="43.18" y2="26.35" width="0" layer="19" extent="1-1"/>
+<wire x1="31.75" y1="22.86" x2="38.1" y2="26.35" width="0" layer="19" extent="1-1"/>
+<wire x1="31.43" y1="30.48" x2="31.75" y2="22.86" width="0" layer="19" extent="1-1"/>
 <wire x1="31.43" y1="33.02" x2="31.43" y2="30.48" width="0" layer="19" extent="1-1"/>
-<wire x1="31.75" y1="35.56" x2="31.43" y2="33.02" width="0" layer="19" extent="1-1"/>
+<wire x1="31.75" y1="36.83" x2="31.43" y2="33.02" width="0" layer="19" extent="1-1"/>
 <wire x1="24.610009375" y1="28.3464" x2="31.43" y2="30.48" width="0" layer="19" extent="1-1"/>
-<wire x1="31.75" y1="22.86" x2="31.43" y2="30.48" width="0" layer="19" extent="1-1"/>
 <wire x1="18.6436" y1="22.379990625" x2="24.610009375" y2="28.3464" width="0" layer="19" extent="1-1"/>
 <wire x1="18.6436" y1="21.879990625" x2="18.6436" y2="22.379990625" width="0" layer="19" extent="1-1"/>
 <wire x1="18.6436" y1="21.37999375" x2="18.6436" y2="21.879990625" width="0" layer="19" extent="1-1"/>
@@ -930,8 +930,8 @@ design rules under a new name.</description>
 <vertex x="104.14" y="83.82"/>
 <vertex x="-2.54" y="83.82"/>
 </polygon>
-<wire x1="26.67" y1="35.56" x2="24.110009375" y2="28.3464" width="0" layer="19" extent="1-1"/>
 <wire x1="18.6436" y1="22.879990625" x2="24.110009375" y2="28.3464" width="0" layer="19" extent="1-1"/>
+<wire x1="15.56" y1="30.48" x2="18.6436" y2="22.879990625" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$1">
 <contactref element="C2" pad="2"/>
@@ -952,28 +952,28 @@ design rules under a new name.</description>
 <contactref element="C4" pad="1"/>
 <contactref element="U1" pad="2"/>
 <contactref element="J1" pad="4"/>
-<wire x1="20.828" y1="36.896" x2="24.13" y2="35.56" width="0" layer="19" extent="1-1"/>
-<wire x1="17.78" y1="38.1" x2="20.828" y2="36.896" width="0" layer="19" extent="1-1"/>
-<wire x1="18.6436" y1="26.380009375" x2="24.13" y2="35.56" width="0" layer="19" extent="1-1"/>
+<wire x1="24.13" y1="36.83" x2="63.5" y2="23.81" width="0" layer="19" extent="1-1"/>
+<wire x1="17.78" y1="36.83" x2="24.13" y2="36.83" width="0" layer="19" extent="1-1"/>
+<wire x1="18.6436" y1="26.380009375" x2="17.78" y2="36.83" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="ST_LINK_SWIM">
 <contactref element="U1" pad="1"/>
 <contactref element="J1" pad="2"/>
-<wire x1="18.6436" y1="26.88000625" x2="29.21" y2="35.56" width="0" layer="19" extent="1-1"/>
+<wire x1="18.6436" y1="26.88000625" x2="29.21" y2="36.83" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$3">
 <contactref element="C11" pad="2"/>
 <contactref element="Q2" pad="1"/>
 <contactref element="U1" pad="45"/>
-<wire x1="17.968" y1="33.02" x2="20.32" y2="33.02" width="0" layer="19" extent="1-1"/>
+<wire x1="17.46" y1="33.02" x2="20.32" y2="33.02" width="0" layer="19" extent="1-1"/>
 <wire x1="21.609990625" y1="28.3464" x2="20.32" y2="33.02" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$6">
 <contactref element="Q2" pad="2"/>
 <contactref element="C10" pad="2"/>
 <contactref element="U1" pad="44"/>
-<wire x1="17.968" y1="30.48" x2="20.32" y2="30.48" width="0" layer="19" extent="1-1"/>
 <wire x1="22.1099875" y1="28.3464" x2="20.32" y2="30.48" width="0" layer="19" extent="1-1"/>
+<wire x1="17.46" y1="30.48" x2="20.32" y2="30.48" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$11">
 <contactref element="LED1" pad="A"/>
