@@ -10153,7 +10153,7 @@ Source: www.kingbright.com</description>
 <part name="C2" library="IPNS_Lib_v0.1" deviceset="C-US" device="C0805" value="20pF"/>
 <part name="C3" library="IPNS_Lib_v0.1" deviceset="C-US" device="C0805" value="20pF"/>
 <part name="GND2" library="IPNS_Lib_v0.1" deviceset="GND" device=""/>
-<part name="J1" library="IPNS_Lib_v0.1" deviceset="M04" device="PTH"/>
+<part name="J1" library="IPNS_Lib_v0.1" deviceset="M04" device="PTH" value="SWIM"/>
 <part name="U$1" library="IPNS_Lib_v0.1" deviceset="PUSH-BUTTON" device=""/>
 <part name="C4" library="IPNS_Lib_v0.1" deviceset="C-US" device="C0805" value="100n"/>
 <part name="GND3" library="IPNS_Lib_v0.1" deviceset="GND" device=""/>
@@ -10168,22 +10168,22 @@ Source: www.kingbright.com</description>
 <part name="C10" library="IPNS_Lib_v0.1" deviceset="C-US" device="C0805" value="7pF"/>
 <part name="C11" library="IPNS_Lib_v0.1" deviceset="C-US" device="C0805" value="7pF"/>
 <part name="GND5" library="IPNS_Lib_v0.1" deviceset="GND" device=""/>
-<part name="R3" library="IPNS_Lib_v0.1" deviceset="R-US_" device="R0805"/>
-<part name="R4" library="IPNS_Lib_v0.1" deviceset="R-US_" device="R0805"/>
-<part name="R5" library="IPNS_Lib_v0.1" deviceset="R-US_" device="R0805"/>
+<part name="R3" library="IPNS_Lib_v0.1" deviceset="R-US_" device="R0805" value="220"/>
+<part name="R4" library="IPNS_Lib_v0.1" deviceset="R-US_" device="R0805" value="330"/>
+<part name="R5" library="IPNS_Lib_v0.1" deviceset="R-US_" device="R0805" value="660"/>
 <part name="LED1" library="led" deviceset="LED" device="CHIP-LED0805" value="RED"/>
 <part name="LED2" library="led" deviceset="LED" device="CHIP-LED0805" value="GREEN"/>
 <part name="LED3" library="led" deviceset="LED" device="CHIP-LED0805" value="BLUE"/>
 <part name="GND6" library="IPNS_Lib_v0.1" deviceset="GND" device=""/>
-<part name="J2" library="IPNS_Lib_v0.1" deviceset="M04" device="PTH"/>
+<part name="J2" library="IPNS_Lib_v0.1" deviceset="M04" device="PTH" value="NFC"/>
 <part name="C12" library="IPNS_Lib_v0.1" deviceset="C-US" device="C0805" value="1u"/>
-<part name="R6" library="IPNS_Lib_v0.1" deviceset="R-US_" device="R0805"/>
-<part name="R7" library="IPNS_Lib_v0.1" deviceset="R-US_" device="R0805"/>
+<part name="R6" library="IPNS_Lib_v0.1" deviceset="R-US_" device="R0805" value="1k"/>
+<part name="R7" library="IPNS_Lib_v0.1" deviceset="R-US_" device="R0805" value="1k"/>
 <part name="+3V4" library="IPNS_Lib_v0.1" deviceset="+3V3" device=""/>
 <part name="U$3" library="IPNS_Lib_v0.1" deviceset="SLIDE_SWITCH" device=""/>
-<part name="J3" library="IPNS_Lib_v0.1" deviceset="M02" device="PTH"/>
-<part name="J4" library="IPNS_Lib_v0.1" deviceset="M12" device="PTH"/>
-<part name="J5" library="IPNS_Lib_v0.1" deviceset="M12" device="PTH"/>
+<part name="J3" library="IPNS_Lib_v0.1" deviceset="M02" device="PTH" value="BATT"/>
+<part name="J4" library="IPNS_Lib_v0.1" deviceset="M12" device="PTH" value="LEFT CONN"/>
+<part name="J5" library="IPNS_Lib_v0.1" deviceset="M12" device="PTH" value="RIGHT CONN"/>
 </parts>
 <sheets>
 <sheet>
@@ -10567,12 +10567,10 @@ Source: www.kingbright.com</description>
 <wire x1="68.58" y1="48.26" x2="71.12" y2="48.26" width="0.1524" layer="91"/>
 <label x="66.04" y="45.72" size="1.778" layer="95"/>
 </segment>
-</net>
-<net name="PULSE" class="0">
 <segment>
-<pinref part="U1" gate="A" pin="PD2"/>
-<wire x1="68.58" y1="88.9" x2="71.12" y2="88.9" width="0.1524" layer="91"/>
-<label x="71.12" y="88.9" size="1.778" layer="95"/>
+<pinref part="J4" gate="G$1" pin="3"/>
+<wire x1="-35.56" y1="17.78" x2="-33.02" y2="17.78" width="0.1524" layer="91"/>
+<label x="-33.02" y="17.78" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="SCL" class="0">
@@ -10620,16 +10618,30 @@ Source: www.kingbright.com</description>
 <label x="-33.02" y="20.32" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="OFF" class="0">
+<net name="PWM" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="OUT1"/>
-<wire x1="91.44" y1="96.52" x2="93.98" y2="96.52" width="0.1524" layer="91"/>
-<label x="93.98" y="96.52" size="1.778" layer="95"/>
+<pinref part="J4" gate="G$1" pin="4"/>
+<wire x1="-35.56" y1="15.24" x2="-33.02" y2="15.24" width="0.1524" layer="91"/>
+<label x="-33.02" y="15.24" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U1" gate="A" pin="PD2"/>
+<wire x1="68.58" y1="88.9" x2="71.12" y2="88.9" width="0.1524" layer="91"/>
+<label x="71.12" y="88.9" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
 </sheet>
 </sheets>
+<errors>
+<approved hash="104,1,-2.54,5.08,U1B,VLCD,+3V3,,,"/>
+<approved hash="104,1,-2.54,0,U1B,VSS1/VSSA/VREF-,GND,,,"/>
+<approved hash="104,1,-2.54,-2.54,U1B,VSS2,GND,,,"/>
+<approved hash="104,1,-2.54,-7.62,U1B,VREF+,+3V3,,,"/>
+<approved hash="104,1,-2.54,-12.7,U1B,VDDA,+3V3,,,"/>
+<approved hash="104,1,63.5,5.08,U1B,VDD,+3V3,,,"/>
+<approved hash="104,1,63.5,2.54,U1B,VDD2,+3V3,,,"/>
+</errors>
 </schematic>
 </drawing>
 <compatibility>
