@@ -146,6 +146,9 @@
 <wire x1="32.69" y1="0" x2="32.69" y2="33.01" width="0" layer="20"/>
 <wire x1="32.69" y1="33.01" x2="0" y2="33.01" width="0" layer="20"/>
 <wire x1="0" y1="33.01" x2="0" y2="0" width="0" layer="20"/>
+<text x="27.305" y="22.733" size="1.778" layer="22" rot="MR270">IPNS_v0.1</text>
+<text x="7.112" y="11.049" size="0.762" layer="22" rot="MR270">NU BME 390</text>
+<text x="13.97" y="25.4" size="1.778" layer="22" rot="MR270">Alexey Revinski</text>
 </plain>
 <libraries>
 <library name="IPNS_Lib_v0.1">
@@ -1049,10 +1052,13 @@ design rules under a new name.</description>
 <attribute name="NAME" x="24.5618" y="30.7848" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="22.225" y="25.654" size="1.27" layer="27"/>
 </element>
-<element name="J4" library="IPNS_Lib_v0.1" package="1X12" value="" x="30.48" y="2.54" rot="R90"/>
-<element name="J5" library="IPNS_Lib_v0.1" package="1X12" value="" x="2.54" y="2.54" smashed="yes" rot="R90">
-<attribute name="NAME" x="5.4102" y="21.3868" size="1.27" layer="25" ratio="10" rot="R90"/>
-<attribute name="VALUE" x="5.715" y="1.27" size="1.27" layer="27" rot="R90"/>
+<element name="J4" library="IPNS_Lib_v0.1" package="1X12" value="" x="30.48" y="30.48" smashed="yes" rot="R270">
+<attribute name="NAME" x="27.8638" y="14.3002" size="1.27" layer="25" ratio="10" rot="R270"/>
+<attribute name="VALUE" x="27.305" y="31.75" size="1.27" layer="27" rot="R270"/>
+</element>
+<element name="J5" library="IPNS_Lib_v0.1" package="1X12" value="" x="2.54" y="30.48" smashed="yes" rot="R270">
+<attribute name="NAME" x="3.9878" y="23.1902" size="1.27" layer="25" ratio="10" rot="R270"/>
+<attribute name="VALUE" x="-0.635" y="31.75" size="1.27" layer="27" rot="R270"/>
 </element>
 </elements>
 <signals>

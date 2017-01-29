@@ -8,14 +8,14 @@
 </settings>
 <grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.005" altunitdist="inch" altunit="inch"/>
 <layers>
-<layer number="1" name="Top" color="4" fill="1" visible="no" active="yes"/>
+<layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
 <layer number="17" name="Pads" color="2" fill="1" visible="no" active="yes"/>
 <layer number="18" name="Vias" color="2" fill="1" visible="no" active="yes"/>
 <layer number="19" name="Unrouted" color="6" fill="1" visible="no" active="yes"/>
 <layer number="20" name="Dimension" color="15" fill="1" visible="no" active="yes"/>
 <layer number="21" name="tPlace" color="7" fill="1" visible="no" active="yes"/>
-<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="no" active="yes"/>
 <layer number="23" name="tOrigins" color="15" fill="1" visible="no" active="yes"/>
 <layer number="24" name="bOrigins" color="15" fill="1" visible="no" active="yes"/>
 <layer number="25" name="tNames" color="7" fill="1" visible="no" active="yes"/>
@@ -1052,10 +1052,13 @@ design rules under a new name.</description>
 <attribute name="NAME" x="24.5618" y="30.7848" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="22.225" y="25.654" size="1.27" layer="27"/>
 </element>
-<element name="J4" library="IPNS_Lib_v0.1" package="1X12" value="" x="30.48" y="2.54" rot="R90"/>
-<element name="J5" library="IPNS_Lib_v0.1" package="1X12" value="" x="2.54" y="2.54" smashed="yes" rot="R90">
-<attribute name="NAME" x="5.4102" y="21.3868" size="1.27" layer="25" ratio="10" rot="R90"/>
-<attribute name="VALUE" x="5.715" y="1.27" size="1.27" layer="27" rot="R90"/>
+<element name="J4" library="IPNS_Lib_v0.1" package="1X12" value="" x="30.48" y="30.48" smashed="yes" rot="R270">
+<attribute name="NAME" x="27.8638" y="14.3002" size="1.27" layer="25" ratio="10" rot="R270"/>
+<attribute name="VALUE" x="27.305" y="31.75" size="1.27" layer="27" rot="R270"/>
+</element>
+<element name="J5" library="IPNS_Lib_v0.1" package="1X12" value="" x="2.54" y="30.48" smashed="yes" rot="R270">
+<attribute name="NAME" x="3.9878" y="23.1902" size="1.27" layer="25" ratio="10" rot="R270"/>
+<attribute name="VALUE" x="-0.635" y="31.75" size="1.27" layer="27" rot="R270"/>
 </element>
 </elements>
 <signals>
@@ -1114,6 +1117,8 @@ design rules under a new name.</description>
 <wire x1="12.227990625" y1="16.799990625" x2="12.954" y2="17.526" width="0.3048" layer="1"/>
 <wire x1="12.954" y1="17.526" x2="12.954" y2="18.161" width="0.3048" layer="1"/>
 <via x="12.954" y="18.161" extent="1-16" drill="0.6"/>
+<contactref element="J5" pad="2"/>
+<wire x1="9.398" y1="17.299990625" x2="2.54" y2="27.94" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="GND">
 <contactref element="U1" pad="9"/>
@@ -1151,6 +1156,14 @@ design rules under a new name.</description>
 <wire x1="16.490009375" y1="21.609990625" x2="16.51" y2="21.59" width="0.3048" layer="1"/>
 <wire x1="16.490009375" y1="23.2664" x2="16.490009375" y2="24.149990625" width="0.3048" layer="1"/>
 <wire x1="16.490009375" y1="24.149990625" x2="15.24" y2="25.4" width="0.3048" layer="1"/>
+<contactref element="J5" pad="12"/>
+<contactref element="J4" pad="12"/>
+<contactref element="J5" pad="1"/>
+<contactref element="J4" pad="1"/>
+<wire x1="26.035" y1="28.829" x2="30.48" y2="30.48" width="0" layer="19" extent="1-1"/>
+<wire x1="2.54" y1="30.48" x2="5.908" y2="29.21" width="0" layer="19" extent="1-1"/>
+<wire x1="30.48" y1="2.54" x2="27.94" y2="5.808" width="0" layer="19" extent="1-1"/>
+<wire x1="2.54" y1="2.54" x2="5.4" y2="6.35" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$1">
 <contactref element="C2" pad="2"/>
@@ -1289,6 +1302,8 @@ design rules under a new name.</description>
 <wire x1="6.35" y1="27.94" x2="8.89" y2="30.48" width="0.3048" layer="16"/>
 <wire x1="21.844" y1="30.48" x2="23.495" y2="28.829" width="0.3048" layer="16"/>
 <wire x1="8.89" y1="30.48" x2="21.844" y2="30.48" width="0.3048" layer="16"/>
+<contactref element="J4" pad="2"/>
+<wire x1="23.495" y1="28.829" x2="30.48" y2="27.94" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="OFF">
 <contactref element="U$3" pad="2"/>
