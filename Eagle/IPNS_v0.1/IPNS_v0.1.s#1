@@ -10139,8 +10139,8 @@ Source: www.kingbright.com</description>
 <variantdefs>
 </variantdefs>
 <classes>
-<class number="0" name="default" width="0.1778" drill="0.3048">
-<clearance class="0" value="0.2032"/>
+<class number="0" name="default" width="0.1524" drill="0.3048">
+<clearance class="0" value="0.1524"/>
 </class>
 </classes>
 <parts>
@@ -10188,13 +10188,11 @@ Source: www.kingbright.com</description>
 <sheets>
 <sheet>
 <plain>
-<text x="66.04" y="124.46" size="1.778" layer="91">U2 IS INDUCTOR OR SHORT</text>
-<text x="66.04" y="129.54" size="1.778" layer="91">C5 and C8 Tantalum?</text>
-<text x="-7.62" y="132.08" size="1.778" layer="91">STILL NEED TO IMPLEMENT:
-- MCU POWER SUPPLY
-- STIMULATOR CIRCUIT
-- STIMULATOR SUPPLY
-- VERIFY VALUES FOR MCU CONNECTIONS</text>
+<text x="-45.72" y="132.08" size="1.778" layer="91">Connectors:
+- SWIM
+- NFC Memory
+- Battery
+- Stimulator Circuit + Supply</text>
 </plain>
 <instances>
 <instance part="U1" gate="A" x="12.7" y="93.98"/>

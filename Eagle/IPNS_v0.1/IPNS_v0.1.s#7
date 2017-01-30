@@ -10318,6 +10318,11 @@ Source: www.kingbright.com</description>
 <junction x="-2.54" y="-12.7"/>
 <label x="-12.7" y="-12.7" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="R3" gate="G$1" pin="2"/>
+<wire x1="76.2" y1="35.56" x2="76.2" y2="58.42" width="0.1524" layer="91"/>
+<label x="76.2" y="55.88" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="GND" class="0">
 <segment>
@@ -10505,14 +10510,6 @@ Source: www.kingbright.com</description>
 <pinref part="LED3" gate="G$1" pin="A"/>
 <pinref part="R5" gate="G$1" pin="1"/>
 <wire x1="91.44" y1="22.86" x2="91.44" y2="25.4" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$14" class="0">
-<segment>
-<pinref part="R3" gate="G$1" pin="2"/>
-<wire x1="76.2" y1="35.56" x2="76.2" y2="58.42" width="0.1524" layer="91"/>
-<pinref part="U1" gate="A" pin="PE5"/>
-<wire x1="76.2" y1="58.42" x2="68.58" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$15" class="0">

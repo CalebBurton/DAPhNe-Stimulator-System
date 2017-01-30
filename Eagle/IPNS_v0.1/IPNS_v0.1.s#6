@@ -10512,20 +10512,28 @@ Source: www.kingbright.com</description>
 <wire x1="91.44" y1="22.86" x2="91.44" y2="25.4" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$15" class="0">
+<net name="VLED2" class="0">
 <segment>
 <pinref part="R4" gate="G$1" pin="2"/>
 <wire x1="83.82" y1="35.56" x2="83.82" y2="60.96" width="0.1524" layer="91"/>
-<pinref part="U1" gate="A" pin="PE4"/>
-<wire x1="83.82" y1="60.96" x2="68.58" y2="60.96" width="0.1524" layer="91"/>
+<label x="83.82" y="60.96" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U1" gate="A" pin="PB1"/>
+<wire x1="12.7" y1="68.58" x2="10.16" y2="68.58" width="0.1524" layer="91"/>
+<label x="7.62" y="68.58" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="N$16" class="0">
+<net name="VLED3" class="0">
 <segment>
 <pinref part="R5" gate="G$1" pin="2"/>
 <wire x1="91.44" y1="35.56" x2="91.44" y2="63.5" width="0.1524" layer="91"/>
-<pinref part="U1" gate="A" pin="PE3"/>
-<wire x1="91.44" y1="63.5" x2="68.58" y2="63.5" width="0.1524" layer="91"/>
+<label x="91.44" y="63.5" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U1" gate="A" pin="PB0"/>
+<wire x1="12.7" y1="71.12" x2="10.16" y2="71.12" width="0.1524" layer="91"/>
+<label x="7.62" y="71.12" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="DAC" class="0">
