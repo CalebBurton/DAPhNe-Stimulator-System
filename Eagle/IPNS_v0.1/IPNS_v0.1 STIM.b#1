@@ -791,16 +791,6 @@ design rules under a new name.</description>
 <contactref element="J3" pad="12"/>
 <contactref element="J3" pad="1"/>
 <contactref element="LED1" pad="C"/>
-<wire x1="22.7838" y1="27.94" x2="30.48" y2="30.48" width="0" layer="19" extent="1-1"/>
-<wire x1="15.24" y1="24.45" x2="22.7838" y2="27.94" width="0" layer="19" extent="1-1"/>
-<wire x1="12.065" y1="24.257" x2="15.24" y2="24.45" width="0" layer="19" extent="1-1"/>
-<wire x1="10.16" y1="20.005" x2="12.065" y2="24.257" width="0" layer="19" extent="1-1"/>
-<wire x1="7.62" y1="19.905" x2="10.16" y2="20.005" width="0" layer="19" extent="1-1"/>
-<wire x1="17.78" y1="20.005" x2="15.24" y2="24.45" width="0" layer="19" extent="1-1"/>
-<wire x1="27.94" y1="20.005" x2="22.7838" y2="27.94" width="0" layer="19" extent="1-1"/>
-<wire x1="2.54" y1="30.48" x2="12.065" y2="24.257" width="0" layer="19" extent="1-1"/>
-<wire x1="30.48" y1="2.54" x2="27.94" y2="20.005" width="0" layer="19" extent="1-1"/>
-<wire x1="2.54" y1="2.54" x2="7.62" y2="19.905" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="VBOOST">
 <contactref element="U2" pad="8"/>
