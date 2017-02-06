@@ -665,19 +665,19 @@ design rules under a new name.</description>
 </autorouter>
 <elements>
 <element name="C1" library="IPNS_Lib_v0.1" package="C0805" value="100pF" x="6.985" y="6.35" smashed="yes">
-<attribute name="NAME" x="5.08" y="7.62" size="0.6096" layer="25" rot="R90"/>
+<attribute name="NAME" x="7.366" y="4.318" size="0.6096" layer="25" rot="R90"/>
 </element>
 <element name="C2" library="IPNS_Lib_v0.1" package="C0805" value="47pF" x="27.94" y="7.62" smashed="yes" rot="R90">
-<attribute name="NAME" x="26.035" y="8.89" size="0.6096" layer="25" rot="R270"/>
+<attribute name="NAME" x="26.289" y="8.89" size="0.6096" layer="25" rot="R270"/>
 </element>
 <element name="C3" library="IPNS_Lib_v0.1" package="C0805" value="4.7uF" x="27.94" y="12.065" smashed="yes" rot="R90">
-<attribute name="NAME" x="29.845" y="13.97" size="0.6096" layer="25" rot="R180"/>
+<attribute name="NAME" x="26.162" y="10.541" size="0.6096" layer="25" rot="R270"/>
 </element>
 <element name="R2" library="IPNS_Lib_v0.1" package="R0805" value="200" x="11.43" y="6.35" smashed="yes" rot="R180">
 <attribute name="NAME" x="12.065" y="5.08" size="0.6096" layer="25" rot="R270"/>
 </element>
 <element name="R3" library="IPNS_Lib_v0.1" package="R0805" value="2Meg" x="25.4" y="5.715" smashed="yes" rot="R90">
-<attribute name="NAME" x="23.495" y="6.985" size="0.6096" layer="25" rot="R270"/>
+<attribute name="NAME" x="23.495" y="7.239" size="0.6096" layer="25" rot="R270"/>
 </element>
 <element name="U1" library="IPNS_Lib_v0.1" package="TSOT-23_S6" value="LTC3459ES6TRMPBF" x="21.59" y="6.985" smashed="yes" rot="R90">
 <attribute name="COPYRIGHT" value="Copyright (C) 2016 Accelerated Designs. All rights reserved" x="21.59" y="6.985" size="1.778" layer="27" rot="R90" display="off"/>
@@ -688,13 +688,13 @@ design rules under a new name.</description>
 <element name="U2" library="IPNS_Lib_v0.1" package="SO-8_S" value="LT1492CS8TRPBF" x="9.525" y="10.795" smashed="yes">
 <attribute name="MANUFACTURER_PART_NUMBER" value="lt1492cs8#trpbf" x="9.525" y="10.795" size="1.778" layer="27" display="off"/>
 <attribute name="VENDOR" value="Linear Technology" x="9.525" y="10.795" size="1.778" layer="27" display="off"/>
-<attribute name="NAME" x="10.16" y="9.1948" size="0.6096" layer="25" ratio="6" rot="SR90"/>
+<attribute name="NAME" x="10.414" y="8.9408" size="0.6096" layer="25" ratio="6" rot="SR90"/>
 </element>
 <element name="R4" library="IPNS_Lib_v0.1" package="R0805" value="280k" x="27.94" y="3.175" smashed="yes" rot="R90">
-<attribute name="NAME" x="26.035" y="3.81" size="0.6096" layer="25" rot="R270"/>
+<attribute name="NAME" x="26.289" y="3.556" size="0.6096" layer="25" rot="R270"/>
 </element>
 <element name="L1" library="IPNS_Lib_v0.1" package="L2012C" value="33uH" x="19.05" y="6.985" smashed="yes" rot="R90">
-<attribute name="NAME" x="18.415" y="10.16" size="0.6096" layer="25" rot="R270"/>
+<attribute name="NAME" x="17.653" y="7.62" size="0.6096" layer="25" rot="R270"/>
 </element>
 <element name="U$1" library="IPNS_Lib_v0.1" package="DMN1019USN" value="DMN1019USN" x="15.24" y="11.43" smashed="yes" rot="R90"/>
 <element name="U$2" library="IPNS_Lib_v0.1" package="DMN1019USN" value="DMN1019USN" x="15.875" y="6.985" smashed="yes" rot="R90"/>
@@ -706,19 +706,19 @@ design rules under a new name.</description>
 </element>
 <element name="J2" library="IPNS_Lib_v0.1" package="1X04" value="POL SWITCH CONN" x="15.24" y="15.24" smashed="yes" rot="R180">
 <attribute name="PROD_ID" value="CONN-09696" x="15.24" y="15.24" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="NAME" x="13.8938" y="14.0462" size="0.6096" layer="25" ratio="10" rot="R270"/>
+<attribute name="NAME" x="13.6398" y="13.7922" size="0.6096" layer="25" ratio="10" rot="R270"/>
 </element>
 <element name="U$3" library="IPNS_Lib_v0.1" package="SLIDE_SWITCH" value="SLIDE_SWITCH" x="22.86" y="15.24" smashed="yes" rot="R180">
-<attribute name="NAME" x="18.9262" y="12.2188" size="0.6096" layer="25" ratio="10" rot="R90"/>
+<attribute name="NAME" x="17.1482" y="12.9808" size="0.6096" layer="25" ratio="10" rot="R90"/>
 </element>
 <element name="R1" library="IPNS_Lib_v0.1" package="M0805" value="1k" x="20.32" y="2.54" smashed="yes">
 <attribute name="NAME" x="20.955" y="3.81" size="0.6096" layer="25" rot="R90"/>
 </element>
 <element name="LED1" library="IPNS_Lib_v0.1" package="CHIP-LED0805" value="RED" x="24.13" y="2.54" smashed="yes" rot="R270">
-<attribute name="NAME" x="23.495" y="3.81" size="0.6096" layer="25"/>
+<attribute name="NAME" x="24.13" y="3.683" size="0.6096" layer="25" rot="R90"/>
 </element>
 <element name="J5" library="IPNS_Lib_v0.1" package="1X02" value="" x="24.765" y="12.065" smashed="yes" rot="R180">
-<attribute name="NAME" x="26.1112" y="10.2362" size="0.6096" layer="25" ratio="10" rot="R180"/>
+<attribute name="NAME" x="22.5298" y="10.3632" size="0.6096" layer="25" ratio="10" rot="R270"/>
 <attribute name="VALUE" x="26.035" y="15.24" size="1.27" layer="27" rot="R180"/>
 </element>
 <element name="J6" library="IPNS_Lib_v0.1" package="1X06" value="" x="2.54" y="15.24" smashed="yes" rot="R270">
@@ -728,10 +728,12 @@ design rules under a new name.</description>
 </element>
 <element name="J7" library="IPNS_Lib_v0.1" package="1X06" value="" x="30.48" y="15.24" smashed="yes" rot="R270">
 <attribute name="PROD_ID" value="CONN-08437" x="30.48" y="15.24" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="NAME" x="27.8638" y="13.4112" size="0.6096" layer="25" ratio="10" rot="R270"/>
+<attribute name="NAME" x="28.4988" y="15.9258" size="0.6096" layer="25" ratio="10"/>
 <attribute name="VALUE" x="27.305" y="16.51" size="1.27" layer="27" rot="R270"/>
 </element>
-<element name="C4" library="IPNS_Lib_v0.1" package="C0805" value="1u" x="19.05" y="11.43" rot="R90"/>
+<element name="C4" library="IPNS_Lib_v0.1" package="C0805" value="1u" x="19.05" y="11.43" smashed="yes" rot="R90">
+<attribute name="NAME" x="17.78" y="10.922" size="0.6096" layer="25" rot="R90"/>
+</element>
 </elements>
 <signals>
 <signal name="GND">
@@ -962,57 +964,64 @@ design rules under a new name.</description>
 </signal>
 </signals>
 <errors>
+<approved hash="18,29,27aafb46e5783994"/>
+<approved hash="18,29,e9ddfaa29f651387"/>
+<approved hash="18,29,b2f92b092a74b384"/>
+<approved hash="18,29,f1537ca37ce5f115"/>
+<approved hash="18,29,902e9a815a875028"/>
+<approved hash="18,29,6aeb2a92ea93aaea"/>
+<approved hash="18,29,71f2d202d2857175"/>
 <approved hash="18,29,e88dfb609f641377"/>
-<approved hash="18,29,fdf17001710ffcff"/>
 <approved hash="18,29,b2362bc62a18b3e8"/>
+<approved hash="18,29,fdf17001710ffcff"/>
 <approved hash="18,29,167a1eeee8e8e07c"/>
 <approved hash="18,29,ecbfa0a760a62cbe"/>
 <approved hash="18,29,7d50dea0df6e7c9e"/>
-<approved hash="18,29,ee5163a17de7f017"/>
-<approved hash="18,29,e9cde5209fa51317"/>
-<approved hash="18,29,b2392bc92a3ab3ca"/>
-<approved hash="18,29,664c396bf96aa64d"/>
-<approved hash="18,29,71b6d246d3c77037"/>
 <approved hash="18,29,e9fdf9269f2a1307"/>
 <approved hash="18,29,b3382ac82abab34a"/>
 <approved hash="18,29,f43379c379fdf40d"/>
 <approved hash="18,29,f810bf387f393811"/>
 <approved hash="18,29,77d0d420d7de742e"/>
-<approved hash="18,29,b2f92b092a74b384"/>
-<approved hash="18,29,f1537ca37ce5f115"/>
-<approved hash="18,29,e9ddfaa29f651387"/>
-<approved hash="18,29,902e9a815a875028"/>
-<approved hash="18,29,6aeb2a92ea93aaea"/>
-<approved hash="18,29,71f2d202d2857175"/>
+<approved hash="18,29,ee5163a17de7f017"/>
+<approved hash="18,29,b2392bc92a3ab3ca"/>
+<approved hash="18,29,e9cde5209fa51317"/>
+<approved hash="18,29,664c396bf96aa64d"/>
+<approved hash="18,29,71b6d246d3c77037"/>
+<approved hash="18,29,f15617ba09bdef51"/>
 <approved hash="18,29,725f33f21d8e929a"/>
-<approved hash="18,29,b0a1fdd659377843"/>
 <approved hash="18,29,323aee065e1cde2a"/>
 <approved hash="18,29,ec4c0e96aad6816b"/>
-<approved hash="18,29,73d0d620d5de702e"/>
-<approved hash="18,29,4303062bc624830c"/>
-<approved hash="18,29,541b35eb362557d5"/>
-<approved hash="18,29,15e0171e8b5a0f2a"/>
-<approved hash="18,29,7271ed81effc700c"/>
+<approved hash="18,29,75b6d046d1c77437"/>
 <approved hash="18,29,dd5f807840771d50"/>
 <approved hash="18,29,574636b636875777"/>
-<approved hash="18,29,75b6d046d1c77437"/>
 <approved hash="18,29,15e016de8b1b0faa"/>
 <approved hash="18,29,7450eba0ebe47414"/>
+<approved hash="18,29,541b35eb362557d5"/>
+<approved hash="18,29,73d0d620d5de702e"/>
+<approved hash="18,29,4303062bc624830c"/>
+<approved hash="18,29,15e0171e8b5a0f2a"/>
+<approved hash="18,29,7271ed81effc700c"/>
 <approved hash="18,29,57ac19b4d9bb97a3"/>
-<approved hash="18,29,7950dca0dd6e789e"/>
-<approved hash="18,29,560737f737a75657"/>
 <approved hash="18,29,14b017988a840eba"/>
+<approved hash="18,29,560737f737a75657"/>
+<approved hash="18,29,7950dca0dd6e789e"/>
 <approved hash="18,29,7933e6c3e6ce793e"/>
-<approved hash="18,29,d1f89381538e11f7"/>
 <approved hash="18,29,15e416dc8b230faa"/>
+<approved hash="18,29,d1f89381538e11f7"/>
 <approved hash="18,29,563837c8364557b5"/>
 <approved hash="18,29,75f2d002d0857575"/>
 <approved hash="18,29,75ecea1ceae67516"/>
-<approved hash="18,29,4a96d1515153ca94"/>
-<approved hash="18,29,0a7bf4517bf7e0b8"/>
+<approved hash="18,29,a1368ebcc2432af1"/>
+<approved hash="18,29,2ed7cb9a07952b2a"/>
+<approved hash="18,29,33e4ae0a4992b984"/>
+<approved hash="18,29,959b59c47162455d"/>
+<approved hash="18,29,3941342ff424f94a"/>
+<approved hash="18,29,e4d6f8633931a94f"/>
+<approved hash="18,29,88fd7d296f376283"/>
 <approved hash="18,29,6921f1f502e8fe79"/>
-<approved hash="18,29,e69311caad2b56f8"/>
+<approved hash="18,29,0a7bf4517bf7e0b8"/>
 <approved hash="18,29,90e1a46e5a42e2e0"/>
+<approved hash="18,29,e69311caad2b56f8"/>
 <approved hash="18,29,2bf0da296047d5da"/>
 <approved hash="18,29,21d9e8fe502adc69"/>
 <approved hash="18,29,b7b04c0f8f904857"/>
@@ -1020,43 +1029,51 @@ design rules under a new name.</description>
 <approved hash="18,29,78d98d38cd3c38dd"/>
 <approved hash="18,29,7b01e991ccfc3618"/>
 <approved hash="18,29,4bba13cee8d5c885"/>
+<approved hash="18,29,55f7040b0991fd96"/>
+<approved hash="18,29,8ef3ca2223a0056a"/>
+<approved hash="18,29,dda00d83b33d0db6"/>
 <approved hash="18,29,1da0aa0ccf929447"/>
 <approved hash="18,29,44b4007e711d2c36"/>
+<approved hash="18,29,eec311d47bbffbc1"/>
+<approved hash="18,29,0c2930d770d74c29"/>
+<approved hash="18,29,4a334b1eff1efe33"/>
 <approved hash="18,29,c800052aa3dc1856"/>
 <approved hash="18,29,8b8cc9c5e9c0ab89"/>
 <approved hash="18,29,769f721392159699"/>
-<approved hash="18,29,d38ae82c1c2014ba"/>
-<approved hash="18,29,a2ac2eedaee822a9"/>
-<approved hash="18,29,0ed58a940a988ed9"/>
-<approved hash="18,29,ed5d771cf71f6d5e"/>
 <approved hash="18,29,9a5d169a969f1a58"/>
 <approved hash="18,29,3624b2e332efb628"/>
 <approved hash="18,29,d5ac4f6bcf6855af"/>
-<approved hash="18,29,a08897f897a6a0d6"/>
-<approved hash="18,29,393f1d4f1ccb38bb"/>
-<approved hash="18,29,228a95fa94252355"/>
-<approved hash="18,29,303f1c4f1dcf31bf"/>
-<approved hash="18,29,228395f394242354"/>
+<approved hash="18,29,a2ac2eedaee822a9"/>
+<approved hash="18,29,0ed58a940a988ed9"/>
+<approved hash="18,29,ed5d771cf71f6d5e"/>
 <approved hash="18,29,3116956697243354"/>
 <approved hash="18,29,a0c097b0945ca32c"/>
+<approved hash="18,29,228395f394242354"/>
 <approved hash="18,29,3816946696203a50"/>
+<approved hash="18,29,a08897f897a6a0d6"/>
+<approved hash="18,29,228a95fa94252355"/>
+<approved hash="18,29,393f1d4f1ccb38bb"/>
+<approved hash="18,29,303f1c4f1dcf31bf"/>
+<approved hash="18,29,3e309dc09c433fb3"/>
+<approved hash="18,29,23839573952e23de"/>
+<approved hash="18,29,a181977196ada05d"/>
+<approved hash="18,29,393f9fcf9e4c38bc"/>
 <approved hash="18,29,a188977896aca05c"/>
 <approved hash="18,29,361915e917ac345c"/>
 <approved hash="18,29,23cb953b96d42024"/>
 <approved hash="18,29,311617e615a33353"/>
-<approved hash="18,29,a181977196ada05d"/>
-<approved hash="18,29,3e309dc09c433fb3"/>
-<approved hash="18,29,23839573952e23de"/>
-<approved hash="18,29,393f9fcf9e4c38bc"/>
 <approved hash="18,29,39c1a3e2cbe151c2"/>
-<approved hash="18,29,783f744f75cd79bd"/>
 <approved hash="18,29,828d7ffd7fa082d0"/>
+<approved hash="18,29,783f744f75cd79bd"/>
 <approved hash="18,29,008f7dff7c230153"/>
 <approved hash="18,29,033f734f72cd02bd"/>
-<approved hash="18,29,82c57fb57c5a812a"/>
-<approved hash="18,29,7016fc66fe227252"/>
 <approved hash="18,29,00867df67c220152"/>
+<approved hash="18,29,7016fc66fe227252"/>
+<approved hash="18,29,82c57fb57c5a812a"/>
 <approved hash="18,29,0b16fb66f9220952"/>
+<approved hash="18,29,9b4c8f635e634a4c"/>
+<approved hash="18,29,b89eab7c947c879e"/>
+<approved hash="18,29,06a21d29622979a2"/>
 </errors>
 </board>
 </drawing>

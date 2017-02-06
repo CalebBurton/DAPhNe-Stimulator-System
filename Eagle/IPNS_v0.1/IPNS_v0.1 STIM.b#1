@@ -146,6 +146,8 @@
 <wire x1="32.944" y1="0" x2="32.944" y2="17.77" width="0" layer="20"/>
 <wire x1="32.944" y1="17.77" x2="0" y2="17.77" width="0" layer="20"/>
 <wire x1="0" y1="17.77" x2="0" y2="0" width="0" layer="20"/>
+<text x="24.638" y="5.588" size="1.778" layer="22" rot="MR0">IPNS_v0.1 STIM</text>
+<text x="26.416" y="3.302" size="0.6096" layer="22" rot="MR0">NU BME 390</text>
 </plain>
 <libraries>
 <library name="IPNS_Lib_v0.1">
