@@ -18,13 +18,13 @@ Harware Checklist:
 * STM8L-DISCOVERY Board(s)
 
 Software Installations:
-* Install [IAR Embedded Workbench for STM8](https://www.iar.com/iar-embedded-workbench/#!?architecture=STM8) **TO DO**
-* Install [ST drivers]() **TO DO**
-* Install [ST communication program]() **TO DO**
-* Install [EagleCAD]() **TO DO**
-* Install [LTSpice]() **TO DO**
-* Install [GitHub Desktop]() (for Windows), other options would work **TO DO**
-* Install [Notepad++]() **TO DO**
+* [IAR Embedded Workbench for STM8](https://www.iar.com/iar-embedded-workbench/#!?architecture=STM8) **TO DO**
+* [ST drivers]() **TO DO**
+* [ST communication program]() **TO DO**
+* [EagleCAD]() **TO DO**
+* [LTSpice]() **TO DO**
+* [GitHub Desktop]() (for Windows), other options would work **TO DO**
+* [Notepad++]() **TO DO**
 * Configure files **TO DO**
 
 
