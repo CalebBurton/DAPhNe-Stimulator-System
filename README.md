@@ -50,7 +50,7 @@ The following devices have been used (and may still be useful) in the developmen
   - Has not been used in the project very much except to test the transceiver included in the kit
 
 ### Software Checklist 
-In order to get started on the software side of the project, first download and install the following software following the step-by-step instructions in the "[**Developing DAPhNe Stimulator**]()" manual:
+In order to get started on the software side of the project, first download and install the following software following the step-by-step instructions in the [**Developing DAPhNe Stimulator**]() manual:
 * [**GitHub Desktop**](https://desktop.github.com/)
   - Simple git client for managing the project repository on GitHub.
 * [**IAR Embedded Workbench for STM8**](https://www.iar.com/iar-embedded-workbench/#!?architecture=STM8)
@@ -65,7 +65,7 @@ In order to get started on the software side of the project, first download and 
 The following software is usually included with IAR installation (no steps needed). However, if during project development IAR is unable to flash the microcontroller's memory, you may need to install these separately:
 * [**ST-LINK/V2 Driver**](http://www.st.com/content/st_com/en/products/embedded-software/development-tool-software/stsw-link009.html)
   - Drivers for the ST-LINK/V2 in-circuit debugging interface
-* [**ST-LINK/V2 Firware Upgrade**](http://www.st.com/content/st_com/en/products/embedded-software/development-tool-software/stsw-link007.html)(should be automatically installed during IAR Embedded Workbench installation)
+* [**ST-LINK/V2 Firware Upgrade**](http://www.st.com/content/st_com/en/products/embedded-software/development-tool-software/stsw-link007.html)
   - Optional firmware upgrade for ST-LINK/V2 in-circuit debugging interface
 
 Once the above software is installed, clone the project repository onto your local machine into a folder of your choice - see GitHub tutorials online if necessary. In the cloned folder, the following software and documentation will be included:
@@ -76,10 +76,9 @@ Once the above software is installed, clone the project repository onto your loc
 * [**Standard Peripheral Library**](https://github.com/AlexeyRevinski/BME390/tree/master/Implant%20STM8L%20Program%20NFC%2BPulse/STM8L15x_StdPeriph_Driver) for STM8L15x devices
   - Under `.../Implant STM8L Program NFC+Pulse/STM8L15x_StdPeriph_Driver`
   - **DO NOT MOVE** relative to `/Project` folder or else the project will not compile
-  - See [**Developing DAPhNe Stimulator**]() (Section **TO DO**) for more details.
-* [**LTSPice Simulation Files**](https://github.com/AlexeyRevinski/BME390/tree/master/LTSpice)
-  - Under `.../LTSpice`
-  - Currently only the stimulation circuit separately from the rest of the system (MCU outputs simulated as voltage sources)
+* [**LTSPice Simulation Files**](https://github.com/AlexeyRevinski/BME390/tree/master/LTSpice/PulseGenerator1)
+  - Under `.../LTSpice/PulseGeneration1`
+  - Current simulation file features only the stimulation circuit separately from the rest of the system
 * [**EagleCAD project files**](https://github.com/AlexeyRevinski/BME390/tree/master/Eagle) for IPNS_v0.1 MCU and IPNS_v0.1 STIM boards
   - Under `.../Eagle`
   - Includes board and schematic files for both boards
@@ -90,7 +89,7 @@ Once the above software is installed, clone the project repository onto your loc
   - Application articles
   - EagleCAD files for certain components
   - Software manual for IAR
-* Obsolete IAR projects that can be used for reference and preliminary "visualization" Solidworks model of the implantable device
+* Obsolete IAR projects that can be used for reference and preliminary "visualization" Solidworks model of the IPNS device
 
 ### Other Useful Software
 * [**Notepad++**](https://notepad-plus-plus.org/download/v7.3.1.html)
