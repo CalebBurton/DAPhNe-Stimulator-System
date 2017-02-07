@@ -73,17 +73,29 @@ In order to get started on the software side of the project, first clone the pro
 * Obsolete IAR projects that can be used for reference and preliminary "visualization" Solidworks model of the implantable device
 
 Once the project is cloned, download the following software and then follow the step-by-step instructions in the [**Developing DAPhNe Stimulator**]() manual (Section **TO DO**):
-* [**GitHub Desktop**](https://desktop.github.com/) - a simple git client for managing the project repository on GitHub.
-* [**IAR Embedded Workbench for STM8**](https://www.iar.com/iar-embedded-workbench/#!?architecture=STM8) - IDE used to program the STM8L MCU used in the implantable stimulator - follow the guide in [**Developing DAPhNe Stimulator**]() for proper installation and project configuration
-* [**ST-LINK/V2 Driver**](http://www.st.com/content/st_com/en/products/embedded-software/development-tool-software/stsw-link009.html) (should be automatically installed during IAR Embedded Workbench installation)
+* [**GitHub Desktop**](https://desktop.github.com/)
+  - Simple git client for managing the project repository on GitHub.
+* [**IAR Embedded Workbench for STM8**](https://www.iar.com/iar-embedded-workbench/#!?architecture=STM8)
+  - IDE used to program the STM8L MCU used in the implantable stimulator
+* [**EagleCAD**](http://www.autodesk.com/products/eagle/free-download)
+  - CAD software for printed circuit board (PCB) development. There are lots of great [**tutorials**](https://www.youtube.com/watch?v=1AXwjZoyNno) online!
+* [**LTSpice**](http://www.linear.com/designtools/software/#LTspice)
+  - Very user-friendly Spice simulation software; used to simulate the stimulation circuit function
+* [**ST Microelectronics NFC Communication GUI**](http://www.st.com/content/st_com/en/products/embedded-software/st25-nfc-rfid-software/stsw-m24lr011.html)
+  - Used to communicate with the **ANT7-T-M24LR04E** tag using the **M24LR-DISCOVERY Transceiver Board**
+
+The following software is usually included with IAR installation (no steps needed). However, if during project development IAR is unable to flash the microcontroller's memory, you may need to install these separately:
+* [**ST-LINK/V2 Driver**](http://www.st.com/content/st_com/en/products/embedded-software/development-tool-software/stsw-link009.html)
+  - Drivers for the ST-LINK/V2 in-circuit debugging interface
 * [**ST-LINK/V2 Firware Upgrade**](http://www.st.com/content/st_com/en/products/embedded-software/development-tool-software/stsw-link007.html)(should be automatically installed during IAR Embedded Workbench installation)
-* [**EagleCAD**](http://www.autodesk.com/products/eagle/free-download) - printed circuit board(PCB) CAD software. There are lots of great [**tutorials**](https://www.youtube.com/watch?v=1AXwjZoyNno) online
-* [**LTSpice**](http://www.linear.com/designtools/software/#LTspice) - very user-friendly Spice simulation software
-* [**ST Microelectronics NFC Communication GUI**](http://www.st.com/content/st_com/en/products/embedded-software/st25-nfc-rfid-software/stsw-m24lr011.html) - software used to communicate with the **ANT7-T-M24LR04E** tag using the **M24LR-DISCOVERY Transceiver Board**.
+  - Optional firmware upgrade for ST-LINK/V2 in-circuit debugging interface
 
 ### Other Useful Software
-* [**Notepad++**](https://notepad-plus-plus.org/download/v7.3.1.html) - very useful text editor for viewing/modifying various text/code files
-* [**nScope**](http://www.nscope.org/) - although not required, very useful for probing the circuit during development. Northwestern students will encounter this great resource in their introductory electronics ME233/BME305 courses. 
-* [**Adafruit library**](https://github.com/adafruit/Adafruit-Eagle-Library/zipball/master) for EagleCAD - general components available at [adafruit.com](https://www.adafruit.com)
+* [**Notepad++**](https://notepad-plus-plus.org/download/v7.3.1.html)
+  - Very useful text editor for viewing/modifying various text/code files with unusual extensions
+* [**nScope**](http://www.nscope.org/)
+  - Although not required, very useful for probing the circuit during development. Northwestern students will encounter this great resource in their introductory electronics ME233/BME305 courses. 
+* [**Adafruit Library for EagleCAD**](https://github.com/adafruit/Adafruit-Eagle-Library/zipball/master)
+  - General components available at [adafruit.com](https://www.adafruit.com)
 
 
