@@ -14,7 +14,7 @@ Information will be updated in the next few weeks.
 <br></br>
 <br></br>
 ## Quick Start 
-Currently, the DAPhNe system consists of two PCB prototype boards soon to be tested on New Zealand white rabbits for efficacy and function. The external user interface is being developed concurrently. Future developers should read the documents listed, make sure they have access to the listed hardware, and install the listed software. The following "checklists" are intended to make this process as fast and easy as possible. When installing and configuring software, carefully follow appropriate sections in the [**Developing DAPhNe Stimulator**]() document.
+Currently, the DAPhNe Stimulator System consists of two PCB prototype boards soon to be tested on New Zealand white rabbits for efficacy and function. The external user interface is being developed concurrently. Future developers should read the listed documents and make sure they have access to the listed hardware and software. The following "checklists" are intended to make this process as fast and easy as possible. When installing and configuring software, carefully follow appropriate sections in the [**Developing DAPhNe Stimulator**]() document.
 
 ### Important Documents 
 The following documents are essential to read in order to understand the purpose, scope, and technical progress of the project in more detail:
