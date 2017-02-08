@@ -662,8 +662,8 @@ Please make sure your boards conform to these design rules.</description>
 </pass>
 </autorouter>
 <elements>
-<element name="C1" library="IPNS_Lib_v0.1" package="C0805" value="100pF" x="6.985" y="6.35" smashed="yes">
-<attribute name="NAME" x="7.366" y="4.318" size="0.6096" layer="25" rot="R90"/>
+<element name="C1" library="IPNS_Lib_v0.1" package="C0805" value="100pF" x="6.985" y="7.112" smashed="yes">
+<attribute name="NAME" x="7.366" y="5.08" size="0.6096" layer="25" rot="R90"/>
 </element>
 <element name="C2" library="IPNS_Lib_v0.1" package="C0805" value="47pF" x="27.94" y="7.62" smashed="yes" rot="R90">
 <attribute name="NAME" x="26.289" y="8.89" size="0.6096" layer="25" rot="R270"/>
@@ -671,8 +671,8 @@ Please make sure your boards conform to these design rules.</description>
 <element name="C3" library="IPNS_Lib_v0.1" package="C0805" value="4.7uF" x="27.94" y="12.065" smashed="yes" rot="R90">
 <attribute name="NAME" x="26.162" y="10.541" size="0.6096" layer="25" rot="R270"/>
 </element>
-<element name="R2" library="IPNS_Lib_v0.1" package="R0805" value="200" x="11.43" y="6.35" smashed="yes" rot="R180">
-<attribute name="NAME" x="12.065" y="5.08" size="0.6096" layer="25" rot="R270"/>
+<element name="R2" library="IPNS_Lib_v0.1" package="R0805" value="200" x="11.43" y="7.112" smashed="yes" rot="R180">
+<attribute name="NAME" x="12.065" y="5.842" size="0.6096" layer="25" rot="R270"/>
 </element>
 <element name="R3" library="IPNS_Lib_v0.1" package="R0805" value="2Meg" x="25.4" y="5.715" smashed="yes" rot="R90">
 <attribute name="NAME" x="23.495" y="7.239" size="0.6096" layer="25" rot="R270"/>
@@ -790,8 +790,8 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="16.51" y1="12.065" x2="14.605" y2="10.16" width="0.254" layer="16"/>
 <wire x1="10.795" y1="10.16" x2="9.525" y2="11.43" width="0.254" layer="16"/>
 <wire x1="14.605" y1="10.16" x2="10.795" y2="10.16" width="0.254" layer="16"/>
-<wire x1="7.935" y1="6.35" x2="10.48" y2="6.35" width="0.254" layer="1"/>
-<wire x1="10.48" y1="6.35" x2="10.16" y2="6.67" width="0.254" layer="1"/>
+<wire x1="7.935" y1="7.112" x2="10.48" y2="7.112" width="0.254" layer="1"/>
+<wire x1="10.48" y1="7.112" x2="10.16" y2="6.67" width="0.254" layer="1"/>
 <wire x1="10.16" y1="10.795" x2="9.525" y2="11.43" width="0.254" layer="1"/>
 <wire x1="10.16" y1="6.67" x2="10.16" y2="10.795" width="0.254" layer="1"/>
 </signal>
@@ -808,7 +808,7 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="13.335" y1="12.7" x2="9.525" y2="12.7" width="0.254" layer="16"/>
 <wire x1="6.35" y1="12.7" x2="7.0612" y2="12.7" width="0.254" layer="1"/>
 <via x="5.08" y="4.445" extent="1-16" drill="0.6"/>
-<wire x1="6.035" y1="6.35" x2="6.035" y2="5.4" width="0.254" layer="1"/>
+<wire x1="6.035" y1="7.112" x2="6.035" y2="5.4" width="0.254" layer="1"/>
 <wire x1="6.035" y1="5.4" x2="5.08" y2="4.445" width="0.254" layer="1"/>
 <via x="5.08" y="12.7" extent="1-16" drill="0.6"/>
 <wire x1="5.08" y1="4.445" x2="4.445" y2="5.08" width="0.254" layer="16"/>
@@ -962,7 +962,7 @@ Please make sure your boards conform to these design rules.</description>
 </signal>
 </signals>
 <errors>
-<approved hash="18,29,27aafb46e5783994"/>
+<approved hash="18,29,a3f27f0e6130bdcc"/>
 <approved hash="18,29,e9ddfaa29f651387"/>
 <approved hash="18,29,b2f92b092a74b384"/>
 <approved hash="18,29,f1537ca37ce5f115"/>
@@ -985,7 +985,7 @@ Please make sure your boards conform to these design rules.</description>
 <approved hash="18,29,e9cde5209fa51317"/>
 <approved hash="18,29,664c396bf96aa64d"/>
 <approved hash="18,29,71b6d246d3c77037"/>
-<approved hash="18,29,f15617ba09bdef51"/>
+<approved hash="18,29,750e93f28df56b09"/>
 <approved hash="18,29,abee7a2bcdb2d61f"/>
 <approved hash="18,29,5830c643942812bc"/>
 <approved hash="18,29,75b6d046d1c77437"/>
