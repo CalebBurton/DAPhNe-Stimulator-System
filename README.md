@@ -23,7 +23,7 @@ The following documents are essential to read in order to understand the purpose
 * [**Developing DAPhNe Stimulator**]() guide included in this repository
   - Step-by-step instructions for hardware and software implementation of the project **TO DO** 
 
-### Harware Checklist
+### Hardware Checklist
 
 Custom and off-the-shelf hardware components used currently:
 * 2 x **IPNS_v0.1 MCU**
