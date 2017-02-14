@@ -1,0 +1,24 @@
+Partlist exported from C:/Users/Alexey Revinski/Documents/1_CLASS/BME 390-2/Repo/BME390/Eagle/IPNS_v0.1/IPNS_v0.1 STIM.sch at 2/9/2017 6:31 PM
+
+Part Value            Device             Package      Description                          COPYRIGHT                                                   MANUFACTURER_PART_NUMBER PROD_ID    VENDOR           
+C1   100pF            C-USC0805          C0805        CAPACITOR, American symbol                                                                                                                            
+C2   47pF             C-USC0805          C0805        CAPACITOR, American symbol                                                                                                                            
+C3   4.7uF            C-USC0805          C0805        CAPACITOR, American symbol                                                                                                                            
+C4   1u               C-USC0805          C0805        CAPACITOR, American symbol                                                                                                                            
+J1   OUTPUT CONN      M02PTH             1X02         Standard 2-pin 0.1" header. Use with                                                                                                                  
+J2   POL SWITCH CONN  M04PTH             1X04         Header 4                                                                                                                  CONN-09696                  
+J5                    M02PTH             1X02         Standard 2-pin 0.1" header. Use with                                                                                                                  
+J6                    M06SILK_FEMALE_PTH 1X06         Header 6                                                                                                                  CONN-08437                  
+J7                    M06SILK_FEMALE_PTH 1X06         Header 6                                                                                                                  CONN-08437                  
+L1   33uH             L-USL2012C         L2012C       INDUCTOR, American symbol                                                                                                                             
+LED1 RED              LEDCHIP-LED0805    CHIP-LED0805 LED                                                                                                                                                   
+R1   1k               R-US_M0805         M0805        RESISTOR, American symbol                                                                                                                             
+R2   200              R-US_R0805         R0805        RESISTOR, American symbol                                                                                                                             
+R3   2Meg             R-US_R0805         R0805        RESISTOR, American symbol                                                                                                                             
+R4   280k             R-US_R0805         R0805        RESISTOR, American symbol                                                                                                                             
+R5   1k               R-US_R0805         R0805        RESISTOR, American symbol                                                                                                                             
+U$1  DMN1019USN       DMN1019USN         DMN1019USN                                                                                                                                                         
+U$2  DMN1019USN       DMN1019USN         DMN1019USN                                                                                                                                                         
+U$3  SLIDE_SWITCH     SLIDE_SWITCH       SLIDE_SWITCH                                                                                                                                                       
+U1   LTC3459ES6TRMPBF LTC3459ES6TRMPBF   TSOT-23_S6                                        Copyright (C) 2016 Accelerated Designs. All rights reserved ltc3459es6#trmpbf                   Linear Technology
+U2   LT1492CS8TRPBF   LT1492CS8TRPBF     SO-8_S                                                                                                        lt1492cs8#trpbf                     Linear Technology

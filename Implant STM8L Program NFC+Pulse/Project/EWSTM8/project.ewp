@@ -258,7 +258,7 @@
         <option>
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$\..\inc</state>
-          <state>$PROJ_DIR$\..\..\..\Implant STM8L Program\STM8L15x_StdPeriph_Driver\inc</state>
+          <state>$PROJ_DIR$\..\..\..\Implant STM8L Program NFC+Pulse\STM8L15x_StdPeriph_Driver\inc</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>

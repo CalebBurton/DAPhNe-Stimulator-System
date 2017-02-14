@@ -163,11 +163,12 @@ void    calculations(void)
   time_in = (uint16_t)((ie_ratio*xy)/mod_10k)-700;      // Inspiration
   time_ex = ((uint16_t)xy-time_in)-700;                 // Expiration
   CCR1_Val = pulse_width;                               // Pulse width
-  TIM1_period = ((1000000*mod_100)/                     // fclk/20Hz-1
-    pulse_freq)-1;
   DAC_Val = (uint16_t)(((uint32_t)pulse_amp*            // DAC value
                         (uint32_t)res_8bit)/
                         (uint32_t)Vref)/2;
+  TIM1_period = ((1000000*mod_100)/                     // fclk/20Hz-1
+    pulse_freq)-1;
+
 }
 
 /*******************************************************************************
