@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 ********************************************************************************
 *	Author:		Alexey Revinski
-*	Last Revised:	02/13/2017
+*	Last Revised:	02/14/2017
 *******************************************************************************/
 #ifndef PRIVATE_FUNCTIONS_H
 #define PRIVATE_FUNCTIONS_H
@@ -46,15 +46,14 @@
 #define LSE_FREQ        ((uint32_t) 32768)
 
 
-#define TIM1_ARR_ADDRESS        0x52C3
-#define TIM2_OC1_ADDRESS        0x5261
-#define DAC_CH1RDHRH_ADDRESS    0x5388
-#define TIM1_PERIOD              25000
-#define TIM4_PERIOD                250
-#define TIM1_REPTETION_COUNTER       0
-#define TIM1_PRESCALER               1
-#define TIM_BUFSIZE                  4
-#define DAC_BUFSIZE                  4
+#define TIM1_ARR_ADDRESS                0x52C3
+#define TIM2_OC1_ADDRESS                0x5261
+#define DAC_CH1RDHRH_ADDRESS            0x5388
+#define TIM1_PERIOD                     25000
+#define TIM4_PERIOD                     250
+#define TIM1_REPTETION_COUNTER          0
+#define TIM1_PRESCALER                  1
+#define BUFSIZE                         4
 
 /*******************************************************************************
 *  FUNCTION PROTOTYPES

@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 ********************************************************************************
 *	Author:		Alexey Revinski
-*	Last Revised:	02/13/2017
+*	Last Revised:	02/14/2017
 *******************************************************************************/
 #include "private_functions.h"
 
@@ -42,15 +42,15 @@ static void DMA_Config(void)
   DMA_GlobalDeInit();
   
   DMA_Init(DMA1_Channel1, (uint16_t)TI2Buffer, TIM2_OC1_ADDRESS,
-           TIM_BUFSIZE,DMA_DIR_MemoryToPeripheral,DMA_Mode_Circular,
+           BUFSIZE,DMA_DIR_MemoryToPeripheral,DMA_Mode_Circular,
            DMA_MemoryIncMode_Inc,DMA_Priority_High,DMA_MemoryDataSize_HalfWord);
   
   DMA_Init(DMA1_Channel2, (uint16_t)TI1Buffer, TIM1_ARR_ADDRESS,
-           TIM_BUFSIZE,DMA_DIR_MemoryToPeripheral,DMA_Mode_Circular,
+           BUFSIZE,DMA_DIR_MemoryToPeripheral,DMA_Mode_Circular,
            DMA_MemoryIncMode_Inc,DMA_Priority_High,DMA_MemoryDataSize_HalfWord);
   
   DMA_Init(DMA1_Channel3, (uint32_t)DACBuffer, DAC_CH1RDHRH_ADDRESS,
-           DAC_BUFSIZE,DMA_DIR_MemoryToPeripheral,DMA_Mode_Circular,
+           BUFSIZE,DMA_DIR_MemoryToPeripheral,DMA_Mode_Circular,
            DMA_MemoryIncMode_Inc,DMA_Priority_High,DMA_MemoryDataSize_HalfWord);
 
   DMA_Cmd(DMA1_Channel1, ENABLE);

@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 ********************************************************************************
 *	Author:		Alexey Revinski
-*	Last Revised:	02/13/2017
+*	Last Revised:	02/14/2017
 *******************************************************************************/
 #include "private_functions.h"
 
@@ -22,18 +22,22 @@ void main(void)
 {
   uint16_t pw = pulse_width/2;
   uint16_t mult = 100;
-  TI1Buffer[3] = pw;                            //100           (200us) 3000us
+  
   TI1Buffer[0] = pw*5;                          //500           (1000us) 12ms
   TI1Buffer[1] = pw*mult;                       //10000         (20ms)  30ms
   TI1Buffer[2] = TIM1_PERIOD-pw*(mult+5);       //14400         (28.8ms)
+  TI1Buffer[3] = pw;                            //100           (200us) 3000us
+  
   TI2Buffer[0] = 50;
   TI2Buffer[1] = 0xFFFF;
   TI2Buffer[2] = 50;
   TI2Buffer[3] = 0xFFFF;
-  DACBuffer[2] = DAC_High;
-  DACBuffer[3] = DAC_High;
+  
   DACBuffer[0] = DAC_Low;
   DACBuffer[1] = DAC_Low;
+  DACBuffer[2] = DAC_High;
+  DACBuffer[3] = DAC_High;
+  
   
   initialize();
   
