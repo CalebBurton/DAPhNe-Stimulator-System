@@ -10,8 +10,9 @@
 *******************************************************************************/
 #include "private_functions.h"
 
-extern uint16_t SrcBuffer[];
-extern uint8_t  DAC_Vals[];
+extern uint16_t TI1Buffer[];   //TIM1 time bases buffer
+extern uint16_t TI2Buffer[];   //TIM2 polarity buffer
+extern uint16_t DACBuffer[];   //DAC1 values buffer
 
 /*******************************************************************************
 *  PRIVATE FUNCTION:    initialize()
@@ -21,13 +22,15 @@ void    initialize(void)
   CLK_DeInit();                                         // Reset to HSI
   CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_16);                // 1MHz
   CLK_PeripheralClockConfig(CLK_Peripheral_TIM1, ENABLE);
+  CLK_PeripheralClockConfig(CLK_Peripheral_TIM2, ENABLE);
   CLK_PeripheralClockConfig(CLK_Peripheral_TIM4, ENABLE);
   CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, ENABLE);
   CLK_PeripheralClockConfig(CLK_Peripheral_DAC, ENABLE);// Route clock to DAC
   GPIO_Init(PD2_PORT,PD2_PIN,GPIO_Mode_Out_PP_Low_Fast);// TIM1 Channel 1
+  GPIO_Init(PB0_PORT,PB0_PIN,GPIO_Mode_Out_PP_Low_Fast);// TIM2 Channel 1
   GPIO_Init(PF0_PORT,PF0_PIN,GPIO_Mode_In_FL_No_IT);    // DAC Channel 1
-  GPIO_Init(PC7_PORT,PC7_PIN,GPIO_Mode_Out_PP_Low_Fast);
-  GPIO_Init(PE7_PORT,PE7_PIN,GPIO_Mode_Out_PP_Low_Fast);
+  GPIO_Init(PC7_PORT,PC7_PIN,GPIO_Mode_Out_PP_Low_Fast);// LED BLUE
+  GPIO_Init(PE7_PORT,PE7_PIN,GPIO_Mode_Out_PP_Low_Fast);// LED GREEN
   GPIO_SetBits(PE7_PORT,PE7_PIN);
   DMA_Config();
   TIM_Config();
@@ -38,13 +41,19 @@ static void DMA_Config(void)
 {
   DMA_GlobalDeInit();
   
-  DMA_Init(DMA1_Channel2, (uint16_t)SrcBuffer, TIM1_ARR_ADDRESS,
+  DMA_Init(DMA1_Channel1, (uint16_t)TI2Buffer, TIM2_OC1_ADDRESS,
            TIM_BUFSIZE,DMA_DIR_MemoryToPeripheral,DMA_Mode_Circular,
            DMA_MemoryIncMode_Inc,DMA_Priority_High,DMA_MemoryDataSize_HalfWord);
-  DMA_Init(DMA1_Channel3, (uint32_t)DAC_Vals, DAC_CH1RDHRH_ADDRESS,
+  
+  DMA_Init(DMA1_Channel2, (uint16_t)TI1Buffer, TIM1_ARR_ADDRESS,
+           TIM_BUFSIZE,DMA_DIR_MemoryToPeripheral,DMA_Mode_Circular,
+           DMA_MemoryIncMode_Inc,DMA_Priority_High,DMA_MemoryDataSize_HalfWord);
+  
+  DMA_Init(DMA1_Channel3, (uint32_t)DACBuffer, DAC_CH1RDHRH_ADDRESS,
            DAC_BUFSIZE,DMA_DIR_MemoryToPeripheral,DMA_Mode_Circular,
            DMA_MemoryIncMode_Inc,DMA_Priority_High,DMA_MemoryDataSize_HalfWord);
 
+  DMA_Cmd(DMA1_Channel1, ENABLE);
   DMA_Cmd(DMA1_Channel2, ENABLE);
   DMA_Cmd(DMA1_Channel3, ENABLE);
   
@@ -66,16 +75,29 @@ static void TIM_Config(void)
   TIM1_OC1Init(TIM1_OCMode_Toggle,
                TIM1_OutputState_Enable,
                TIM1_OutputNState_Disable,
-               1,//dummy number - initial OC1 counter
-               TIM1_OCPolarity_Low,
+               0,
+               TIM1_OCPolarity_High,
                TIM1_OCNPolarity_Low,
                TIM1_OCIdleState_Set,
                TIM1_OCNIdleState_Set);
   TIM1_SelectOutputTrigger(TIM1_TRGOSource_Update);
-  TIM1_OC1PreloadConfig(ENABLE);
   TIM1_ARRPreloadConfig(ENABLE);
   TIM1_DMACmd(TIM1_DMASource_Update, ENABLE);
   
+  TIM2_DeInit();
+  TIM2_TimeBaseInit(TIM2_Prescaler_1,
+                    TIM2_CounterMode_Up,
+                    0xFFFF);
+  TIM2_OC1Init(TIM2_OCMode_Toggle,
+               TIM2_OutputState_Enable,
+               0,
+               TIM2_OCPolarity_High,
+               TIM2_OCIdleState_Set);
+  TIM2_SelectSlaveMode(TIM2_SlaveMode_Reset);
+  TIM2_OC1PreloadConfig(ENABLE);
+  TIM2_SelectInputTrigger(TIM2_TRGSelection_TIM1);
+  TIM2_DMACmd(TIM2_DMASource_Update, ENABLE);
+
   TIM4_DeInit();
   TIM4_TimeBaseInit(TIM4_Prescaler_1, 1);
   TIM4_SelectOnePulseMode(TIM4_OPMode_Single);
@@ -84,7 +106,11 @@ static void TIM_Config(void)
   TIM4_SelectOutputTrigger(TIM4_TRGOSource_Update);
   
   TIM1_CtrlPWMOutputs(ENABLE);
+  TIM2_CtrlPWMOutputs(ENABLE);
+  
+  TIM2_Cmd(ENABLE);
   TIM4_Cmd(ENABLE);
+  
   TIM1_Cmd(ENABLE);
 }
 

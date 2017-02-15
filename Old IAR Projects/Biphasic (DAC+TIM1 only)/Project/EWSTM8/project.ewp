@@ -1612,6 +1612,9 @@
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_tim1.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_tim2.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_tim4.h</name>
       </file>
     </group>
@@ -1631,6 +1634,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_tim1.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_tim2.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_tim4.c</name>

@@ -21,6 +21,7 @@
 #include "stm8l15x_dma.h"
 #include "stm8l15x_dac.h"
 #include "stm8l15x_tim4.h"
+#include "stm8l15x_tim2.h"
 #include "stm8l15x_it.h"
 
 /*******************************************************************************
@@ -32,6 +33,8 @@
 #define PC7_PIN         GPIO_Pin_7
 #define PD2_PORT        GPIOD
 #define PD2_PIN         GPIO_Pin_2
+#define PB0_PORT        GPIOB
+#define PB0_PIN         GPIO_Pin_0
 #define PD4_PORT        GPIOD
 #define PD4_PIN         GPIO_Pin_4
 #define PD5_PORT        GPIOD
@@ -44,6 +47,7 @@
 
 
 #define TIM1_ARR_ADDRESS        0x52C3
+#define TIM2_OC1_ADDRESS        0x5261
 #define DAC_CH1RDHRH_ADDRESS    0x5388
 #define TIM1_PERIOD              25000
 #define TIM4_PERIOD                250
