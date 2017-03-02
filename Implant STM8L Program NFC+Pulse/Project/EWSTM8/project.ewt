@@ -1957,6 +1957,9 @@
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_dac.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_dma.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_flash.h</name>
       </file>
       <file>
@@ -1978,6 +1981,15 @@
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_rtc.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_tim1.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_tim2.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_tim4.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc\stm8l15x_wwdg.h</name>
       </file>
     </group>
@@ -1991,6 +2003,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_dac.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_dma.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_flash.c</name>
@@ -2012,6 +2027,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_tim1.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_tim2.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_tim4.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\src\stm8l15x_wwdg.c</name>

@@ -6,26 +6,55 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 ********************************************************************************
 *	Author:		Alexey Revinski
-*	Last Revised:	12/15/2016
+*	Last Revised:	02/27/2017
 *******************************************************************************/
 #include "private_functions.h"
 
 /*******************************************************************************
 *  PHYSIOLOGICAL VALUES
 *******************************************************************************/
-uint32_t        pulse_width     = 1000;         //( 100  = 100 us   )
-uint32_t        pulse_amp       = 400;          //( 100  = 1.00 mA  )
+uint32_t        pulse_width     = 200;          //( 100  = 100 us   )
+uint32_t        pulse_amp       = 300;          //( 100  = 1.00 mA  )
 uint32_t        bpm             = 3000;         //( 1000 = 10.00 bpm)
 uint32_t        ie_ratio        = 5000;         //( 1000 = 10.00 %  )
 uint32_t        pulse_freq      = 2000;         //( 1000 = 10.00 Hz )
 /******************************************************************************/
 bool            sleeping        = FALSE;                 // State variable
+/******************************************************************************/
+uint16_t TI1Buffer[4] = {0,0,0,0};      //TIM1 time bases buffer
+uint16_t TI2Buffer[4] = {0,0,0,0};      //TIM2 polarity buffer
+uint16_t DACBuffer[4] = {0,0,0,0};      //DAC1 values buffer
+/******************************************************************************/
+uint16_t mult = 10;
+uint16_t DAC_High = 1317;                // about 3mA
+uint16_t DAC_Low = 0;
+
+
 /*******************************************************************************
 *  MAIN FUNCTION
 *******************************************************************************/
 void main(void)
 {
+  uint16_t pw = pulse_width/2;
+  TI1Buffer[0] = pw*3;                          //500           (1000us) 12ms
+  TI1Buffer[1] = pw*mult;                       //10000         (20ms)  30ms
+  TI1Buffer[2] = TIM1_PERIOD-pw*(mult+5);       //14400         (28.8ms)
+  TI1Buffer[3] = pw;                            //100           (200us) 3000us
+  
+  uint16_t DAC_Low = DAC_High/mult;             // about 0.3mA
+  
+  TI2Buffer[0] = 50;
+  TI2Buffer[1] = 0xFFFF;
+  TI2Buffer[2] = 50;
+  TI2Buffer[3] = 0xFFFF;
+  
+  DACBuffer[0] = DAC_Low;
+  DACBuffer[1] = DAC_Low;
+  DACBuffer[2] = DAC_High;
+  DACBuffer[3] = DAC_High;
+  
   initialize();
+  
   while(1)
   {
     if (sleeping)       {start_Expiration(); }

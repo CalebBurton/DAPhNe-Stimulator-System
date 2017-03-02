@@ -83,6 +83,8 @@ static void TIM_Config(void)
   TIM1_SelectOutputTrigger(TIM1_TRGOSource_Update);
   TIM1_ARRPreloadConfig(ENABLE);
   TIM1_DMACmd(TIM1_DMASource_Update, ENABLE);
+  TIM1_CtrlPWMOutputs(ENABLE);
+  TIM1_Cmd(ENABLE);
   
   TIM2_DeInit();
   TIM2_TimeBaseInit(TIM2_Prescaler_1,
@@ -97,21 +99,17 @@ static void TIM_Config(void)
   TIM2_OC1PreloadConfig(ENABLE);
   TIM2_SelectInputTrigger(TIM2_TRGSelection_TIM1);
   TIM2_DMACmd(TIM2_DMASource_Update, ENABLE);
-
+  TIM2_CtrlPWMOutputs(ENABLE);
+  TIM2_Cmd(ENABLE);
+  
+  
   TIM4_DeInit();
   TIM4_TimeBaseInit(TIM4_Prescaler_1, 1);
   TIM4_SelectOnePulseMode(TIM4_OPMode_Single);
   TIM4_SelectSlaveMode(TIM4_SlaveMode_Reset);
   TIM4_SelectInputTrigger(TIM4_TRGSelection_TIM1);
   TIM4_SelectOutputTrigger(TIM4_TRGOSource_Update);
-  
-  TIM1_CtrlPWMOutputs(ENABLE);
-  TIM2_CtrlPWMOutputs(ENABLE);
-  
-  TIM2_Cmd(ENABLE);
   TIM4_Cmd(ENABLE);
-  
-  TIM1_Cmd(ENABLE);
 }
 
 void    DAC_Config(void)

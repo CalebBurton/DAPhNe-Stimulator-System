@@ -21,7 +21,9 @@
 #include "stm8l15x_gpio.h"
 #include "stm8l15x_tim1.h"
 #include "stm8l15x_tim2.h"
+#include "stm8l15x_tim4.h"
 #include "stm8l15x_dac.h"
+#include "stm8l15x_dma.h"
 #include "stm8l15x_it.h"
 #include "stm8l15x_rtc.h"
 #include "stm8l15x_pwr.h"
@@ -34,10 +36,14 @@
 /*******************************************************************************
 *  CONSTANT DEFINITIONS
 *******************************************************************************/
-#define PE7_PORT        GPIOE
-#define PE7_PIN         GPIO_Pin_7
-#define PC7_PORT        GPIOC
-#define PC7_PIN         GPIO_Pin_7
+#define LEDY_PORT       GPIOB
+#define LEDY_PIN        GPIO_Pin_0
+#define PD5_PORT        GPIOD
+#define PD5_PIN         GPIO_Pin_5
+#define LEDG_PORT       GPIOB
+#define LEDG_PIN        GPIO_Pin_1
+#define PB0_PORT        GPIOB
+#define PB0_PIN         GPIO_Pin_0
 #define PD2_PORT        GPIOD
 #define PD2_PIN         GPIO_Pin_2
 #define PD4_PORT        GPIOD
@@ -52,10 +58,19 @@
 
 #define M24LR04E_I2C                         I2C1
 #define M24LR04E_I2C_CLK                     CLK_Peripheral_I2C1
-#define M24LR04E_I2C_SCL_PIN                 GPIO_Pin_1                  /* PC.01 */
-#define M24LR04E_I2C_SCL_GPIO_PORT           GPIOC                       /* GPIOC */
-#define M24LR04E_I2C_SDA_PIN                 GPIO_Pin_0                  /* PC.00 */
-#define M24LR04E_I2C_SDA_GPIO_PORT           GPIOC                       /* GPIOC */
+#define M24LR04E_I2C_SCL_PIN                 GPIO_Pin_1
+#define M24LR04E_I2C_SCL_GPIO_PORT           GPIOC
+#define M24LR04E_I2C_SDA_PIN                 GPIO_Pin_0
+#define M24LR04E_I2C_SDA_GPIO_PORT           GPIOC
+
+#define TIM1_ARR_ADDRESS                0x52C3
+#define TIM2_OC1_ADDRESS                0x5261
+#define DAC_CH1RDHRH_ADDRESS            0x5388
+#define TIM1_PERIOD                     25000
+#define TIM4_PERIOD                     250
+#define TIM1_REPTETION_COUNTER          0
+#define TIM1_PRESCALER                  1
+#define BUFSIZE                         4
 
 #define MAX_PW          (uint32_t) 1000
 #define MIN_PW          (uint32_t) 100
@@ -80,7 +95,7 @@ void                    TIM1_Config(void);
 void                    PWM2_Config(void);
 void                    RTC_Config(void);
 void                    DAC_Config(void);
-void                    calculations(void);
+void                    calculate(void);
 void                    reset_RTC_counter(uint16_t time);
 void                    get_Message(void);
 void                    parse_Message(void);
@@ -93,6 +108,17 @@ static ErrorStatus      User_GetNDEFMessage(uint8_t  PayloadLength,uint8_t *NDEF
 static void             InitializeBuffer (uint8_t *Buffer ,uint8_t NbCar);
 static void             DeInitGPIO ( void );
 static void             DeInitClock ( void );
+
+void peripherals(FunctionalState NewState);
+
+
+void configure(void);
+void CLK_Config(void);
+void    GPIO_Config(void);
+void    PWR_Config(void);
+void    DMA1_Config(void);      // Configure DMA
+void    TIM2_Config(void);      // Configure TIM2
+void    TIM4_Config(void);      // Configure TIM4
 
 
 #endif /* PRIVATE_FUNCTIONS_H */
