@@ -24,12 +24,16 @@ uint16_t        dummy_time      = 1000;
 uint16_t        mod_10k         = 10000;
 uint16_t        mod_100         = 100;
 uint16_t        res_8bit        = 256;
-uint16_t        Vref            = 290;
+uint16_t        res_12bit       = 4096;
+uint16_t        Vref_12bit      = 3500;
 uint16_t        minpersec       = 6000;
 
 extern uint16_t TI1Buffer[];   //TIM1 time bases buffer
 extern uint16_t TI2Buffer[];   //TIM2 polarity buffer
 extern uint16_t DACBuffer[];   //DAC1 values buffer
+extern uint16_t mult;
+extern uint16_t DAC_High;                // about 3mA
+extern uint16_t DAC_Low;
 
 /*******************************************************************************
 *  EXTERNAL VARIABLES
@@ -55,12 +59,12 @@ uint8_t sentMail[] = {'n','o','t','h','i','n','g'};
 *******************************************************************************/
 void start_Inspiration(void)
 { 
-  //get_Message();
+  get_Message();
   GPIO_SetBits(LEDG_PORT,LEDG_PIN);
   peripherals(ENABLE);
   reset_RTC_counter(time_in);                           // Reset RTC
   RTC_ITConfig(RTC_IT_WUT, ENABLE);
-  get_Message();
+  //get_Message();
   wfi();                                                // Wait for event mode
 }
 /*******************************************************************************
@@ -235,7 +239,7 @@ void    TIM1_Config(void)
                TIM1_OutputState_Enable,
                TIM1_OutputNState_Disable,
                0,
-               TIM1_OCPolarity_High,
+               TIM1_OCPolarity_Low,
                TIM1_OCNPolarity_Low,
                TIM1_OCIdleState_Set,
                TIM1_OCNIdleState_Set);
@@ -350,7 +354,7 @@ void    get_Message(void)
   if (User_ReadNDEFMessage (&PayloadLength) == SUCCESS)
   {
     parse_Message();
-    if(write_Back()==SUCCESS);
+    //if(write_Back()==SUCCESS);
   }
   else
   {
@@ -410,6 +414,7 @@ void    parse_Message(void)
         data[i] = data[i]+digit;
       }
     }
+    
     // Establish ceilings and floors for pulsing controls
     if      (data[0]>MAX_PW){pulse_width = MAX_PW;}
     else if (data[0]<MIN_PW){pulse_width = MIN_PW;}
@@ -426,7 +431,32 @@ void    parse_Message(void)
     if      (data[3]>MAX_IE){ie_ratio = MAX_IE;}
     else if (data[3]<MIN_IE){ie_ratio = MIN_IE;}
     else                    {ie_ratio = data[3];}
-    reconfigure();
+    
+    uint16_t pw = pulse_width/2;
+    TI1Buffer[0] = pw*3;                          //500           (1000us) 12ms
+    TI1Buffer[1] = pw*mult;                       //10000         (20ms)  30ms
+    TI1Buffer[2] = TIM1_PERIOD-pw*(mult+5);       //14400         (28.8ms)
+    TI1Buffer[3] = pw;                            //100           (200us) 3000us
+    
+    DAC_High = (uint16_t)(((uint32_t)pulse_amp*            // DAC value
+                        (uint32_t)res_12bit)*5/
+                        (uint32_t)Vref_12bit)/2;
+    
+    
+    DAC_Low = DAC_High/mult;             // about 0.3mA
+    
+    //TI2Buffer[0] = 50;
+    //TI2Buffer[1] = 0xFFFF;
+    //TI2Buffer[2] = 50;
+    //TI2Buffer[3] = 0xFFFF;
+    
+    DACBuffer[0] = DAC_Low;
+    DACBuffer[1] = DAC_Low;
+    DACBuffer[2] = DAC_High;
+    DACBuffer[3] = DAC_High;
+    
+
+    //reconfigure();
   }
 }
 

@@ -1,5 +1,5 @@
 [DebugChecksum]
-Checksum=-582863093
+Checksum=863851009
 [DisAssemblyWindow]
 NumStates=_ 1
 State 1=_ 1
@@ -53,8 +53,6 @@ MixedMode=1
 LogEnabled=0
 GraphEnabled=0
 ShowTimeLog=1
-[Breakpoints]
-Count=0
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -62,6 +60,8 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
+[Breakpoints]
+Count=0
 [Aliases]
 A0=_ "C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program Dummy\Project\src\I2C_M24LR04E-R.c" ""
 A1=_ "C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program Dummy\STM8L15x_StdPeriph_Driver\src\stm8l15x_dac.c" ""

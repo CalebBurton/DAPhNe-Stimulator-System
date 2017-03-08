@@ -26,7 +26,7 @@ uint16_t TI2Buffer[4] = {0,0,0,0};      //TIM2 polarity buffer
 uint16_t DACBuffer[4] = {0,0,0,0};      //DAC1 values buffer
 /******************************************************************************/
 uint16_t mult = 10;
-uint16_t DAC_High = 1317;                // about 3mA
+uint16_t DAC_High = 820;//1317                // about 3mA
 uint16_t DAC_Low = 0;
 
 
@@ -41,7 +41,7 @@ void main(void)
   TI1Buffer[2] = TIM1_PERIOD-pw*(mult+5);       //14400         (28.8ms)
   TI1Buffer[3] = pw;                            //100           (200us) 3000us
   
-  uint16_t DAC_Low = DAC_High/mult;             // about 0.3mA
+  DAC_Low = DAC_High/mult;
   
   TI2Buffer[0] = 50;
   TI2Buffer[1] = 0xFFFF;
