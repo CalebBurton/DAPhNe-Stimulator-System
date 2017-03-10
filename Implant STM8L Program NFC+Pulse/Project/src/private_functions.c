@@ -25,7 +25,7 @@ uint16_t        mod_10k         = 10000;
 uint16_t        mod_100         = 100;
 uint16_t        res_8bit        = 256;
 uint16_t        res_12bit       = 4096;
-uint16_t        Vref_12bit      = 3500;
+uint16_t        Vref_12bit      = 3800;
 uint16_t        minpersec       = 6000;
 
 extern uint16_t TI1Buffer[];   //TIM1 time bases buffer
