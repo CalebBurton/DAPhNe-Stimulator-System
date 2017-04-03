@@ -142,9 +142,9 @@
 </layers>
 <board>
 <plain>
-<wire x1="0" y1="0" x2="32.69" y2="0" width="0" layer="20"/>
-<wire x1="32.69" y1="0" x2="32.69" y2="33.01" width="0" layer="20"/>
-<wire x1="32.69" y1="33.01" x2="0" y2="33.01" width="0" layer="20"/>
+<wire x1="0" y1="0" x2="32.944" y2="0" width="0" layer="20"/>
+<wire x1="32.944" y1="0" x2="32.944" y2="33.01" width="0" layer="20"/>
+<wire x1="32.944" y1="33.01" x2="0" y2="33.01" width="0" layer="20"/>
 <wire x1="0" y1="33.01" x2="0" y2="0" width="0" layer="20"/>
 <text x="27.305" y="25.273" size="1.778" layer="22" rot="MR270">IPNS_v0.1 MCU</text>
 <text x="7.112" y="10.414" size="0.762" layer="22" rot="MR270">NU BME 390</text>

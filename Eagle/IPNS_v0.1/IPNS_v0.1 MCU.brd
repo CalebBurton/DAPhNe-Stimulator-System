@@ -1003,7 +1003,7 @@ Please make sure your boards conform to these design rules.</description>
 <element name="C11" library="IPNS_Lib_v0.1" package="C0805" value="7pF" x="6.858" y="26.543" smashed="yes">
 <attribute name="NAME" x="4.826" y="25.908" size="0.6096" layer="25" rot="R90"/>
 </element>
-<element name="R5" library="IPNS_Lib_v0.1" package="R0805" value="220" x="18.288" y="30.48" smashed="yes">
+<element name="R5" library="IPNS_Lib_v0.1" package="R0805" value="1k" x="18.288" y="30.48" smashed="yes">
 <attribute name="NAME" x="19.685" y="28.194" size="0.6096" layer="25" rot="R90"/>
 </element>
 <element name="R2" library="IPNS_Lib_v0.1" package="R0805" value="330" x="27.94" y="10.922" smashed="yes" rot="R90">

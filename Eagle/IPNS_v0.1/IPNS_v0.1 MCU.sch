@@ -10168,7 +10168,7 @@ Source: www.kingbright.com</description>
 <part name="C12" library="IPNS_Lib_v0.1" deviceset="C-US" device="C0805" value="7pF"/>
 <part name="C11" library="IPNS_Lib_v0.1" deviceset="C-US" device="C0805" value="7pF"/>
 <part name="GND5" library="IPNS_Lib_v0.1" deviceset="GND" device=""/>
-<part name="R5" library="IPNS_Lib_v0.1" deviceset="R-US_" device="R0805" value="220"/>
+<part name="R5" library="IPNS_Lib_v0.1" deviceset="R-US_" device="R0805" value="1k"/>
 <part name="R2" library="IPNS_Lib_v0.1" deviceset="R-US_" device="R0805" value="330"/>
 <part name="R1" library="IPNS_Lib_v0.1" deviceset="R-US_" device="R0805" value="660"/>
 <part name="LED3" library="led" deviceset="LED" device="CHIP-LED0805" value="RED"/>
