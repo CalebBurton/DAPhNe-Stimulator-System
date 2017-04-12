@@ -20,7 +20,7 @@ uint16_t        CCR1_Val        = RESET;
 uint16_t        TIM1_period     = RESET;
 uint16_t        DAC_Val         = RESET;
 uint16_t        RTC_Div         = 2;
-uint16_t        dummy_time      = 1000;
+uint16_t        dummy_time      = 10;
 uint16_t        mod_10k         = 10000;
 uint16_t        mod_100         = 100;
 uint16_t        res_8bit        = 256;
@@ -60,11 +60,15 @@ uint8_t sentMail[] = {'n','o','t','h','i','n','g'};
 void start_Inspiration(void)
 { 
   get_Message();
+  DAC_Cmd(DAC_Channel_1,ENABLE);
+  TIM1_SetCounter(TI1Buffer[3]-100);
+  TIM2_CtrlPWMOutputs(ENABLE);
+  TIM2_Cmd(ENABLE);
+  TIM1_CtrlPWMOutputs(ENABLE);
+  TIM1_Cmd(ENABLE);
   GPIO_SetBits(LEDG_PORT,LEDG_PIN);
-  peripherals(ENABLE);
   reset_RTC_counter(time_in);                           // Reset RTC
   RTC_ITConfig(RTC_IT_WUT, ENABLE);
-  //get_Message();
   wfi();                                                // Wait for event mode
 }
 /*******************************************************************************
@@ -73,44 +77,15 @@ void start_Inspiration(void)
 void start_Expiration(void)
 {
   GPIO_ResetBits(LEDG_PORT,LEDG_PIN);
+  TIM2_CtrlPWMOutputs(DISABLE);
+  TIM2_Cmd(DISABLE);
+  TIM1_CtrlPWMOutputs(DISABLE);
+  TIM1_Cmd(DISABLE);
+  DAC_Cmd(DAC_Channel_1,DISABLE);
   reset_RTC_counter(time_ex);                           // Reset RTC
   RTC_ITConfig(RTC_IT_WUT, ENABLE);
-  peripherals(DISABLE);
-  PWR_UltraLowPowerCmd(ENABLE);                         // Ultra low power mode
+  //PWR_UltraLowPowerCmd(ENABLE);                         // Ultra low power mode
   halt();                                               // Stop all except RTC
-}
-
-/*******************************************************************************
-*  PRIVATE FUNCTION:    peripherals()
-*******************************************************************************/
-void peripherals(FunctionalState NewState)
-{
-
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM1,NewState);// TIM1 clock
-  if(NewState==ENABLE)
-  {
-    TIM1_Config();                                        // Configure TIM1
-  }
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM2,NewState);// TIM2 clock
-  if(NewState==ENABLE)
-  {
-    TIM2_Config();                                        // Configure TIM2
-  }
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM4,NewState);// TIM4 clock
-  if(NewState==ENABLE)
-  {
-    TIM4_Config();                                        // Configure TIM4
-  }
-  CLK_PeripheralClockConfig(CLK_Peripheral_DMA1,NewState);// DMA1 clock
-  if(NewState==ENABLE)
-  {
-    DMA1_Config();                                        // Configure DMA
-  }
-  CLK_PeripheralClockConfig(CLK_Peripheral_DAC, NewState);// DAC clock
-  if(NewState==ENABLE)
-  {
-    DAC_Config();                                         // Configure DAC;
-  }
 }
 
 /*******************************************************************************
@@ -144,6 +119,7 @@ void reset_RTC_counter(uint16_t time)
 void    initialize(void)
 {
   calculate();                                          // Calculate stim vals
+  PWR_UltraLowPowerCmd(ENABLE);                         // Ultra low power mode
   configure();                                          // Configure peripherals
   GPIO_SetBits(LEDG_PORT,LEDG_PIN);
 }
@@ -218,6 +194,7 @@ void    GPIO_Config(void)
   GPIO_Init(LEDG_PORT,LEDG_PIN,GPIO_Mode_Out_PP_Low_Fast);// LED GREEN
   GPIO_Init(PD5_PORT,PD5_PIN,GPIO_Mode_Out_PP_Low_Fast);// SHDN Pin on 10V source
   GPIO_ResetBits(LEDG_PORT,LEDG_PIN);                     // TURN OFF LED GREEN
+  GPIO_ResetBits(PD2_PORT,PD2_PIN);
 }
 /*******************************************************************************
 *  PRIVATE FUNCTION:    TIM1_Config()
@@ -246,8 +223,8 @@ void    TIM1_Config(void)
   TIM1_SelectOutputTrigger(TIM1_TRGOSource_Update);
   TIM1_ARRPreloadConfig(ENABLE);
   TIM1_DMACmd(TIM1_DMASource_Update, ENABLE);
-  TIM1_CtrlPWMOutputs(ENABLE);
-  TIM1_Cmd(ENABLE);
+  //TIM1_CtrlPWMOutputs(ENABLE);
+  //TIM1_Cmd(ENABLE);
 }
 /*******************************************************************************
 *  PRIVATE FUNCTION:    TIM2_Config()
@@ -267,8 +244,8 @@ void    TIM2_Config(void)
   TIM2_OC1PreloadConfig(ENABLE);
   TIM2_SelectInputTrigger(TIM2_TRGSelection_TIM1);
   TIM2_DMACmd(TIM2_DMASource_Update, ENABLE);
-  TIM2_CtrlPWMOutputs(ENABLE);
-  TIM2_Cmd(ENABLE);
+  //TIM2_CtrlPWMOutputs(ENABLE);
+  //TIM2_Cmd(ENABLE);
 }
 /*******************************************************************************
 *  PRIVATE FUNCTION:    TIM4_Config()
@@ -337,8 +314,6 @@ void    PWR_Config(void)
 }
 
 
-
-
 //==============================================================================
 //
 //                    NEAR FIELD COMMUNICATION FUNCTIONS
@@ -365,7 +340,7 @@ void    get_Message(void)
 /*******************************************************************************
 *  PRIVATE FUNCTION:    write_Back();
 *******************************************************************************/
-int8_t    write_Back(void)
+uint8_t    write_Back(void)
 {
   uint8_t data = 0x61;
   uint16_t WriteAddr = 0x000D;				
@@ -433,15 +408,15 @@ void    parse_Message(void)
     else                    {ie_ratio = data[3];}
     
     uint16_t pw = pulse_width/2;
-    TI1Buffer[0] = pw*3;                          //500           (1000us) 12ms
-    TI1Buffer[1] = pw*mult;                       //10000         (20ms)  30ms
-    TI1Buffer[2] = TIM1_PERIOD-pw*(mult+5);       //14400         (28.8ms)
-    TI1Buffer[3] = pw;                            //100           (200us) 3000us
+    TI1Buffer[0] = pw;                            //100           (200us) 3000us
+    TI1Buffer[1] = pw*3;                          //500           (1000us) 12ms
+    TI1Buffer[2] = pw*mult;                       //10000         (20ms)  30ms
+    TI1Buffer[3] = TIM1_PERIOD-pw*(mult+5);       //14400         (28.8ms)
+    
     
     DAC_High = (uint16_t)(((uint32_t)pulse_amp*            // DAC value
                         (uint32_t)res_12bit)*5/
                         (uint32_t)Vref_12bit)/2;
-    
     
     DAC_Low = DAC_High/mult;             // about 0.3mA
     
@@ -450,12 +425,11 @@ void    parse_Message(void)
     //TI2Buffer[2] = 50;
     //TI2Buffer[3] = 0xFFFF;
     
-    DACBuffer[0] = DAC_Low;
+    DACBuffer[0] = DAC_High;
     DACBuffer[1] = DAC_Low;
-    DACBuffer[2] = DAC_High;
+    DACBuffer[2] = DAC_Low;
     DACBuffer[3] = DAC_High;
     
-
     //reconfigure();
   }
 }

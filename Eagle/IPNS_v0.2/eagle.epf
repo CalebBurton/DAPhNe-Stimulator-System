@@ -352,10 +352,11 @@ UsedLibrary="C:/EAGLE 8.0/lbr/xilinx-xc9.lbr"
 UsedLibrary="C:/EAGLE 8.0/lbr/xilinx-xcv.lbr"
 UsedLibrary="C:/EAGLE 8.0/lbr/zetex.lbr"
 UsedLibrary="C:/EAGLE 8.0/lbr/zilog.lbr"
+UsedLibrary="C:/Users/Alexey Revinski/Documents/1_CLASS/BME 390-2/Repo/BME390/Eagle/IPNS_Lib.lbr"
 
 [Win_1]
 Type="Control Panel"
-Loc="-16 -16 3823 1995"
+Loc="0 0 3839 2011"
 State=1
 Number=0
 

@@ -99,7 +99,7 @@ void                    calculate(void);
 void                    reset_RTC_counter(uint16_t time);
 void                    get_Message(void);
 void                    parse_Message(void);
-int8_t                    write_Back(void);
+uint8_t                 write_Back(void);
 static int8_t           User_ReadNDEFMessage ( uint8_t *PayloadLength );
 static int8_t           User_ReadNDEFMessage ( uint8_t *PayloadLength );
 static ErrorStatus      User_CheckNDEFMessage(void);
