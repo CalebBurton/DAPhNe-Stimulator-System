@@ -25,7 +25,7 @@ uint16_t        mod_10k         = 10000;
 uint16_t        mod_100         = 100;
 uint16_t        res_8bit        = 256;
 uint16_t        res_12bit       = 4096;
-uint16_t        Vref_12bit      = 3800;
+uint16_t        Vref_12bit      = 4095;
 uint16_t        minpersec       = 6000;
 
 extern uint16_t TI1Buffer[];   //TIM1 time bases buffer
@@ -60,13 +60,16 @@ uint8_t sentMail[] = {'n','o','t','h','i','n','g'};
 void start_Inspiration(void)
 { 
   get_Message();
-  DAC_Cmd(DAC_Channel_1,ENABLE);
+  //DAC_Cmd(DAC_Channel_1,ENABLE);
+  //DAC_SetChannel1Data(DAC_Align_12b_R, DAC_High);
+  //TIM4_SetCounter(2);
   TIM1_SetCounter(TI1Buffer[3]-100);
   TIM2_CtrlPWMOutputs(ENABLE);
   TIM2_Cmd(ENABLE);
   TIM1_CtrlPWMOutputs(ENABLE);
   TIM1_Cmd(ENABLE);
-  GPIO_SetBits(LEDG_PORT,LEDG_PIN);
+  
+  //GPIO_SetBits(LEDG_PORT,LEDG_PIN);
   reset_RTC_counter(time_in);                           // Reset RTC
   RTC_ITConfig(RTC_IT_WUT, ENABLE);
   wfi();                                                // Wait for event mode
@@ -76,12 +79,12 @@ void start_Inspiration(void)
 *******************************************************************************/
 void start_Expiration(void)
 {
-  GPIO_ResetBits(LEDG_PORT,LEDG_PIN);
+  //GPIO_ResetBits(LEDG_PORT,LEDG_PIN);
   TIM2_CtrlPWMOutputs(DISABLE);
   TIM2_Cmd(DISABLE);
   TIM1_CtrlPWMOutputs(DISABLE);
   TIM1_Cmd(DISABLE);
-  DAC_Cmd(DAC_Channel_1,DISABLE);
+  //DAC_Cmd(DAC_Channel_1,DISABLE);
   reset_RTC_counter(time_ex);                           // Reset RTC
   RTC_ITConfig(RTC_IT_WUT, ENABLE);
   //PWR_UltraLowPowerCmd(ENABLE);                         // Ultra low power mode
@@ -121,7 +124,7 @@ void    initialize(void)
   calculate();                                          // Calculate stim vals
   PWR_UltraLowPowerCmd(ENABLE);                         // Ultra low power mode
   configure();                                          // Configure peripherals
-  GPIO_SetBits(LEDG_PORT,LEDG_PIN);
+  //GPIO_SetBits(LEDG_PORT,LEDG_PIN);
 }
 /*******************************************************************************
 *  PRIVATE FUNCTION:    calculate()
@@ -191,10 +194,14 @@ void    GPIO_Config(void)
   GPIO_Init(PD2_PORT,PD2_PIN,GPIO_Mode_Out_PP_Low_Fast);// TIM1 Channel 1
   GPIO_Init(PB0_PORT,PB0_PIN,GPIO_Mode_Out_PP_Low_Fast);// TIM2 Channel 1
   GPIO_Init(PF0_PORT,PF0_PIN,GPIO_Mode_In_FL_No_IT);    // DAC Channel 1
-  GPIO_Init(LEDG_PORT,LEDG_PIN,GPIO_Mode_Out_PP_Low_Fast);// LED GREEN
-  GPIO_Init(PD5_PORT,PD5_PIN,GPIO_Mode_Out_PP_Low_Fast);// SHDN Pin on 10V source
-  GPIO_ResetBits(LEDG_PORT,LEDG_PIN);                     // TURN OFF LED GREEN
+  
+  //GPIO_Init(LEDG_PORT,LEDG_PIN,GPIO_Mode_Out_PP_Low_Fast);// LED GREEN
+  //GPIO_Init(PD5_PORT,PD5_PIN,GPIO_Mode_Out_PP_Low_Fast);// SHDN Pin on 10V source
+  //GPIO_ResetBits(LEDG_PORT,LEDG_PIN);                   // TURN OFF LED GREEN
+  //GPIO_Init(M24LR04E_I2C_SCL_GPIO_PORT,M24LR04E_I2C_SCL_PIN,GPIO_Mode_Out_PP_Low_Fast);
+  //GPIO_Init(M24LR04E_I2C_SDA_GPIO_PORT,M24LR04E_I2C_SDA_PIN,GPIO_Mode_Out_PP_Low_Fast);
   GPIO_ResetBits(PD2_PORT,PD2_PIN);
+  GPIO_ResetBits(PB0_PORT,PB0_PIN);
 }
 /*******************************************************************************
 *  PRIVATE FUNCTION:    TIM1_Config()
@@ -538,14 +545,12 @@ static void DeInitGPIO ( void )
   GPIO_Init( GPIOB, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
   GPIO_Init( GPIOC, GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6, GPIO_Mode_Out_OD_Low_Fast);
   GPIO_Init( GPIOD, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
-  GPIO_Init( GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6, GPIO_Mode_Out_OD_Low_Fast);
-  GPIO_Init(LEDG_PORT,LEDG_PIN,GPIO_Mode_Out_PP_Low_Slow); // GREEN LED output
+  GPIO_Init( GPIOE, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
   GPIOA->ODR = 0xFF;
   GPIOB->ODR = 0xFF;
   GPIOC->ODR = 0xFF;
   GPIOD->ODR = 0xFF;
   GPIOE->ODR = 0xFF;
-  GPIO_ResetBits(LEDG_PORT,LEDG_PIN);
 }
 /*******************************************************************************
 *  PRIVATE FUNCTION:    DeInitClock()
