@@ -9451,6 +9451,8 @@ Source: 8x ADG1408_1409.pdf</description>
 <wire x1="17.78" y1="0" x2="17.78" y2="-22.86" width="0.254" layer="94"/>
 <wire x1="17.78" y1="-22.86" x2="0" y2="-22.86" width="0.254" layer="94"/>
 <wire x1="0" y1="-22.86" x2="0" y2="0" width="0.254" layer="94"/>
+<text x="0" y="2.54" size="1.27" layer="95">&gt;NAME</text>
+<text x="0" y="-25.4" size="1.27" layer="95">ADG1636</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -13603,6 +13605,36 @@ Source: http://focus.ti.com/lit/ds/symlink/tps61200.pdf</description>
 <attribute name="OC_FARNELL" value="unknown" constant="no"/>
 <attribute name="OC_NEWARK" value="37M0069" constant="no"/>
 </technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="ADG1636">
+<gates>
+<gate name="G$1" symbol="ADG1636" x="-9.144" y="11.43"/>
+</gates>
+<devices>
+<device name="" package="TSSOP16">
+<connects>
+<connect gate="G$1" pin="1IN1" pad="1"/>
+<connect gate="G$1" pin="2S1A" pad="2"/>
+<connect gate="G$1" pin="3D1" pad="3"/>
+<connect gate="G$1" pin="4S1B" pad="4"/>
+<connect gate="G$1" pin="5VSS" pad="5"/>
+<connect gate="G$1" pin="6GND" pad="6"/>
+<connect gate="G$1" pin="7NIC" pad="7"/>
+<connect gate="G$1" pin="8NIC" pad="8"/>
+<connect gate="G$1" pin="D211" pad="11"/>
+<connect gate="G$1" pin="EN14" pad="14"/>
+<connect gate="G$1" pin="IN29" pad="9"/>
+<connect gate="G$1" pin="NIC15" pad="15"/>
+<connect gate="G$1" pin="NIC16" pad="16"/>
+<connect gate="G$1" pin="S2A10" pad="10"/>
+<connect gate="G$1" pin="S2B12" pad="12"/>
+<connect gate="G$1" pin="VDD13" pad="13"/>
+</connects>
+<technologies>
+<technology name=""/>
 </technologies>
 </device>
 </devices>
