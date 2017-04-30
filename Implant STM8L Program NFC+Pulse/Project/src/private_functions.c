@@ -9,41 +9,44 @@
 *	Last Revised:	02/27/2017
 *******************************************************************************/
 #include "private_functions.h"
+#include "daphne_hardware_config.h"
 
 /*******************************************************************************
 *  GLOBAL VARIABLES
 *******************************************************************************/
-extern bool     sleeping;                 // State variable
-uint16_t        time_in         = RESET;
-uint16_t        time_ex         = RESET;
-uint16_t        CCR1_Val        = RESET;
-uint16_t        TIM1_period     = RESET;
-uint16_t        DAC_Val         = RESET;
-uint16_t        RTC_Div         = 2;
-uint16_t        dummy_time      = 10;
-uint16_t        mod_10k         = 10000;
-uint16_t        mod_100         = 100;
-uint16_t        res_8bit        = 256;
-uint16_t        res_12bit       = 4096;
-uint16_t        Vref_12bit      = 4095;
-uint16_t        minpersec       = 6000;
+extern bool     sleeping;                       // State variable
+uint16_t        time_in         = RESET;        // Inspiration time (for RTC)
+uint16_t        time_ex         = RESET;        // Expiration time (for RTC)
+uint16_t        CCR1_Val        = RESET;        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+uint16_t        TIM1_period     = RESET;        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+uint16_t        DAC_Val         = RESET;        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+uint16_t        RTC_Div         = 2;            // Maybe delete? // !!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+uint16_t        dummy_time      = 10;           // Arbitraty start-up RTC value// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+uint16_t        mod_10k         = 10000;        // 10k multiplier// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+uint16_t        mod_100         = 100;          // 100 multiplier// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+uint16_t        res_8bit        = 256;          // 8 bit max decimal// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+uint16_t        res_12bit       = 4096;         // 12 bit max decimal// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+uint16_t        Vref_12bit      = 4095;         // Used in RAC calculation // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+uint16_t        minpersec       = 6000;         // seconds per minute x 100
 
-extern uint16_t TI1Buffer[];   //TIM1 time bases buffer
-extern uint16_t TI2Buffer[];   //TIM2 polarity buffer
-extern uint16_t DACBuffer[];   //DAC1 values buffer
-extern uint16_t mult;
-extern uint16_t DAC_High;                // about 3mA
-extern uint16_t DAC_Low;
+extern uint16_t TI1Buffer[];                    // Pulse timing buffer  (TIM1)
+extern uint16_t TI2Buffer[];                    // Polarity buffer      (TIM2)
+extern uint16_t DACBuffer[];                    // Amplitude buffer     (DAC1)
+extern uint16_t mult;                           // Neg:Pos ratio (amp & time)
+extern uint16_t DAC_High;                       // High DAC value (stimulation)
+extern uint16_t DAC_Low;                        // Low DAC value (recharging)
 
 /*******************************************************************************
 *  EXTERNAL VARIABLES
 *******************************************************************************/
-extern uint32_t pulse_freq;
-extern uint32_t pulse_width;
-extern uint32_t pulse_amp;
-extern uint32_t bpm;
-extern uint32_t ie_ratio;
-uint8_t NDEFmessage[0x40];
+extern uint32_t pulse_freq;                     // Pulse frequency
+extern uint32_t pulse_width;                    // Pulse width
+extern uint32_t pulse_amp;                      // Pulse amplitude
+extern uint32_t bpm;                            // Breaths per minute
+extern uint32_t ie_ratio;                       // Inspiration:Expiration ratio
+
+// NFC-related variables
+uint8_t NDEFmessage[0x40];                      // NDEF message for NFC
 //uint8_t sentMail[0x40];
 uint8_t sentMail[] = {'n','o','t','h','i','n','g'};
 
@@ -60,16 +63,11 @@ uint8_t sentMail[] = {'n','o','t','h','i','n','g'};
 void start_Inspiration(void)
 { 
   get_Message();
-  //DAC_Cmd(DAC_Channel_1,ENABLE);
-  //DAC_SetChannel1Data(DAC_Align_12b_R, DAC_High);
-  //TIM4_SetCounter(2);
   TIM1_SetCounter(TI1Buffer[3]-100);
   TIM2_CtrlPWMOutputs(ENABLE);
   TIM2_Cmd(ENABLE);
   TIM1_CtrlPWMOutputs(ENABLE);
   TIM1_Cmd(ENABLE);
-  
-  //GPIO_SetBits(LEDG_PORT,LEDG_PIN);
   reset_RTC_counter(time_in);                           // Reset RTC
   RTC_ITConfig(RTC_IT_WUT, ENABLE);
   wfi();                                                // Wait for event mode
@@ -79,12 +77,10 @@ void start_Inspiration(void)
 *******************************************************************************/
 void start_Expiration(void)
 {
-  //GPIO_ResetBits(LEDG_PORT,LEDG_PIN);
   TIM2_CtrlPWMOutputs(DISABLE);
   TIM2_Cmd(DISABLE);
   TIM1_CtrlPWMOutputs(DISABLE);
   TIM1_Cmd(DISABLE);
-  //DAC_Cmd(DAC_Channel_1,DISABLE);
   reset_RTC_counter(time_ex);                           // Reset RTC
   RTC_ITConfig(RTC_IT_WUT, ENABLE);
   //PWR_UltraLowPowerCmd(ENABLE);                         // Ultra low power mode
@@ -109,7 +105,6 @@ void reset_RTC_counter(uint16_t time)
 }
 
 
-
 //==============================================================================
 //
 //                         INITIALIZATION FUNCTIONS
@@ -124,7 +119,6 @@ void    initialize(void)
   calculate();                                          // Calculate stim vals
   PWR_UltraLowPowerCmd(ENABLE);                         // Ultra low power mode
   configure();                                          // Configure peripherals
-  //GPIO_SetBits(LEDG_PORT,LEDG_PIN);
 }
 /*******************************************************************************
 *  PRIVATE FUNCTION:    calculate()
@@ -162,163 +156,6 @@ void    configure(void)
 }
 
 
-//==============================================================================
-//
-//                    PERIPHERALS CONFIGURATION FUNCTIONS
-//
-//==============================================================================
-
-/*******************************************************************************
-*  PRIVATE FUNCTION:    CLK_Config()
-*******************************************************************************/
-void    CLK_Config(void)
-{
-  DeInitClock();
-  CLK_DeInit();                                         // Reset to HSI
-  CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_16);                // 1MHz
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM1,ENABLE);// Enable TIM1 clock
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM2,ENABLE);// Enable TIM2 clock
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM4,ENABLE);// Enable TIM4 clock
-  CLK_PeripheralClockConfig(CLK_Peripheral_DMA1,ENABLE);// Enable DMA1 clock
-  CLK_PeripheralClockConfig(CLK_Peripheral_DAC, ENABLE);// Enable DAC clock
-  CLK_PeripheralClockConfig(CLK_Peripheral_RTC, ENABLE);// Enable RTC clock
-  CLK_RTCClockConfig(CLK_RTCCLKSource_LSE,              // Set LSE as RTC source
-                     CLK_RTCCLKDiv_1);
-}
-/*******************************************************************************
-*  PRIVATE FUNCTION:    GPIO_Config()
-*******************************************************************************/
-void    GPIO_Config(void)
-{
-  DeInitGPIO();                                         // Configure GPIO pins
-  GPIO_Init(PD2_PORT,PD2_PIN,GPIO_Mode_Out_PP_Low_Fast);// TIM1 Channel 1
-  GPIO_Init(PB0_PORT,PB0_PIN,GPIO_Mode_Out_PP_Low_Fast);// TIM2 Channel 1
-  GPIO_Init(PF0_PORT,PF0_PIN,GPIO_Mode_In_FL_No_IT);    // DAC Channel 1
-  
-  //GPIO_Init(LEDG_PORT,LEDG_PIN,GPIO_Mode_Out_PP_Low_Fast);// LED GREEN
-  //GPIO_Init(PD5_PORT,PD5_PIN,GPIO_Mode_Out_PP_Low_Fast);// SHDN Pin on 10V source
-  //GPIO_ResetBits(LEDG_PORT,LEDG_PIN);                   // TURN OFF LED GREEN
-  //GPIO_Init(M24LR04E_I2C_SCL_GPIO_PORT,M24LR04E_I2C_SCL_PIN,GPIO_Mode_Out_PP_Low_Fast);
-  //GPIO_Init(M24LR04E_I2C_SDA_GPIO_PORT,M24LR04E_I2C_SDA_PIN,GPIO_Mode_Out_PP_Low_Fast);
-  GPIO_ResetBits(PD2_PORT,PD2_PIN);
-  GPIO_ResetBits(PB0_PORT,PB0_PIN);
-}
-/*******************************************************************************
-*  PRIVATE FUNCTION:    TIM1_Config()
-*******************************************************************************/
-void    TIM1_Config(void)
-{
-  // 1MHz/(1+1) = 500kHz, TIM1_Period can be:
-  //    25000 for 50ms
-  //    30000 for 60ms
-  //    40000 for 80ms
-  //    50000 for 100ms
-  //    60000 for 120ms
-  TIM1_DeInit();
-  TIM1_TimeBaseInit(TIM1_PRESCALER,
-                    TIM1_CounterMode_Up,
-                    TIM1_PERIOD,
-                    TIM1_REPTETION_COUNTER);
-  TIM1_OC1Init(TIM1_OCMode_Toggle,
-               TIM1_OutputState_Enable,
-               TIM1_OutputNState_Disable,
-               0,
-               TIM1_OCPolarity_Low,
-               TIM1_OCNPolarity_Low,
-               TIM1_OCIdleState_Set,
-               TIM1_OCNIdleState_Set);
-  TIM1_SelectOutputTrigger(TIM1_TRGOSource_Update);
-  TIM1_ARRPreloadConfig(ENABLE);
-  TIM1_DMACmd(TIM1_DMASource_Update, ENABLE);
-  //TIM1_CtrlPWMOutputs(ENABLE);
-  //TIM1_Cmd(ENABLE);
-}
-/*******************************************************************************
-*  PRIVATE FUNCTION:    TIM2_Config()
-*******************************************************************************/
-void    TIM2_Config(void)
-{
-  TIM2_DeInit();
-  TIM2_TimeBaseInit(TIM2_Prescaler_1,
-                    TIM2_CounterMode_Up,
-                    0xFFFF);
-  TIM2_OC1Init(TIM2_OCMode_Toggle,
-               TIM2_OutputState_Enable,
-               0,
-               TIM2_OCPolarity_Low,// CHANGE TO HIGH
-               TIM2_OCIdleState_Set);
-  TIM2_SelectSlaveMode(TIM2_SlaveMode_Reset);
-  TIM2_OC1PreloadConfig(ENABLE);
-  TIM2_SelectInputTrigger(TIM2_TRGSelection_TIM1);
-  TIM2_DMACmd(TIM2_DMASource_Update, ENABLE);
-  //TIM2_CtrlPWMOutputs(ENABLE);
-  //TIM2_Cmd(ENABLE);
-}
-/*******************************************************************************
-*  PRIVATE FUNCTION:    TIM4_Config()
-*******************************************************************************/
-void    TIM4_Config(void)
-{
-  TIM4_DeInit();
-  TIM4_TimeBaseInit(TIM4_Prescaler_1, 1);
-  TIM4_SelectOnePulseMode(TIM4_OPMode_Single);
-  TIM4_SelectSlaveMode(TIM4_SlaveMode_Reset);
-  TIM4_SelectInputTrigger(TIM4_TRGSelection_TIM1);
-  TIM4_SelectOutputTrigger(TIM4_TRGOSource_Update);
-  TIM4_Cmd(ENABLE);
-}
-/*******************************************************************************
-*  PRIVATE FUNCTION:    DMA1_Config()
-*******************************************************************************/
-void    DMA1_Config(void)
-{
-  DMA_GlobalDeInit();
-  DMA_Init(DMA1_Channel1, (uint16_t)TI2Buffer, TIM2_OC1_ADDRESS,
-           BUFSIZE,DMA_DIR_MemoryToPeripheral,DMA_Mode_Circular,
-           DMA_MemoryIncMode_Inc,DMA_Priority_High,DMA_MemoryDataSize_HalfWord);
-  
-  DMA_Init(DMA1_Channel2, (uint16_t)TI1Buffer, TIM1_ARR_ADDRESS,
-           BUFSIZE,DMA_DIR_MemoryToPeripheral,DMA_Mode_Circular,
-           DMA_MemoryIncMode_Inc,DMA_Priority_High,DMA_MemoryDataSize_HalfWord);
-  
-  DMA_Init(DMA1_Channel3, (uint32_t)DACBuffer, DAC_CH1RDHRH_ADDRESS,
-           BUFSIZE,DMA_DIR_MemoryToPeripheral,DMA_Mode_Circular,
-           DMA_MemoryIncMode_Inc,DMA_Priority_High,DMA_MemoryDataSize_HalfWord);
-  DMA_Cmd(DMA1_Channel1, ENABLE);
-  DMA_Cmd(DMA1_Channel2, ENABLE);
-  DMA_Cmd(DMA1_Channel3, ENABLE);
-  DMA_GlobalCmd(ENABLE);
-}
-/*******************************************************************************
-*  PRIVATE FUNCTION:    DAC_Config()
-*******************************************************************************/
-void    DAC_Config(void)
-{
-  DAC_DeInit();
-  DAC_Init(DAC_Channel_1,DAC_Trigger_T4_TRGO,
-           DAC_OutputBuffer_Enable);
-  DAC_DMACmd(DAC_Channel_1, ENABLE);
-  DAC_Cmd(DAC_Channel_1, ENABLE);
-}
-/*******************************************************************************
-*  PRIVATE FUNCTION:    RTC_Config()
-*******************************************************************************/
-void    RTC_Config(void)
-{
-  RTC_WakeUpCmd(DISABLE);                               // Disable WakeUp unit
-  RTC_RatioCmd(ENABLE);                                 // No sync(fclk=frtc)
-  RTC_WakeUpClockConfig(RTC_WakeUpClock_RTCCLK_Div2);   // frtc/2 = 16384
-  RTC_ITConfig(RTC_IT_WUT, ENABLE);                     // Enable interrupts
-  RTC_SetWakeUpCounter(dummy_time);                     // Dummy counter value
-  RTC_WakeUpCmd(ENABLE);                                // Enable RTC WakeUp
-}
-/*******************************************************************************
-*  PRIVATE FUNCTION:    PWR_Config()
-*******************************************************************************/
-void    PWR_Config(void)
-{
-  PWR_FastWakeUpCmd(DISABLE);
-}
 
 
 //==============================================================================
@@ -398,6 +235,7 @@ void    parse_Message(void)
     }
     
     // Establish ceilings and floors for pulsing controls
+    /*
     if      (data[0]>MAX_PW){pulse_width = MAX_PW;}
     else if (data[0]<MIN_PW){pulse_width = MIN_PW;}
     else                    {pulse_width = data[0];}
@@ -413,6 +251,13 @@ void    parse_Message(void)
     if      (data[3]>MAX_IE){ie_ratio = MAX_IE;}
     else if (data[3]<MIN_IE){ie_ratio = MIN_IE;}
     else                    {ie_ratio = data[3];}
+    */
+    
+    pulse_width = data[0];
+    pulse_amp = data[1];
+    bpm = data[2];
+    ie_ratio = data[3];
+    
     
     uint16_t pw = pulse_width/2;
     TI1Buffer[0] = pw;                            //100           (200us) 3000us
@@ -530,57 +375,7 @@ static void InitializeBuffer (uint8_t *Buffer ,uint8_t NbCar)
 }
 
 
-//==============================================================================
-//
-//                         DEINITIALIZATION FUNCTIONS
-//
-//==============================================================================
 
-/*******************************************************************************
-*  PRIVATE FUNCTION:    DeInitGPIO()
-*******************************************************************************/
-static void DeInitGPIO ( void )
-{
-  GPIO_Init( GPIOA, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
-  GPIO_Init( GPIOB, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
-  GPIO_Init( GPIOC, GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6, GPIO_Mode_Out_OD_Low_Fast);
-  GPIO_Init( GPIOD, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
-  GPIO_Init( GPIOE, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
-  GPIOA->ODR = 0xFF;
-  GPIOB->ODR = 0xFF;
-  GPIOC->ODR = 0xFF;
-  GPIOD->ODR = 0xFF;
-  GPIOE->ODR = 0xFF;
-}
-/*******************************************************************************
-*  PRIVATE FUNCTION:    DeInitClock()
-*******************************************************************************/
-static void DeInitClock ( void )
-{
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM2, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM3, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM4, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_I2C1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_SPI1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_USART1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_BEEP, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_DAC, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_RTC, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_LCD, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_BOOTROM, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_AES, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM5, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_SPI2, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_USART2, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_USART3, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_CSSLSE, DISABLE);
-}
 
 /*******************************************************************************
 **********************************   END   *************************************

@@ -259,6 +259,7 @@
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$\..\inc</state>
           <state>$PROJ_DIR$\..\..\..\Implant STM8L Program NFC+Pulse\STM8L15x_StdPeriph_Driver\inc</state>
+          <state>$PROJ_DIR$\..\..\..\Implant STM8L Program NFC+Pulse\M24LR04E-R_Driver\inc</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1590,6 +1591,21 @@
     </settings>
   </configuration>
   <group>
+    <name>M24LR04E-R_Driver</name>
+    <group>
+      <name>inc</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\M24LR04E-R_Driver\inc\I2C_M24LR04E-R.h</name>
+      </file>
+    </group>
+    <group>
+      <name>src</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\M24LR04E-R_Driver\src\I2C_M24LR04E-R.c</name>
+      </file>
+    </group>
+  </group>
+  <group>
     <name>STM8L15x_StdPeriph_Driver</name>
     <group>
       <name>inc</name>
@@ -1693,7 +1709,7 @@
     <group>
       <name>inc</name>
       <file>
-        <name>$PROJ_DIR$\..\inc\I2C_M24LR04E-R.h</name>
+        <name>$PROJ_DIR$\..\inc\daphne_hardware_config.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\inc\private_functions.h</name>
@@ -1702,10 +1718,7 @@
     <group>
       <name>src</name>
       <file>
-        <name>$PROJ_DIR$\..\src\eeprom.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\src\I2C_M24LR04E-R.c</name>
+        <name>$PROJ_DIR$\..\src\daphne_hardware_config.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\src\main.c</name>

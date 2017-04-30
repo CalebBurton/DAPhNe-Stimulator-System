@@ -6,6 +6,8 @@ C:\Users\Alexey Revinski\Documents\CLASS\BME 390-2\Repo\BME390\Implant STM8L Pro
 -I
 C:\Users\Alexey Revinski\Documents\CLASS\BME 390-2\Repo\BME390\Implant STM8L Program NFC+Pulse\Project\EWSTM8\..\..\..\Implant STM8L Program NFC+Pulse\STM8L15x_StdPeriph_Driver\inc
 -I
+C:\Users\Alexey Revinski\Documents\CLASS\BME 390-2\Repo\BME390\Implant STM8L Program NFC+Pulse\Project\EWSTM8\..\..\..\Implant STM8L Program NFC+Pulse\M24LR04E-R_Driver\inc
+-I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\inc\c
@@ -13,6 +15,8 @@ C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\inc\c
 C:\Users\Alexey Revinski\Documents\CLASS\BME 390-2\Repo\BME390\Implant STM8L Program NFC+Pulse\Project\inc
 -I
 C:\Users\Alexey Revinski\Documents\CLASS\BME 390-2\Repo\BME390\Implant STM8L Program NFC+Pulse\STM8L15x_StdPeriph_Driver\inc
+-I
+C:\Users\Alexey Revinski\Documents\CLASS\BME 390-2\Repo\BME390\Implant STM8L Program NFC+Pulse\M24LR04E-R_Driver\inc
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0
