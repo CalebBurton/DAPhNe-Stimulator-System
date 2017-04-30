@@ -1,8 +1,6 @@
 #include "daphne_hardware_config.h"
 
-extern uint16_t TI1Buffer[];                    // Pulse timing buffer  (TIM1)
-extern uint16_t TI2Buffer[];                    // Polarity buffer      (TIM2)
-extern uint16_t DACBuffer[];                    // Amplitude buffer     (DAC1)
+
 
 /*******************************************************************************
 *  PRIVATE FUNCTION:    CLK_Config()

@@ -1595,13 +1595,22 @@
     <group>
       <name>inc</name>
       <file>
-        <name>$PROJ_DIR$\..\..\M24LR04E-R_Driver\inc\I2C_M24LR04E-R.h</name>
+        <name>$PROJ_DIR$\..\..\M24LR04E-R_Driver\inc\M24LR04E-R_I2C.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\M24LR04E-R_Driver\inc\M24LR04E-R_User.h</name>
       </file>
     </group>
     <group>
       <name>src</name>
       <file>
-        <name>$PROJ_DIR$\..\..\M24LR04E-R_Driver\src\I2C_M24LR04E-R.c</name>
+        <name>$PROJ_DIR$\..\..\M24LR04E-R_Driver\src\eeprom.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\M24LR04E-R_Driver\src\M24LR04E-R_I2C.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\M24LR04E-R_Driver\src\M24LR04E-R_User.c</name>
       </file>
     </group>
   </group>
@@ -1709,14 +1718,23 @@
     <group>
       <name>inc</name>
       <file>
+        <name>$PROJ_DIR$\..\inc\daphne_fsm_functions.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\inc\daphne_hardware_config.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\inc\private_functions.h</name>
       </file>
+      <file>
+        <name>$PROJ_DIR$\..\inc\stm8l15x_conf.h</name>
+      </file>
     </group>
     <group>
       <name>src</name>
+      <file>
+        <name>$PROJ_DIR$\..\src\daphne_fsm_functions.c</name>
+      </file>
       <file>
         <name>$PROJ_DIR$\..\src\daphne_hardware_config.c</name>
       </file>

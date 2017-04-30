@@ -21,8 +21,8 @@
   */  
   
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __I2C_M24LR04_H
-#define __I2C_M24LR04_H
+#ifndef __M24LR04_I2C_H
+#define __M24LR04_I2C_H
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
@@ -64,6 +64,15 @@
 #define M24LR16_EEPROM_ADDRESS_USER		0xA6 /* I2C DeviceSelect */
 #define M24LR16_EEPROM_ADDRESS_SYSTEM		0xAE /* I2C DeviceSelect */
 
+
+#define M24LR04E_I2C                         I2C1
+#define M24LR04E_I2C_CLK                     CLK_Peripheral_I2C1
+#define M24LR04E_I2C_SCL_PIN                 GPIO_Pin_1
+#define M24LR04E_I2C_SCL_GPIO_PORT           GPIOC
+#define M24LR04E_I2C_SDA_PIN                 GPIO_Pin_0
+#define M24LR04E_I2C_SDA_GPIO_PORT           GPIOC
+
+
 /* Private macro -------------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
 static void M24LR04E_LowLevel_DeInit(void);
@@ -80,27 +89,11 @@ uint8_t M24LR04E_ReadConfReg(void);
 void M24LR04E_WriteConfReg(uint8_t RegValue);
 void M24LR04E_ShutDown(FunctionalState NewState);  
 
-
 void M24LR04E_ReadOneByte (uint8_t EE_address, uint16_t ReadAddr,uint8_t* pBuffer);
 void M24LR04E_ReadBuffer (uint8_t EE_address, uint16_t ReadAddr, uint8_t NumByteToRead,uint8_t* pBuffer);
 void M24LR04E_WriteOneByte (uint8_t EE_address, uint16_t ReadAddr,uint8_t pBuffer);
 
 
 
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-  */
 #endif 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/

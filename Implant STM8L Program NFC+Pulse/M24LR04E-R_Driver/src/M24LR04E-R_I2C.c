@@ -46,25 +46,7 @@
 
 
 /* Includes ------------------------------------------------------------------*/
-#include "I2C_M24LR04E-R.h"
-
-/** @addtogroup Utilities
-  * @{
-  */
-
-/** @addtogroup STM8_EVAL
-  * @{
-  */
-
-/** @addtogroup Common
-  * @{
-  */
-
-/** @addtogroup STM8_EVAL_I2C_TSENSOR
-  * @brief      This file includes the M24LR16E Temperature Sensor driver of
-  *             STM8-EVAL boards.
-  * @{
-  */
+#include "M24LR04E-R_I2C.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -784,26 +766,5 @@ static void M24LR04E_LowLevel_Init(void)
 }
 
 
-/**
-  * @}
-  */
-
-
-/**
-  * @}
-  */
-
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
 
 /******************* (C) COPYRIGHT 2012 STMicroelectronics *****END OF FILE****/

@@ -1,19 +1,9 @@
 #ifndef DAPHNE_HARDWARE_CONFIG_H
 #define DAPHNE_HARDWARE_CONFIG_H
 
-#include "stm8l15x_adc.h"
-#include "stm8l15x_clk.h"
-#include "stm8l15x_exti.h"
-#include "stm8l15x_gpio.h"
-#include "stm8l15x_tim1.h"
-#include "stm8l15x_tim2.h"
-#include "stm8l15x_tim4.h"
-#include "stm8l15x_dac.h"
-#include "stm8l15x_dma.h"
-#include "stm8l15x_it.h"
-#include "stm8l15x_rtc.h"
-#include "stm8l15x_pwr.h"
+#include "stm8l15x_conf.h"
 
+// GPIO pin/port nicknames
 #define LED_YELLOW_PORT GPIOB
 #define LED_YELLOW_PIN  GPIO_Pin_0
 #define LED_GREEN_PORT  GPIOB
@@ -25,6 +15,7 @@
 #define PULSE_AMP_PORT  GPIOF
 #define PULSE_AMP_PIN   GPIO_Pin_0
 
+// Hardware configuration values
 #define RTC_INIT_TIME 10
 #define TIM1_ARR_ADDRESS                0x52C3
 #define TIM2_OC1_ADDRESS                0x5261
@@ -38,6 +29,7 @@
 #define TIM4_PERIOD                     1
 #define BUFSIZE                         4
 
+// Function prototypes
 void    CLK_Config(void);
 void    GPIO_Config(void);
 void    TIM1_Config(void);
@@ -49,5 +41,10 @@ void    RTC_Config(void);
 void    PWR_Config(void);
 void    DeInitGPIO(void);
 void    DeInitClock(void);
+
+// External variables
+extern uint16_t TI1Buffer[];                    // Pulse timing buffer  (TIM1)
+extern uint16_t TI2Buffer[];                    // Polarity buffer      (TIM2)
+extern uint16_t DACBuffer[];                    // Amplitude buffer     (DAC1)
 
 #endif /* DAPHNE_HARDWARE_CONFIG_H */

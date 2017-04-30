@@ -17,23 +17,25 @@
 *******************************************************************************/
 
 #include "stm8l15x.h"
-#include "private_functions.h"
+#include "stm8l15x_adc.h"
+#include "stm8l15x_clk.h"
+#include "stm8l15x_exti.h"
+#include "stm8l15x_gpio.h"
+#include "stm8l15x_tim1.h"
+#include "stm8l15x_tim2.h"
+#include "stm8l15x_tim4.h"
+#include "stm8l15x_dac.h"
+#include "stm8l15x_dma.h"
+#include "stm8l15x_it.h"
+#include "stm8l15x_rtc.h"
+#include "stm8l15x_pwr.h"
+#include "stm8l15x_i2c.h"
+#include "stm8l15x_iwdg.h"
+#include "stm8l15x_flash.h"
 
 /*******************************************************************************
 *  MACROS
 *******************************************************************************/
-// CHANGING EQUATIONS BASED ON RESISTOR ADDED
-#define P_OFF_NEW (RESISTOR_ADDED?\
-                    ((uint32_t)(B0-B1*(N/(N/R_DEFAULT+N/RESISTOR_ADDED)))/M):\
-                    P_OFF_DEFAULT)
-/*
-#define ERROR ((P_HIGH>P_LOW||P_OFF_DEFAULT>P_OFF_NEW||P_LOW>P_OFF_NEW||\
-                P_OFF_DEFAULT!=21900||BATTERY_LEVEL>=VREF||RESISTOR_ADDED<0||\
-                TIME_TRY<=0||TIME_FAIL<=0||TIME_LEAK<=0||P_LOW==0||\
-                PRESSURE_UNITS<1||PRESSURE_UNITS>4||P_HIGH<500)\
-                ?TRUE:FALSE)
-*/
-
 
 /*******************************************************************************
 *  ST LIBRARY CODE
