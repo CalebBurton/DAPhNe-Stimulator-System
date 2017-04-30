@@ -14,7 +14,7 @@
 /*******************************************************************************
 *  GLOBAL FLAGS
 *******************************************************************************/
-extern bool sleeping;
+extern state_t daphne;
 extern uint16_t time_in;
 extern uint16_t time_ex;
 
@@ -81,13 +81,13 @@ INTERRUPT_HANDLER(RTC_IRQHandler, 4)
   disableInterrupts();
   RTC_ITConfig(RTC_IT_WUT, DISABLE);
   RTC_ClearITPendingBit(RTC_IT_WUT);
-  if (sleeping)
+  if (daphne==INHALE)
   {
-    sleeping = FALSE;                                     // Change state 
+    daphne = EXHALE;                                     // Change state 
   }
   else
   {
-    sleeping = TRUE;                                      // Change state
+    daphne = INHALE;                                     // Change state
   }
   enableInterrupts();
 }

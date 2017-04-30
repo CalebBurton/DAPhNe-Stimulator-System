@@ -29,9 +29,9 @@ uint16_t        res_12bit       = 4096;         // 12 bit max decimal// !!!!!!!!
 uint16_t        Vref_12bit      = 4095;         // Used in RAC calculation // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
 uint16_t        minpersec       = 6000;         // seconds per minute x 100
 
-extern uint16_t TI1Buffer[];                    // Pulse timing buffer  (TIM1)
-extern uint16_t TI2Buffer[];                    // Polarity buffer      (TIM2)
-extern uint16_t DACBuffer[];                    // Amplitude buffer     (DAC1)
+extern uint16_t TI1Buffer[];                    // Pulse timing         (TIM1)
+extern uint16_t TI2Buffer[];                    // Pulse polarity       (TIM2)
+extern uint16_t DACBuffer[];                    // Pulse amplitude      (DAC1)
 extern uint16_t mult;                           // Neg:Pos ratio (amp & time)
 extern uint16_t DAC_High;                       // High DAC value (stimulation)
 extern uint16_t DAC_Low;                        // Low DAC value (recharging)
@@ -49,6 +49,36 @@ extern uint32_t ie_ratio;                       // Inspiration:Expiration ratio
 uint8_t NDEFmessage[0x40];                      // NDEF message for NFC
 //uint8_t sentMail[0x40];
 uint8_t sentMail[] = {'n','o','t','h','i','n','g'};
+
+
+void Fill_Buffers (uint32_t pulse_width,uint32_t pulse_amp)
+{
+  // Derived variables
+  uint16_t DAC_High = (uint16_t)(((uint32_t)pulse_amp*            // DAC value
+                        (uint32_t)res_12bit)*5/
+                        (uint32_t)Vref_12bit)/2;
+  
+  uint16_t pw = pulse_width/2;                  // Pulse width value
+  uint16_t DAC_Low = DAC_High/PULSE_RATIO;      // Charge-balancing pulse ampl.
+  
+  // TIM1 buffer (pulse timing)
+  TI1Buffer[0] = pw;                            // Stimulation pulse
+  TI1Buffer[1] = pw*3;                          // Break between pulses
+  TI1Buffer[2] = pw*PULSE_RATIO;                // Charge-balancing pulse
+  TI1Buffer[3] = TIM1_PERIOD-pw*(PULSE_RATIO+5);// Rest of the interpulse period
+  
+  // TIM2 buffer (pulse polarity)
+  TI2Buffer[0] = 0xFFFF;                        // Never overflowing
+  TI2Buffer[1] = 50;                            // Slight delay after TIM1 fires
+  TI2Buffer[2] = 0xFFFF;                        // Never overflowing
+  TI2Buffer[3] = 50;                            // Slight delay after TIM1 fires
+  
+  // DAC1 buffer (pulse amplitude)
+  DACBuffer[0] = DAC_High;                      // High during negative pulse
+  DACBuffer[1] = DAC_Low;                       // Low during break
+  DACBuffer[2] = DAC_Low;                       // Low during positive pulse
+  DACBuffer[3] = DAC_High;                      // High during rest of the time;
+}
 
 
 //==============================================================================
@@ -116,6 +146,7 @@ void reset_RTC_counter(uint16_t time)
 *******************************************************************************/
 void    initialize(void)
 {
+  Fill_Buffers(pulse_width,pulse_amp);
   calculate();                                          // Calculate stim vals
   PWR_UltraLowPowerCmd(ENABLE);                         // Ultra low power mode
   configure();                                          // Configure peripherals
@@ -259,30 +290,9 @@ void    parse_Message(void)
     ie_ratio = data[3];
     
     
-    uint16_t pw = pulse_width/2;
-    TI1Buffer[0] = pw;                            //100           (200us) 3000us
-    TI1Buffer[1] = pw*3;                          //500           (1000us) 12ms
-    TI1Buffer[2] = pw*mult;                       //10000         (20ms)  30ms
-    TI1Buffer[3] = TIM1_PERIOD-pw*(mult+5);       //14400         (28.8ms)
     
+    Fill_Buffers(pulse_width,pulse_amp);
     
-    DAC_High = (uint16_t)(((uint32_t)pulse_amp*            // DAC value
-                        (uint32_t)res_12bit)*5/
-                        (uint32_t)Vref_12bit)/2;
-    
-    DAC_Low = DAC_High/mult;             // about 0.3mA
-    
-    //TI2Buffer[0] = 50;
-    //TI2Buffer[1] = 0xFFFF;
-    //TI2Buffer[2] = 50;
-    //TI2Buffer[3] = 0xFFFF;
-    
-    DACBuffer[0] = DAC_High;
-    DACBuffer[1] = DAC_Low;
-    DACBuffer[2] = DAC_Low;
-    DACBuffer[3] = DAC_High;
-    
-    //reconfigure();
   }
 }
 

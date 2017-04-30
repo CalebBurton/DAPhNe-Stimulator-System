@@ -48,6 +48,8 @@
 #define M24LR04E_I2C_SDA_GPIO_PORT           GPIOC
 
 
+#define PULSE_RATIO     (uint16_t) 10
+
 #define MAX_PW          (uint32_t) 1000
 #define MIN_PW          (uint32_t) 100
 #define MAX_PA          (uint32_t) 500
@@ -80,8 +82,9 @@ static ErrorStatus      User_GetPayloadLength(uint8_t *PayloadLength);
 static ErrorStatus      User_GetNDEFMessage(uint8_t  PayloadLength,uint8_t *NDEFmessage);
 static void             InitializeBuffer (uint8_t *Buffer ,uint8_t NbCar);
 
+void Fill_Buffers(uint32_t pulse_width,uint32_t pulse_amp);
 
-
+typedef enum {INHALE,EXHALE} state_t;
 
 
 #endif /* PRIVATE_FUNCTIONS_H */
