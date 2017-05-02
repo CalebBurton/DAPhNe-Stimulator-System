@@ -190,12 +190,14 @@ void update(void)
   time_ex = breath_period-time_in;
   // Interpulse interval
   one_pulse_period = data[4]*100/2;
+  
+  
     
   // TIM1 buffer (pulse timing)
   TI1Buffer[0] = pw;                            // Stimulation pulse
   TI1Buffer[1] = pw*3;                          // Break between pulses
   TI1Buffer[2] = pw*PULSE_RATIO;                // Charge-balancing pulse
-  TI1Buffer[3] = TIM1_PERIOD-pw*(PULSE_RATIO+5);// Rest of the interpulse period
+  TI1Buffer[3] = one_pulse_period-pw*(PULSE_RATIO+5);// Rest of the interpulse period
   
   // TIM2 buffer (pulse polarity)
   TI2Buffer[0] = 0xFFFF;                        // Never overflowing

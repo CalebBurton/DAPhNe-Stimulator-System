@@ -22,10 +22,7 @@ void start_Inspiration(void)
   TIM1_Cmd(ENABLE);                                     // Enable TIM1
   // Go into WAIT FOR INTERRUPT mode
   wfi();                                                // Wait for event mode
-  if(end_timer)
-  {
-    TIM2_ITConfig(TIM2_IT_Update,ENABLE); // Enable TIM2 update interrupt
-  }
+  TIM2_ITConfig(TIM2_IT_Update,ENABLE); // Enable TIM2 update interrupt
 }
 /*******************************************************************************
 *  PRIVATE FUNCTION:    startExpiration()
