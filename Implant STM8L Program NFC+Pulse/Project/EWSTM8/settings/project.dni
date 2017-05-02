@@ -1,5 +1,5 @@
 [DebugChecksum]
-Checksum=-689760152
+Checksum=812962594
 [DisAssemblyWindow]
 NumStates=_ 1
 State 1=_ 1
@@ -53,15 +53,19 @@ MixedMode=1
 LogEnabled=0
 GraphEnabled=0
 ShowTimeLog=1
-[TermIOLog]
-LoggingEnabled=_ 0
-LogFile=_ ""
 [Breakpoints]
-Count=0
+Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\src\daphne_fsm_functions.c}.42.3" 1 0 0 0 "" 0 ""
+Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\src\daphne_fsm_functions.c}.42.3" 1 0 0 0 "" 0 ""
+Bp2=_ "STD_CODE" "{$PROJ_DIR$\..\src\daphne_fsm_functions.c}.52.1" 1 0 0 0 "" 0 ""
+Bp3=_ "STD_CODE" "{$PROJ_DIR$\..\src\stm8l15x_it.c}.289.5" 1 0 0 0 "" 0 ""
+Count=4
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
 Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
 [Aliases]
 A0=_ "C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program Dummy\Project\src\I2C_M24LR04E-R.c" ""
 A1=_ "C:\Users\Alexey Revinski\Documents\1_CLASS\BME 390-2\IAR Projects\BME390\Implant STM8L Program Dummy\STM8L15x_StdPeriph_Driver\src\stm8l15x_dac.c" ""

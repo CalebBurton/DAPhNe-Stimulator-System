@@ -8,26 +8,14 @@
 *       Author:		Alexey Revinski
 *	Last Revised:	04/30/2017
 *******************************************************************************/
+#include "daphne_utilities.h"
 #include "daphne_fsm_functions.h"
-
-/*******************************************************************************
-*  GLOBAL VARIABLES
-*******************************************************************************/
-
-// Physiological values (changed at run-time if NFC memory is present)
-uint32_t        pulse_width     = 200;          //( 1000 = 1000 us  )
-uint32_t        pulse_amp       = 500;          //( 1000 = 10.00 mA )
-uint32_t        bpm             = 3000;         //( 1000 = 10.00 bpm)
-uint32_t        ie_ratio        = 5000;         //( 1000 = 10.00 %  )
-uint32_t        pulse_freq      = 2000;         //( 1000 = 10.00 Hz )
+#include "daphne_hardware_config.h"
 
 // System state
-extern state_t daphne;
+state_t daphne  = INHALE;                       // Inspiration/Expiration
 
-/*******************************************************************************
-*  MAIN FUNCTION
-*******************************************************************************/
-
+// Main Functions
 void main(void)
 { 
   initialize();                                 // Startup functions
@@ -37,7 +25,3 @@ void main(void)
     else                {start_Expiration(); }  // Expiratory state
   }
 }
-
-/*******************************************************************************
-**********************************   END   *************************************
-*******************************************************************************/

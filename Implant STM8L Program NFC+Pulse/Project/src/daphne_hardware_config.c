@@ -1,6 +1,11 @@
 #include "daphne_hardware_config.h"
 
+// External variables
+extern uint16_t TI1Buffer[];                    // Pulse timing buffer  (TIM1)
+extern uint16_t TI2Buffer[];                    // Polarity buffer      (TIM2)
+extern uint16_t DACBuffer[];                    // Amplitude buffer     (DAC1)
 
+extern uint16_t time_in;
 
 /*******************************************************************************
 *  PRIVATE FUNCTION:    CLK_Config()
@@ -80,6 +85,7 @@ void    TIM2_Config(void)
   TIM2_OC1PreloadConfig(ENABLE);
   TIM2_SelectInputTrigger(TIM2_TRGSelection_TIM1);
   TIM2_DMACmd(TIM2_DMASource_Update, ENABLE);
+  
 }
 /*******************************************************************************
 *  PRIVATE FUNCTION:    TIM4_Config()
@@ -134,9 +140,9 @@ void    RTC_Config(void)
 {
   RTC_WakeUpCmd(DISABLE);                               // Disable WakeUp unit
   RTC_RatioCmd(ENABLE);                                 // No sync(fclk=frtc)
-  RTC_WakeUpClockConfig(RTC_WakeUpClock_RTCCLK_Div2);   // frtc/2 = 16384
+  RTC_WakeUpClockConfig(RTC_WakeUpClock_RTCCLK_Div4);   // frtc/2 = 16384
   RTC_ITConfig(RTC_IT_WUT, ENABLE);                     // Enable interrupts
-  RTC_SetWakeUpCounter(RTC_INIT_TIME);                  // Dummy counter value
+  RTC_SetWakeUpCounter(time_in);                        // Dummy counter value
   RTC_WakeUpCmd(ENABLE);                                // Enable RTC WakeUp
 }
 /*******************************************************************************

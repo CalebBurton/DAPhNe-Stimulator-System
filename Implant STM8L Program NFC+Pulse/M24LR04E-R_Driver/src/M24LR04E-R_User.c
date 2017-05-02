@@ -8,7 +8,7 @@ extern uint8_t NDEFmessage[0x40];                      // NDEF message for NFC
 /*******************************************************************************
 *  PRIVATE FUNCTION:    User_ReadNDEFMessage()
 *******************************************************************************/
-int8_t User_ReadNDEFMessage ( uint8_t *PayloadLength )			
+ErrorStatus User_ReadNDEFMessage ( uint8_t *PayloadLength )			
 {
   uint8_t NthAttempt=0,NbAttempt = 2;
   *PayloadLength = 0;

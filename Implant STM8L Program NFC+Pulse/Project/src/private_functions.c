@@ -10,29 +10,14 @@
 *******************************************************************************/
 #include "private_functions.h"
 
-
 /*******************************************************************************
 *  GLOBAL VARIABLES
 *******************************************************************************/
 extern bool     sleeping;                       // State variable
 
-uint16_t        time_in = RESET;        // Inspiratory time
-uint16_t        time_ex = RESET;        // Expiratory time
-uint16_t        CCR1_Val        = RESET;        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-uint16_t        TIM1_period     = RESET;        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-uint16_t        DAC_Val         = RESET;        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-uint16_t        RTC_Div         = 2;            // Maybe delete? // !!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-uint16_t        dummy_time      = 10;           // Arbitraty start-up RTC value// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-uint16_t        mod_10k         = 10000;        // 10k multiplier// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-uint16_t        mod_100         = 100;          // 100 multiplier// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-uint16_t        res_8bit        = 256;          // 8 bit max decimal// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-uint16_t        res_12bit       = 4096;         // 12 bit max decimal// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-uint16_t        Vref_12bit      = 4095;         // Used in RAC calculation // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-uint16_t        minpersec       = 6000;         // seconds per minute x 100
 
-extern uint16_t TI1Buffer[];                    // Pulse timing         (TIM1)
-extern uint16_t TI2Buffer[];                    // Pulse polarity       (TIM2)
-extern uint16_t DACBuffer[];                    // Pulse amplitude      (DAC1)
+
+
 
 /*******************************************************************************
 *  EXTERNAL VARIABLES
@@ -42,46 +27,25 @@ extern uint32_t pulse_width;                    // Pulse width
 extern uint32_t pulse_amp;                      // Pulse amplitude
 extern uint32_t bpm;                            // Breaths per minute
 extern uint32_t ie_ratio;                       // Inspiration:Expiration ratio
-extern uint8_t NDEFmessage[0x40];                      // NDEF message for NFC
-
-uint8_t sentMail[] = {'n','o','t','h','i','n','g'};
 
 
-// System state
-state_t         daphne          = INHALE;       // Inspiration/Expiration
+//
 
-// DMA Buffers
-uint16_t        TI1Buffer[4]    = {0,0,0,0};    // Pulse timing         (TIM1)
-uint16_t        TI2Buffer[4]    = {0,0,0,0};    // Pulse polarity       (TIM2)
-uint16_t        DACBuffer[4]    = {0,0,0,0};    // Pulse amplitude      (DAC1)
-
-// Global variables for NFC
-uint8_t         NDEFmessage[0x40];              // NDEF message for NFC
 
 
 
 
-/*******************************************************************************
-*  PRIVATE FUNCTION:    initialize()
-*******************************************************************************/
-void    initialize(void)
-{
-  update_Buffers(pulse_width,pulse_amp);
-  calculate();                                          // Calculate stim vals
-  CLK_Config();                                         // Configure clocks
-  GPIO_Config();                                        // Configure pin in/out
-  TIM1_Config();                                        // Configure TIM1
-  TIM2_Config();                                        // Configure TIM2
-  TIM4_Config();                                        // Configure TIM4
-  DMA1_Config();                                        // Configure DMA
-  DAC_Config();                                         // Configure DAC
-  RTC_Config();                                         // Configure RTC
-  PWR_Config();                                         // Configure PWR
-  PWR_UltraLowPowerCmd(ENABLE);                         // Ultra low power mode
-}
+// Global variables for NFC
+
+
+
+
+
+
 /*******************************************************************************
 *  PRIVATE FUNCTION:    calculate()
 *******************************************************************************/
+/*
 void    calculate(void)
 {
   uint32_t xy = ((uint32_t)LSE_FREQ/RTC_Div*minpersec)/ //Total breath
@@ -89,25 +53,23 @@ void    calculate(void)
   time_in = (uint16_t)((ie_ratio*xy)/mod_10k)-700;      // Inspiration
   time_ex = ((uint16_t)xy-time_in)-700;                 // Expiration
   
-  /*
   CCR1_Val = pulse_width;                               // Pulse width
   DAC_Val = (uint16_t)(((uint32_t)pulse_amp*            // DAC value
                         (uint32_t)res_8bit)/
                         (uint32_t)Vref)/2;
   TIM1_period = ((1000000*mod_100)/                     // fclk/20Hz-1
     pulse_freq)-1;
-  */
-}
+  
+}*/
 
-
+/*
 void update_Buffers (uint32_t pulse_width,uint32_t pulse_amp)
 {
   // Derived variables
+  uint16_t pw = pulse_width/2;                  // Pulse width value
   uint16_t DAC_High = (uint16_t)(((uint32_t)pulse_amp*            // DAC value
                         (uint32_t)res_12bit)*5/
                         (uint32_t)Vref_12bit)/2;
-  
-  uint16_t pw = pulse_width/2;                  // Pulse width value
   uint16_t DAC_Low = DAC_High/PULSE_RATIO;      // Charge-balancing pulse ampl.
   
   // TIM1 buffer (pulse timing)
@@ -128,7 +90,7 @@ void update_Buffers (uint32_t pulse_width,uint32_t pulse_amp)
   DACBuffer[2] = DAC_Low;                       // Low during positive pulse
   DACBuffer[3] = DAC_High;                      // High during rest of the time;
 }
-
+*/
 //==============================================================================
 //
 //                    NEAR FIELD COMMUNICATION FUNCTIONS
@@ -138,13 +100,14 @@ void update_Buffers (uint32_t pulse_width,uint32_t pulse_amp)
 /*******************************************************************************
 *  PRIVATE FUNCTION:    get_Message()
 *******************************************************************************/
+/*
 void    get_Message(void)
 {
   
   uint8_t PayloadLength;
   if (User_ReadNDEFMessage(&PayloadLength) == SUCCESS)
   {
-    parse_Message();
+    //parse_Message();
     //if(write_Back()==SUCCESS);
   }
   else
@@ -152,10 +115,11 @@ void    get_Message(void)
     ;
   }
 }
-
+*/
 /*******************************************************************************
 *  PRIVATE FUNCTION:    write_Back();
 *******************************************************************************/
+/*
 uint8_t    write_Back(void)
 {
   uint8_t data = 0x61;
@@ -170,10 +134,11 @@ uint8_t    write_Back(void)
   I2C_Cmd(M24LR04E_I2C, DISABLE);
   return SUCCESS;
 }
-
+*/
 /*******************************************************************************
 *  PRIVATE FUNCTION:    parse_Message()
 *******************************************************************************/
+/*
 void    parse_Message(void)
 {
   bool ERROR = FALSE;
@@ -189,7 +154,7 @@ void    parse_Message(void)
   if (ERROR);
   else
   {
-    // Parody on sscanf(); NDEF is of type (dddd,dddd,dddd,dddd,dddd where d = digit)
+    // Parody on sscanf(); NDEF is of type (dddd,dddd,dddd,dddd where d = digit)
     uint8_t breaks[5] = {0,4,9,14,19};
     uint32_t data[4]={0,0,0,0}, digit = 0;
     for (uint8_t i=0;i<4;i++)
@@ -226,7 +191,7 @@ void    parse_Message(void)
     
   }
 }
-
+*/
 /*******************************************************************************
 **********************************   END   *************************************
 *******************************************************************************/

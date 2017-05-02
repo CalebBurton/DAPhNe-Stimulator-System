@@ -9,14 +9,17 @@
 *	Last Revised:	02/27/2017
 *******************************************************************************/
 
-#include "private_functions.h"
+#include "daphne_utilities.h"
 
 /*******************************************************************************
 *  GLOBAL FLAGS
 *******************************************************************************/
+uint16_t end_timer = 0;
+
 extern state_t daphne;
 extern uint16_t time_in;
 extern uint16_t time_ex;
+extern uint16_t TI1Buffer[];
 
 // INTERRUPT HANDLERS (only EXTI3 and TIM4 are currently used)
 
@@ -79,11 +82,21 @@ INTERRUPT_HANDLER(RTC_IRQHandler, 4)
      it is recommended to set a breakpoint on the following instruction.
   */
   disableInterrupts();
+  static uint16_t timer_val;
   RTC_ITConfig(RTC_IT_WUT, DISABLE);
   RTC_ClearITPendingBit(RTC_IT_WUT);
-  if (daphne==INHALE)
-  {
-    daphne = EXHALE;                                     // Change state 
+  if (daphne==INHALE)                   // Transition to expiration
+  {    
+    timer_val = (TIM1->ARRL);
+    timer_val |= (TIM1->ARRH)<<8;        // Read TIM1 value
+    
+    // Check which phase we are in
+    if          (timer_val==TI1Buffer[0]){end_timer = 4;}
+    else if     (timer_val==TI1Buffer[1]){end_timer = 3;}
+    else if     (timer_val==TI1Buffer[2]){end_timer = 2;}
+    else if     (timer_val==TI1Buffer[3]){end_timer = 1;}
+    
+    daphne = EXHALE;                                     // Change state
   }
   else
   {
@@ -270,6 +283,19 @@ INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
+  TIM2_ClearITPendingBit(TIM2_IT_Update);
+  if(end_timer>0)
+  {
+    end_timer--;
+    wfi();
+  }
+  else
+  {
+    TIM2_ITConfig(TIM2_IT_Update, DISABLE);
+    TIM1_Cmd(DISABLE);
+    TIM2_Cmd(DISABLE);
+  }
+  
 }
 
 /**

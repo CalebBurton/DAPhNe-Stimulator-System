@@ -16,7 +16,7 @@
 #define PULSE_AMP_PIN   GPIO_Pin_0
 
 // Hardware configuration values
-#define RTC_INIT_TIME 10
+#define RTC_INIT_TIME                   10
 #define TIM1_ARR_ADDRESS                0x52C3
 #define TIM2_OC1_ADDRESS                0x5261
 #define DAC_CH1RDHRH_ADDRESS            0x5388
@@ -41,10 +41,5 @@ void    RTC_Config(void);
 void    PWR_Config(void);
 void    DeInitGPIO(void);
 void    DeInitClock(void);
-
-// External variables
-extern uint16_t TI1Buffer[];                    // Pulse timing buffer  (TIM1)
-extern uint16_t TI2Buffer[];                    // Polarity buffer      (TIM2)
-extern uint16_t DACBuffer[];                    // Amplitude buffer     (DAC1)
 
 #endif /* DAPHNE_HARDWARE_CONFIG_H */
