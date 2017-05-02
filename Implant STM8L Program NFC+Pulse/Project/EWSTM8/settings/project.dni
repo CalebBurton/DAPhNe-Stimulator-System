@@ -1,5 +1,5 @@
 [DebugChecksum]
-Checksum=1399923209
+Checksum=-1617157126
 [DisAssemblyWindow]
 NumStates=_ 1
 State 1=_ 1
@@ -55,7 +55,9 @@ GraphEnabled=0
 ShowTimeLog=1
 [Breakpoints]
 Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\src\stm8l15x_it.c}.289.5" 1 0 0 0 "" 0 ""
-Count=1
+Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\src\daphne_utilities.c}.194.3" 1 0 0 0 "" 0 ""
+Bp2=_ "STD_CODE" "{$PROJ_DIR$\..\src\daphne_utilities.c}.185.3" 1 0 0 0 "" 0 ""
+Count=3
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""

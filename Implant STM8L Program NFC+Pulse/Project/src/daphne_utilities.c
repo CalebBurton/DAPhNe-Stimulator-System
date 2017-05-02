@@ -25,19 +25,9 @@ uint8_t sentMail[] = {'n','o','t','h','i','n','g'};
 // CALCULATION THINGS --- NEED TODO
 uint16_t        time_in = RESET;        // Inspiratory time
 uint16_t        time_ex = RESET;        // Expiratory time
-//uint16_t        CCR1_Val        = RESET;        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-//uint16_t        TIM1_period     = RESET;        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-//uint16_t        DAC_Val         = RESET;        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-//uint16_t        RTC_Div         = 2;            // Maybe delete? // !!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-//uint16_t        dummy_time      = 10;           // Arbitraty start-up RTC value// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-//uint16_t        mod_10k         = 10000;        // 10k multiplier// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-//uint16_t        mod_100         = 100;          // 100 multiplier// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-//uint16_t        res_8bit        = 256;          // 8 bit max decimal// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-//uint16_t        res_12bit       = 4096;         // 12 bit max decimal// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-//uint16_t        Vref_12bit      = 4095;         // Used in RAC calculation // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-//uint16_t        minpersec       = 6000;         // seconds per minute x 100
 uint16_t        breath_period = RESET;
 uint32_t        one_pulse_period = RESET;
+
 /*******************************************************************************
 *  PRIVATE FUNCTION:    initialize()
 *******************************************************************************/
@@ -191,13 +181,11 @@ void update(void)
   // Interpulse interval
   one_pulse_period = data[4]*100/2;
   
-  
-    
   // TIM1 buffer (pulse timing)
   TI1Buffer[0] = pw;                            // Stimulation pulse
   TI1Buffer[1] = pw*3;                          // Break between pulses
   TI1Buffer[2] = pw*PULSE_RATIO;                // Charge-balancing pulse
-  TI1Buffer[3] = one_pulse_period-pw*(PULSE_RATIO+5);// Rest of the interpulse period
+  TI1Buffer[3] = one_pulse_period-pw*(PULSE_RATIO+4);// Rest of the interpulse period
   
   // TIM2 buffer (pulse polarity)
   TI2Buffer[0] = 0xFFFF;                        // Never overflowing
