@@ -1,0 +1,26 @@
+REVISION 2.3		released 16/01/2012
+- DEMO-CR95HF-A : DLL 0.6 Added (new functions / USBconnect / Check USB Handle)	
+- DEMO-CR95HF-A : process to connect again DEMO-CR95HF-A in case of USB Handle loss
+- Possibility to select Serial EEPROM USB reader (I2C) with DEMO-CR95HF-A
+- M24LR04E new product added
+- "AutoDetect product" tool added
+- NFC & EH demo added
+- Read Multiple Block management modified to be able to read all memory  
+- Fast read & Fast multiple read mode added for DEMO-CR95HF-A
+- USB driver : FEIG USB driver for windows 7 & 64bit OS included in the package
+- USB driver : Serial EEPROM USB reader driver for 64bit OS included in the package
+
+REVISION 2.4		released 24/09/2012
+- DEMO-CR95HF-A : DLL 0.9 Added (new functions CR95HFDll_getHardwareVersion for latest DEMO-CR95HF boards)
+- new demo NDEF & Energy Harvesting to be used with M24LR-discovery
+- new demo NDEF read & write to be able to program iso15693 NDEF messages (text, url, smartposter, MIME vcard)
+- LRIS2K password & lock management improved
+- LRIxx kill management updated
+- M24LR64E new product added
+- USB drivers for 64bit windows OS available in installation directory / drivers
+	o FEIG reader (Development kit & Demo kit)
+	o Serial EEPROM USB reader
+	
+REVISION 2.5		released 11/06/2013
+- Black color issue on windows7 OS corrected
+- demo NDEF read & write : BT pairing NDEF message added

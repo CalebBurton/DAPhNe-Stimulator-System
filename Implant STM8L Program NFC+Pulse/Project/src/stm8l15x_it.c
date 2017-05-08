@@ -292,8 +292,9 @@ INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19)
   else
   {
     TIM2_ITConfig(TIM2_IT_Update, DISABLE);
-    TIM1_Cmd(DISABLE);
     TIM2_Cmd(DISABLE);
+    TIM1_Cmd(DISABLE);
+    
   }
   
 }

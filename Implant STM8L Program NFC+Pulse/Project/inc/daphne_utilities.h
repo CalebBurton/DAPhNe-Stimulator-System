@@ -14,7 +14,7 @@
 #define MIN_BR  (uint32_t) 1000
 #define MAX_IT  (uint32_t) 3000                 //!!!!!
 #define MIN_IT  (uint32_t) 800                  //!!!!!
-#define MAX_II  (uint32_t) 5000
+#define MAX_II  (uint32_t) 1200
 #define MIN_II  (uint32_t) 100
 
 #define PULSE_RATIO     (uint16_t) 10

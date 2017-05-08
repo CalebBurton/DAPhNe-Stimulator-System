@@ -26,7 +26,7 @@ uint8_t sentMail[] = {'n','o','t','h','i','n','g'};
 uint16_t        time_in = RESET;        // Inspiratory time
 uint16_t        time_ex = RESET;        // Expiratory time
 uint16_t        breath_period = RESET;
-uint32_t        one_pulse_period = RESET;
+uint32_t        one_period = RESET;
 
 /*******************************************************************************
 *  PRIVATE FUNCTION:    initialize()
@@ -179,13 +179,13 @@ void update(void)
   time_in = (LSE_FREQ/4*data[3]/1000);//also must be done in 32bit
   time_ex = breath_period-time_in;
   // Interpulse interval
-  one_pulse_period = data[4]*100/2;
+  one_period = (data[4]/2)*100;
   
   // TIM1 buffer (pulse timing)
   TI1Buffer[0] = pw;                            // Stimulation pulse
   TI1Buffer[1] = pw*3;                          // Break between pulses
   TI1Buffer[2] = pw*PULSE_RATIO;                // Charge-balancing pulse
-  TI1Buffer[3] = one_pulse_period-pw*(PULSE_RATIO+4);// Rest of the interpulse period
+  TI1Buffer[3] = one_period-pw*(PULSE_RATIO+4); // Rest of the interpulse period
   
   // TIM2 buffer (pulse polarity)
   TI2Buffer[0] = 0xFFFF;                        // Never overflowing
