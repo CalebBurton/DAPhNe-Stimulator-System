@@ -6,16 +6,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 ********************************************************************************
 *       Author:		Alexey Revinski
-*	Last Revised:	04/30/2017
+*	Last Revised:	05/16/2017
 *******************************************************************************/
 #include "daphne_utilities.h"
 #include "daphne_fsm_functions.h"
 #include "daphne_hardware_config.h"
 
-// System state
+// GLOBAL VARIABLES
 state_t daphne  = INHALE;                       // Inspiration/Expiration
 
-// Main Functions
+// MAIN
 void main(void)
 { 
   initialize();                                 // Startup functions

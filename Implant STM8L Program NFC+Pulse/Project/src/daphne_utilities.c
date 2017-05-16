@@ -1,38 +1,54 @@
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%                                                                        %%%%
+%%%%             DAPhNe Stimulator System Firmware: IPNS_v0.1               %%%%
+%%%%                           daphne_utilities.c                           %%%%
+%%%%                                                                        %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+********************************************************************************
+*       Author:		Alexey Revinski
+*	Last Revised:	05/16/2017
+*******************************************************************************/
+
+//INCLUDES
 #include "daphne_utilities.h"
 
 
+// GLOBAL VARIABLES
 // Physiological values (changed at run-time if NFC memory is present)
-uint32_t        pulse_width             = 200;          //( 1000 = 1000 us  )
-uint32_t        pulse_amplitude         = 500;          //( 1000 = 10.00 mA )
-uint32_t        breathing_rate          = 3000;         //( 1000 = 10.00 bpm)
-uint32_t        inspiratory_time        = 1300;         //( 1000 = 10.00 %  )
-uint32_t        interpulse_interval     = 500;         //( 1000 = 100.0 ms )
+uint32_t        pulse_width             = 200;  //1000 = 1000 us
+uint32_t        pulse_amplitude         = 500;  //1000 = 10.00 mA
+uint32_t        breathing_rate          = 3000; //1000 = 10.00 bpm
+uint32_t        inspiratory_time        = 1300; //1000 = 10.00 %
+uint32_t        interpulse_interval     = 500;  //1000 = 100.0 ms
 
 // DMA Buffers
-uint16_t TI1Buffer[] = {0,0,0,0};       // Pulse timing         (TIM1)
-uint16_t TI2Buffer[] = {0,0,0,0};       // Pulse polarity       (TIM2)
-uint16_t DACBuffer[] = {0,0,0,0};       // Pulse amplitude      (DAC1)
+uint16_t TI1Buffer[] = {0,0,0,0};       // Pulse timing phase values (TIM1)
+uint16_t TI2Buffer[] = {0,0,0,0};       // Pulse polarity phase values (TIM2)
+uint16_t DACBuffer[] = {0,0,0,0};       // Pulse amplitude phase values (DAC1)
 
 // Data structure
-static uint32_t data[5] = {0,0,0,0,0};  // DAPhNe incoming data structure
-static uint32_t prev_data[5] = {0,0,0,0,0};
+static uint32_t data[5] = {0,0,0,0,0};  // DAPhNe incoming data
+static uint32_t prev_data[5] = {0,0,0,0,0}; // Save buffer
 
 // NFC variables
 uint8_t NDEFmessage[0x40];              // NDEF message for NFC
-uint8_t sentMail[] = {'n','o','t','h','i','n','g'};
+uint8_t sentMail[] = {'n','o','t','h','i','n','g'}; //!!!!! TODO
 
-
-// CALCULATION THINGS --- NEED TODO
+// Calculation variables --- NEED TODO
 uint16_t        time_in = RESET;        // Inspiratory time
 uint16_t        time_ex = RESET;        // Expiratory time
-uint16_t        breath_period = RESET;
-uint32_t        one_period = RESET;
+uint16_t        breath_period = RESET;  // One breath period
+uint32_t        one_period = RESET;     // Interpulse period
 
-/*******************************************************************************
-*  PRIVATE FUNCTION:    initialize()
-*******************************************************************************/
+/*==============================================================================
+  PRIVATE FUNCTION:    initialize()
+--------------------------------------------------------------------------------
+  - Initializes software data structures
+  - Configures hardware
+==============================================================================*/
 void    initialize(void)
 {
+  // Initial values
   data[0]= pulse_width;
   data[1]= pulse_amplitude;
   data[2]= breathing_rate;
@@ -43,57 +59,72 @@ void    initialize(void)
   prev_data[2] = data[2];
   prev_data[3] = data[3];
   prev_data[4] = data[4];
+  
+  // Implement software buffers for DMA updates
   update();
-  CLK_Config();                                         // Configure clocks
-  GPIO_Config();                                        // Configure pin in/out
-  TIM1_Config();                                        // Configure TIM1
-  TIM2_Config();                                        // Configure TIM2
-  TIM4_Config();                                        // Configure TIM4
-  DMA1_Config();                                        // Configure DMA
-  DAC_Config();                                         // Configure DAC
-  RTC_Config();                                         // Configure RTC
-  PWR_Config();                                         // Configure PWR
-  PWR_UltraLowPowerCmd(ENABLE);                         // Ultra low power mode
+  
+  // Hardware cofigurations
+  CLK_Config();                         // Configure clocks
+  GPIO_Config();                        // Configure pin in/out
+  TIM1_Config();                        // Configure TIM1
+  TIM2_Config();                        // Configure TIM2
+  TIM4_Config();                        // Configure TIM4
+  DMA1_Config();                        // Configure DMA
+  DAC_Config();                         // Configure DAC
+  RTC_Config();                         // Configure RTC
+  PWR_Config();                         // Configure PWR
 }
 
-
-/*******************************************************************************
-*  PRIVATE FUNCTION:    get_new_settings()
-*******************************************************************************/
+/*==============================================================================
+  PRIVATE FUNCTION:    get_new_settings()
+--------------------------------------------------------------------------------
+  - Fetches new data
+  - If successful, checks data for errors
+  - If no errors detected, parses data for individual values
+  - Clamps values to physiological max and min
+  - Updates software buffers used to control hardware output
+==============================================================================*/
 void get_new_settings(void)
 {
   //TODO: Error state actions
-  if(fetch_data()==SUCCESS)
+  if(fetch_data()==SUCCESS)             // If successfully read data
   {
-    if(check_data()==SUCCESS)
+    if(check_data()==SUCCESS)           // If data is properly formatted
     {
-      parse_data();
-      limit_data();
-      update();
+      parse_data();                     // Translate data into ints
+      limit_data();                     // Limit values to physiological limits
+      update();                         // Update software buffers with new data
     }
   }
 }
 
-/*******************************************************************************
-*  PRIVATE FUNCTION:    fetch_data()
-*******************************************************************************/
+/*==============================================================================
+  PRIVATE FUNCTION:    fetch_data()
+--------------------------------------------------------------------------------
+  - Uses M24LR04 library function to read data from NFC memory
+==============================================================================*/
 ErrorStatus fetch_data(void)
 {
   uint8_t PayloadLength;
-  return User_ReadNDEFMessage(&PayloadLength);
+  return User_ReadNDEFMessage(&PayloadLength);  // M24LR04 read function
 }
 
-/*******************************************************************************
-*  PRIVATE FUNCTION:    check_data()
-*******************************************************************************/
-
+/*==============================================================================
+  PRIVATE FUNCTION:    check_data()
+--------------------------------------------------------------------------------
+  - Checks if character array has commas in correct places
+  - Checks if other characters are digits
+  - Data format should be 'dddd,dddd,dddd,dddd,dddd', where d = digit
+==============================================================================*/
 ErrorStatus check_data(void)
 {
-  if (NDEFmessage!=sentMail) // Check if message changed
+  if (NDEFmessage!=sentMail)    // NOT IMPLEMENTED, PASS-THROUGH
   {
-    for (int i=0;i<24;i++) // Format check (dddd,dddd,dddd,dddd) 
+    for (int i=0;i<24;i++)      // Format check (dddd,dddd,dddd,dddd,dddd) 
     {
+      // Check for proper comma placement
       if (i==4||i==9||i==14||i==19){if(NDEFmessage[i]!=',') return ERROR;}
+      // Check if the rest of characters are digits
       else{if(!isdigit(NDEFmessage[i])){return ERROR;}}
     }
   }
@@ -102,35 +133,40 @@ ErrorStatus check_data(void)
 }
 
 
-/*******************************************************************************
-*  PRIVATE FUNCTION:    parse_data()
-*******************************************************************************/
+/*==============================================================================
+  PRIVATE FUNCTION:    parse_data()
+--------------------------------------------------------------------------------
+  - Delimits data by commas
+  - Bit shifts ASCII characters to obtain actual integer values
+==============================================================================*/
 
 void parse_data(void)
 {
   // Message is dddd,dddd,dddd,dddd,dddd where d is digit
-  uint8_t breaks[6] = {0,4,9,14,19,24};
-  uint32_t digit = 0;
-  for (uint8_t i=0;i<5;i++)     // 5 values
+  uint8_t breaks[6] = {0,4,9,14,19,24}; // data bounds
+  uint32_t digit = 0;                   // value holder
+  for (uint8_t i=0;i<5;i++)             // 5 values
   {
-    prev_data[i] = data[i];
-    data[i] = 0;
-    for (uint8_t j=1;j<5;j++)   // each value is 4 digits long; comma skipped
+    prev_data[i] = data[i];             // save data into prev_data
+    data[i] = 0;                        // clear data value
+    // convert to ints; each value is 4 digits long; comma skipped (j=1)
+    for (uint8_t j=1;j<5;j++)   
     {
       digit = (uint32_t)(NDEFmessage[breaks[i+1]-j]-48); //48 for ASCII shift
-      for (uint8_t k=j-1;k>0;k--)
-      {
-        digit = (digit<<3)+(digit<<1); // Bit shifting (3 becomes 30, etc.)
-      }
+      // decimal bit shifting (3 at place x000 becomes 3000)
+      for (uint8_t k=j-1;k>0;k--){digit = (digit<<3)+(digit<<1);}
+      // add bit-shifted value to data ('..,1234,..' becomes 1000+200+30+4)
       data[i] = data[i]+digit;
     }
   }
 }
 
 
-/*******************************************************************************
-*  PRIVATE FUNCTION:    limit_data()
-*******************************************************************************/
+/*==============================================================================
+  PRIVATE FUNCTION:    limit_data()
+--------------------------------------------------------------------------------
+  - Clamps obtained pulse control values to physiologically feasible values
+==============================================================================*/
 
 void limit_data(void)
 {
@@ -161,25 +197,30 @@ void limit_data(void)
 }
 
 
-/*******************************************************************************
-*  PRIVATE FUNCTION:    update()
-*******************************************************************************/
+/*==============================================================================
+  PRIVATE FUNCTION:    update()
+--------------------------------------------------------------------------------
+  - Translates decimal physiological values into values used by hardware
+  - Updates DMA memory buffers
+==============================================================================*/
 void update(void)
 {
   // Pulse width
-  uint16_t pw = data[0]/2;                  // Pulse width value
+  uint16_t pw = data[0]/2;                      // Pulse width value
   
   // Pulse amplitude
-  uint16_t DAC_High = data[1]*4096/330/5;
+  uint16_t DAC_High = data[1]*4096/330/5;       // Stim. amplitude, SEE GUIDE
   uint16_t DAC_Low = DAC_High/PULSE_RATIO;      // Charge-balancing pulse ampl.
   
   // Breaths-per-minute
-  breath_period = (LSE_FREQ/4*60*100/data[2]); //this must be done in 32bit - RTC
+  breath_period = (LSE_FREQ/4*60*100/data[2]);  // Breath period, SEE GUIDE
+  
   // Inspiration time
-  time_in = (LSE_FREQ/4*data[3]/1000);//also must be done in 32bit
-  time_ex = breath_period-time_in;
+  time_in = (LSE_FREQ/4*data[3]/1000);          // Inspiration time, SEE GUIDE
+  time_ex = breath_period-time_in;              // Expiration time, SEE GUIDE
+  
   // Interpulse interval
-  one_period = (data[4]/2)*100;
+  one_period = (data[4]/2)*100;                 // Interpul. interval, SEE GUIDE
   
   // TIM1 buffer (pulse timing)
   TI1Buffer[0] = pw;                            // Stimulation pulse

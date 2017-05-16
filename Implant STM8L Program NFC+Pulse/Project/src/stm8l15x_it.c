@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 ********************************************************************************
 *	Author:		Alexey Revinski
-*	Last Revised:	02/27/2017
+*	Last Revised:	05/16/2017
 *******************************************************************************/
 
 #include "daphne_utilities.h"
@@ -14,12 +14,11 @@
 /*******************************************************************************
 *  GLOBAL FLAGS
 *******************************************************************************/
-uint16_t end_timer = 0;
-
-extern state_t daphne;
-extern uint16_t time_in;
-extern uint16_t time_ex;
-extern uint16_t TI1Buffer[];
+uint16_t end_timer = 0;         // Count of phases left to compete pulse cycle
+extern state_t daphne;          // External state variable
+extern uint16_t time_in;        // External counter variable (inspiratory time)
+extern uint16_t time_ex;        // External counter variable (expiratory time)
+extern uint16_t TI1Buffer[];    // External buffer (TIM1 overflow values)
 
 // INTERRUPT HANDLERS (only EXTI3 and TIM4 are currently used)
 
@@ -81,26 +80,26 @@ INTERRUPT_HANDLER(RTC_IRQHandler, 4)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
-  disableInterrupts();
-  static uint16_t timer_val;
-  RTC_ITConfig(RTC_IT_WUT, DISABLE);
-  RTC_ClearITPendingBit(RTC_IT_WUT);
+  disableInterrupts();                  // Mask all interrupts
+  static uint16_t timer_val;            // TIM1 overflow value holder
+  RTC_ITConfig(RTC_IT_WUT, DISABLE);    // Disable RTC wakeup unit
+  RTC_ClearITPendingBit(RTC_IT_WUT);    // Clear RTC interrupt flag
   if (daphne==INHALE)                   // Transition to expiration
   {    
-    timer_val = (TIM1->ARRL);
-    timer_val |= (TIM1->ARRH)<<8;        // Read TIM1 value
+    timer_val = (TIM1->ARRL);           // Read TIM1 value     
+    timer_val |= (TIM1->ARRH)<<8;
     
     // Check which phase we are in
-    if          (timer_val==TI1Buffer[0]){end_timer = 4;}
-    else if     (timer_val==TI1Buffer[1]){end_timer = 3;}
-    else if     (timer_val==TI1Buffer[2]){end_timer = 2;}
-    else if     (timer_val==TI1Buffer[3]){end_timer = 1;}
+    if      (timer_val==TI1Buffer[0]){end_timer = 4;} // Allow 4 more phases
+    else if (timer_val==TI1Buffer[1]){end_timer = 3;} // Allow 3 more phases
+    else if (timer_val==TI1Buffer[2]){end_timer = 2;} // Allow 2 more phases
+    else if (timer_val==TI1Buffer[3]){end_timer = 1;} // Allow 1 more phases
     
-    daphne = EXHALE;                                     // Change state
+    daphne = EXHALE;                    // Change state to expiratory
   }
   else
   {
-    daphne = INHALE;                                     // Change state
+    daphne = INHALE;                    // Change state to inspiratory
   }
   enableInterrupts();
 }
@@ -283,20 +282,18 @@ INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
-  TIM2_ClearITPendingBit(TIM2_IT_Update);
-  if(end_timer>0)
+  TIM2_ClearITPendingBit(TIM2_IT_Update);       // Clear TIM2 interrupt flag
+  if(end_timer>0)                               // If still coasting
   {
-    end_timer--;
-    wfi();
+    end_timer--;                                // Reduce count of phases left
+    wfi();                                      // Wait until phase ends
   }
-  else
+  else                                          // If final phase done
   {
-    TIM2_ITConfig(TIM2_IT_Update, DISABLE);
-    TIM2_Cmd(DISABLE);
-    TIM1_Cmd(DISABLE);
-    
+    TIM2_ITConfig(TIM2_IT_Update, DISABLE);     // Disable TIM2 interrupts
+    TIM2_Cmd(DISABLE);                          // Disable TIM2
+    TIM1_Cmd(DISABLE);                          // Disable TIM1
   }
-  
 }
 
 /**
