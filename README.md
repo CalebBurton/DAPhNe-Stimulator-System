@@ -23,13 +23,13 @@ The Digitally Adjustable Phrenic Nerve (DAPhNe) Stimulator System aims to lift t
 ## Quick Start
 Currently, the DAPhNe Stimulator System consists of two custom-designed PCB prototype boards interfacing with some off-the-shelf components. This prototype was recently tested for equivalence against the Avery Biomedical Mark IV system in New Zealand white rabbits - and proved successful in stimulating the phrenic nerve. The external user interface is being developed concurrently. 
 
-<p align="left">
+<p align="center">
   <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/Board_MCU.png" height="250"/>
   <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/Board_STIM.png" height="250"/>
   <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/IMG_0362.JPG" height="250"/>
 </p>
-<p align="left">
-  <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/17859043_10210725797093190_2010495167_o.jpg" width="250"/> 
+<p align="center">
+  <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/17859043_10210725797093190_2010495167_o.jpg" width="700"/> 
 </p>
   
 
