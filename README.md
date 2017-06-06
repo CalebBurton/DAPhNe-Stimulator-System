@@ -2,24 +2,44 @@
 ### Northwestern University BME Senior Capstone Design (2016-2017)
 #### Center for Autonomic Medicine in Pediatrics (CAMP) at Ann & Robert H. Lurie Children's Hospital of Chicago
 <br></br>
+The focus of this project is the development and testing of a novel implantable phrenic nerve stimulator, to be used in patients with Congenital Central Hypoventilation Syndrome (CCHS) - specifically, children. The following sections summarize the project; for more detail, please refer to project reports under "Reference Documentation".
 <br></br>
-Information will be updated in the next few weeks.
-<br></br>
-<br></br>
-
 ## Project Description
 ### Introduction
-### What is DAPhNe?
-### Next Steps 
 <br></br>
-<br></br>
+Patients with CCHS have diminished autonomic nervous system function, which results in a variety of symptoms, the most prominent of which is insufficient ventilation. This results from poor phrenic nerve conduction; phrenic nerve is responsible for stimulating diaphragmatic contractions. While some patients are affected only mildly, some cannot breathe on their own, and require 24/7 ventilatory support.
+
+This is usually done with a mechanical positive pressure ventilator; oxygenated air is forced into the patient's lungs by a mechanical piston. While this is a proven solution to the problem, these devices are enormous to carry around for small children; they are loud and extremely expensive. Patients also require a tracheotomy to be performed for this to work.
+
+Another solution is to stimulate the phrenic nerve electrically. The only device that does this right now is the [**Mark IV stimulator**](http://www.averybiomedical.com/breathing-pacemakers/system-information/) from Avery Biomedical. It consists of an external transmitter that sends pulses inductively through tissue to a passive receiver that interfaces with an electrode in the vicinity of the nerve. This is the only solution on the market, and, while it has several advantages over the mechanical ventilator, it also has a variety of shortcomings that include:
+ - Restricted mobility - antennae must be always attached to patient’s body for successful stimulation
+ - System does not support multiple activity level settings, so each patient is forced to use two or three transmitters and mechanically switch between them each time the patient participates in a different activity (sleep vs. walk vs. run vs. eat, etc.)
+ - Weight and size of the transmitter box - weight = 2 lb, volume = 511 cm3. A small child must carry this weight constantly
+ - Unintuitive user interface - the device has non-linear, poorly labeled dials
+ - Required presence of the external transmitter close to the patient's body restricts the patient's ability to participate in water-related activities.
+
+The Digitally Adjustable Phrenic Nerve (DAPhNe) Stimulator System aims to lift those drawbacks and provide children with CCHS an implantable stimulator that would eliminate the need to be tethered to an external controller, allow for a variety of programmable settings to be switched "on the fly", and allow participation on water-related activities without fear of device malfunction or electric shock.
+
 ## Quick Start 
-Currently, the DAPhNe Stimulator System consists of two PCB prototype boards soon to be tested on New Zealand white rabbits for efficacy and function. The external user interface is being developed concurrently. Future developers should read the listed documents and make sure they have access to the listed hardware and software. The following "checklists" are intended to make this process as fast and easy as possible. When installing and configuring software, carefully follow appropriate sections in the [**Developing DAPhNe Stimulator**]() document.
+Currently, the DAPhNe Stimulator System consists of two custom-designed PCB prototype boards interfacing with some off-the-shelf components. This prototype was recently tested for equivalence against the Avery Biomedical Mark IV system in New Zealand white rabbits - and proved successful in stimulating the phrenic nerve. The external user interface is being developed concurrently. 
+
+<p align="left">
+  <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/Board_MCU.png" width="250"/>
+</p>
+<p align="left">
+  <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/Board_STIM.png" width="250"/>
+  <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/17859043_10210725797093190_2010495167_o.jpg" width="250"/> 
+</p>
+  
+
+Future developers should read through the documents listed below for physiological and technical information about the device. Next, the following "checklists" outline the various hardware and software used in the project to make the developers' lives easier. When installing and configuring software, carefully follow appropriate sections in the [**Developing DAPhNe Stimulator**]() **TODO** document.
 
 ### Important Documents 
 The following documents are essential to read in order to understand the purpose, scope, and technical progress of the project in more detail:
+* [**Digitally Adjustable Phrenic Nerve (DAPhNe) Stimulator - Final Report: Quarter I (2017)**](https://github.com/AlexeyRevinski/BME390/blob/master/Reference%20Documentation/Final%20Report%20390-2%20Phrenic%20Nerve%20Stimulator%20REDACTED.pdf) generated by the 2016-17 BME 390 team
+  - Outdated information, but includes a good introduction to the disease and state-of-the-art technology
 * [**Digitally Adjustable Phrenic Nerve (DAPhNe) Stimulator - Final Report: Quarter II (2017)**](https://github.com/AlexeyRevinski/BME390/blob/master/Reference%20Documentation/Final%20Report%20390-2%20Phrenic%20Nerve%20Stimulator%20REDACTED.pdf) generated by the 2016-17 BME 390 team
-  - The bulk of information on device hardware development and software implementation
+  - The bulk of information on device hardware development and software implementation; a bit outdated
 * [**Digitally Adjustable Phrenic Nerve (DAPhNe) Stimulator - Final Report: Quarter III (2017)**]() generated by the 2016-17 BME 390 team
   - The most recent information on the project, design process, and team progress on the hardware/software design **TO DO**  
 * [**Developing DAPhNe Stimulator**]() guide included in this repository
