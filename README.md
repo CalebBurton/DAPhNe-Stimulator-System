@@ -20,14 +20,18 @@ Another solution is to stimulate the phrenic nerve electrically. The only device
  - Required presence of the external transmitter close to the patient's body restricts the patient's ability to participate in water-related activities.
 
 ### DAPhNe Stimulator System
-The Digitally Adjustable Phrenic Nerve (DAPhNe) Stimulator System aims to lift those drawbacks and provide children with CCHS an implantable stimulator that would eliminate the need to be tethered to an external controller, allow for a variety of programmable settings to be switched "on the fly", and allow participation on water-related activities without fear of device malfunction or electric shock.
+The Digitally Adjustable Phrenic Nerve (DAPhNe) Stimulator System aims to lift those drawbacks and provide children with CCHS an implantable stimulator that would eliminate the need to be tethered to an external controller, allow for a variety of programmable settings to be switched "on the fly", and allow participation on water-related activities without fear of device malfunction or electric shock. 
 
-Currently, the DAPhNe Stimulator System consists of two custom-designed PCB prototype boards interfacing with some off-the-shelf components. This prototype was recently tested for equivalence against the Avery Biomedical Mark IV system in New Zealand white rabbits - and proved successful in stimulating the phrenic nerve. The external user interface is being developed concurrently. 
+The above objectives are accomplished by digitalization of the system, employing wireless charging, and wireless short range communication.  The DAPhNe stimulator is battery powered and charged inductively through skin; it provides constant stimulation to the nerve on its own without the need for an external inductive antenna. The external controller uses NFC technology to wirelessly transmit new activity level parameters to the implant, and the implant automatically adjusts its internal variables on the next breath. Thus, the patient is not tethered to anything, and the transition between various activity levels is seamless. Based on most recent power consumption testing and calculations, the device in its current state would be able to support the patient for one week on one battery charge, after which the battery is recharged wirelessly.
+
+Currently, the DAPhNe Stimulator System consists of two custom-designed PCB prototype boards interfacing with some off-the-shelf components. This prototype was recently tested for equivalence against the Avery Biomedical Mark IV system in New Zealand white rabbits, and proved successful in stimulating the phrenic nerve. The external user interface is being developed concurrently. 
 <br></br>
 <p align="center">
   <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/Collage.png" width="750"/>
 </p>
-<br></br>
+<p align="right">
+  <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/Overall%20Circuit%20Diagram-1.png" width="800"/>
+</p>
 
 ## Quick Start
 Future developers should read through the documents listed below for physiological and technical information about the device. Next, the following "checklists" outline the various hardware and software used in the project. When installing and configuring software, carefully follow appropriate sections in the **Developing DAPhNe Stimulator** **TODO** document.
