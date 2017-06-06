@@ -4,9 +4,9 @@
 <br></br>
 The focus of this project is the development and testing of a novel implantable phrenic nerve stimulator, to be used in patients with Congenital Central Hypoventilation Syndrome (CCHS) - specifically, children. The following sections summarize the project; for more detail, please refer to project reports under "Reference Documentation".
 <br></br>
+<br></br>
 ## Project Description
 ### Introduction
-<br></br>
 Patients with CCHS have diminished autonomic nervous system function, which results in a variety of symptoms, the most prominent of which is insufficient ventilation. This results from poor phrenic nerve conduction; phrenic nerve is responsible for stimulating diaphragmatic contractions. While some patients are affected only mildly, some cannot breathe on their own, and require 24/7 ventilatory support.
 
 This is usually done with a mechanical positive pressure ventilator; oxygenated air is forced into the patient's lungs by a mechanical piston. While this is a proven solution to the problem, these devices are enormous to carry around for small children; they are loud and extremely expensive. Patients also require a tracheotomy to be performed for this to work.
@@ -22,17 +22,11 @@ The Digitally Adjustable Phrenic Nerve (DAPhNe) Stimulator System aims to lift t
 
 ## Quick Start
 Currently, the DAPhNe Stimulator System consists of two custom-designed PCB prototype boards interfacing with some off-the-shelf components. This prototype was recently tested for equivalence against the Avery Biomedical Mark IV system in New Zealand white rabbits - and proved successful in stimulating the phrenic nerve. The external user interface is being developed concurrently. 
-
+<br></br>
 <p align="center">
-  <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/Board_MCU.png" height="250"/>
-  <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/Board_STIM.png" height="250"/>
-  <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/IMG_0362.JPG" height="250"/>
+  <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/Collage.png" width="750"/>
 </p>
-<p align="center">
-  <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/17859043_10210725797093190_2010495167_o.jpg" width="700"/> 
-</p>
-  
-
+<br></br>
 Future developers should read through the documents listed below for physiological and technical information about the device. Next, the following "checklists" outline the various hardware and software used in the project to make the developers' lives easier. When installing and configuring software, carefully follow appropriate sections in the [**Developing DAPhNe Stimulator**]() **TODO** document.
 
 ### Important Documents 
