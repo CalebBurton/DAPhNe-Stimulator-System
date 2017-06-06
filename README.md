@@ -20,14 +20,15 @@ Another solution is to stimulate the phrenic nerve electrically. The only device
 
 The Digitally Adjustable Phrenic Nerve (DAPhNe) Stimulator System aims to lift those drawbacks and provide children with CCHS an implantable stimulator that would eliminate the need to be tethered to an external controller, allow for a variety of programmable settings to be switched "on the fly", and allow participation on water-related activities without fear of device malfunction or electric shock.
 
-## Quick Start 
+## Quick Start
 Currently, the DAPhNe Stimulator System consists of two custom-designed PCB prototype boards interfacing with some off-the-shelf components. This prototype was recently tested for equivalence against the Avery Biomedical Mark IV system in New Zealand white rabbits - and proved successful in stimulating the phrenic nerve. The external user interface is being developed concurrently. 
 
 <p align="left">
-  <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/Board_MCU.png" width="250"/>
+  <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/Board_MCU.png" height="250"/>
+  <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/Board_STIM.png" height="250"/>
+  <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/IMG_0362.JPG" height="250"/>
 </p>
 <p align="left">
-  <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/Board_STIM.png" width="250"/>
   <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/17859043_10210725797093190_2010495167_o.jpg" width="250"/> 
 </p>
   
