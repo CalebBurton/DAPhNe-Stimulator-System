@@ -1,9 +1,9 @@
 ## Digitally Adjustable Phrenic Nerve (DAPhNe) Stimulator System
 ### Northwestern University BME Senior Capstone Design (2016-2017)
 #### Center for Autonomic Medicine in Pediatrics (CAMP) at Ann & Robert H. Lurie Children's Hospital of Chicago
+Most recent documentation: [**Digitally Adjustable Phrenic Nerve (DAPhNe) Stimulator - Final Report: Quarter II (2017)**](https://github.com/AlexeyRevinski/BME390/blob/master/Reference%20Documentation/Final%20Report%20390-2%20Phrenic%20Nerve%20Stimulator%20REDACTED.pdf)
 <br></br>
 The focus of this project is the development and testing of a novel implantable phrenic nerve stimulator, to be used in patients with Congenital Central Hypoventilation Syndrome (CCHS) - specifically, children. The following sections summarize the project; for more detail, please refer to project reports under "Reference Documentation".
-<br></br>
 <br></br>
 ## Project Description
 ### Introduction
@@ -20,14 +20,15 @@ Another solution is to stimulate the phrenic nerve electrically. The only device
 
 The Digitally Adjustable Phrenic Nerve (DAPhNe) Stimulator System aims to lift those drawbacks and provide children with CCHS an implantable stimulator that would eliminate the need to be tethered to an external controller, allow for a variety of programmable settings to be switched "on the fly", and allow participation on water-related activities without fear of device malfunction or electric shock.
 
-## Quick Start
 Currently, the DAPhNe Stimulator System consists of two custom-designed PCB prototype boards interfacing with some off-the-shelf components. This prototype was recently tested for equivalence against the Avery Biomedical Mark IV system in New Zealand white rabbits - and proved successful in stimulating the phrenic nerve. The external user interface is being developed concurrently. 
 <br></br>
 <p align="center">
   <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/Collage.png" width="750"/>
 </p>
 <br></br>
-Future developers should read through the documents listed below for physiological and technical information about the device. Next, the following "checklists" outline the various hardware and software used in the project to make the developers' lives easier. When installing and configuring software, carefully follow appropriate sections in the [**Developing DAPhNe Stimulator**]() **TODO** document.
+
+## Quick Start
+Future developers should read through the documents listed below for physiological and technical information about the device. Next, the following "checklists" outline the various hardware and software used in the project. When installing and configuring software, carefully follow appropriate sections in the **Developing DAPhNe Stimulator** **TODO** document.
 
 ### Important Documents 
 The following documents are essential to read in order to understand the purpose, scope, and technical progress of the project in more detail:
