@@ -15,10 +15,10 @@
 
 // GLOBAL VARIABLES
 // Physiological values (changed at run-time if NFC memory is present)
-uint32_t        pulse_width             = 200;  //1000 = 1000 us
-uint32_t        pulse_amplitude         = 500;  //1000 = 10.00 mA
+uint32_t        pulse_width             = 150;  //1000 = 1000 us
+uint32_t        pulse_amplitude         = 50;   //1000 = 10.00 mA
 uint32_t        breathing_rate          = 3000; //1000 = 10.00 bpm
-uint32_t        inspiratory_time        = 1300; //1000 = 10.00 %
+uint32_t        inspiratory_time        = 1200; //1000 = 10.00 %
 uint32_t        interpulse_interval     = 500;  //1000 = 100.0 ms
 
 // DMA Buffers
