@@ -1,28 +1,43 @@
+/*
+  ******************************************************************************
+  * @file    daphne_utilities.h
+  * @author  Alexey Revinski
+  * @date    09/10/2017
+  * @brief   Various utility functions header file
+  ******************************************************************************
+  * @copy
+  *
+  * DAPHNE STIMULATOR SYSTEM FIRMWARE IS COPYRIGHTED AND IS OWNED BY
+  * NORTHWESTERN UNIVERSITY, AN ILLINOIS NOT-FOR-PROFIT CORPORATION, HAVING A
+  * PLACE OF BUSINESS AT 633 CLARK STREET, EVANSTON, ILLINOIS  60208. IT CAN BE 
+  * FREELY USED FOR EDUCATIONAL AND RESEARCH PURPOSES BY NON-PROFIT INSTITUTIONS
+  * AND US GOVERNMENT AGENCIES ONLY. OTHER ORGANIZATIONS ARE ALLOWED TO USE 
+  * DAPHNE STIMULATOR SYSTEM FIRMWARE ONLY FOR EVALUATION PURPOSES, AND ANY 
+  * FURTHER USES WILL REQUIRE PRIOR APPROVAL. THE SOFTWARE MAY NOT BE SOLD OR 
+  * REDISTRIBUTED WITHOUT PRIOR APPROVAL. ONE MAY MAKE COPIES OF THE SOFTWARE 
+  * FOR THEIR USE PROVIDED THAT THE COPIES, ARE NOT SOLD OR DISTRIBUTED, ARE 
+  * USED UNDER THE SAME TERMS AND CONDITIONS.
+  * 
+  * AS UNESTABLISHED RESEARCH SOFTWARE, THIS CODE IS PROVIDED ON AN "AS IS" 
+  * BASIS WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED. THE
+  * DOWNLOADING, OR EXECUTING ANY PART OF THIS SOFTWARE CONSTITUTES AN IMPLICIT
+  * AGREEMENT TO THESE TERMS. THESE TERMS AND CONDITIONS ARE SUBJECT TO CHANGE 
+  * AT ANY TIME WITHOUT PRIOR NOTICE.
+  *
+  ******************************************************************************
+  *                 COPYRIGHT 2017 NORTHWESTERN UNIVERSITY
+  *****************************************************************************/
+
 #ifndef DAPHNE_UTILITIES_H
 #define DAPHNE_UTILITIES_H
 
-#include "stm8l15x_conf.h"
-#include "M24LR04E-R_User.h"
-#include "daphne_hardware_config.h"
-#include <ctype.h>
+// INCLUDES  ===================================================================
 
-#define MAX_PW  (uint32_t) 1000
-#define MIN_PW  (uint32_t) 10
-#define MAX_PA  (uint32_t) 7000
-#define MIN_PA  (uint32_t) 10
-#define MAX_BR  (uint32_t) 3500
-#define MIN_BR  (uint32_t) 1000
-#define MAX_IT  (uint32_t) 2000                 //!!!!!
-#define MIN_IT  (uint32_t) 800                  //!!!!!
-#define MAX_II  (uint32_t) 1200
-#define MIN_II  (uint32_t) 100
+#include "daphne_include.h"
 
-#define PULSE_RATIO     (uint16_t) 10
+// FUNCTION PROTOTYPES  ========================================================
 
-#define LSE_FREQ        ((uint32_t) 32768)
-
-typedef enum {INHALE,EXHALE} state_t;
-
+void            initialize(void);
 void            get_new_settings(void);
 ErrorStatus     fetch_data(void);
 ErrorStatus     check_data(void);
@@ -30,4 +45,4 @@ void            parse_data(void);
 void            limit_data(void);
 void            update();
 
-#endif
+#endif // DAPHNE_UTILITIES_H

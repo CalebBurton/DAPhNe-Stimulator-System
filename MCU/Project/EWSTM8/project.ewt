@@ -2074,6 +2074,9 @@
         <name>$PROJ_DIR$\..\inc\daphne_hardware_config.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\inc\daphne_include.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\inc\daphne_utilities.h</name>
       </file>
       <file>

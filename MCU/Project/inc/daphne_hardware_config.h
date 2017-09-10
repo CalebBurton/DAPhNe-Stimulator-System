@@ -1,45 +1,52 @@
+/*
+  ******************************************************************************
+  * @file    daphne_hardware_config.h
+  * @author  Alexey Revinski
+  * @date    09/10/2017
+  * @brief   STM8L152 hardware configuration header file
+  ******************************************************************************
+  * @copy
+  *
+  * DAPHNE STIMULATOR SYSTEM FIRMWARE IS COPYRIGHTED AND IS OWNED BY
+  * NORTHWESTERN UNIVERSITY, AN ILLINOIS NOT-FOR-PROFIT CORPORATION, HAVING A
+  * PLACE OF BUSINESS AT 633 CLARK STREET, EVANSTON, ILLINOIS  60208. IT CAN BE 
+  * FREELY USED FOR EDUCATIONAL AND RESEARCH PURPOSES BY NON-PROFIT INSTITUTIONS
+  * AND US GOVERNMENT AGENCIES ONLY. OTHER ORGANIZATIONS ARE ALLOWED TO USE 
+  * DAPHNE STIMULATOR SYSTEM FIRMWARE ONLY FOR EVALUATION PURPOSES, AND ANY 
+  * FURTHER USES WILL REQUIRE PRIOR APPROVAL. THE SOFTWARE MAY NOT BE SOLD OR 
+  * REDISTRIBUTED WITHOUT PRIOR APPROVAL. ONE MAY MAKE COPIES OF THE SOFTWARE 
+  * FOR THEIR USE PROVIDED THAT THE COPIES, ARE NOT SOLD OR DISTRIBUTED, ARE 
+  * USED UNDER THE SAME TERMS AND CONDITIONS.
+  * 
+  * AS UNESTABLISHED RESEARCH SOFTWARE, THIS CODE IS PROVIDED ON AN "AS IS" 
+  * BASIS WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED. THE
+  * DOWNLOADING, OR EXECUTING ANY PART OF THIS SOFTWARE CONSTITUTES AN IMPLICIT
+  * AGREEMENT TO THESE TERMS. THESE TERMS AND CONDITIONS ARE SUBJECT TO CHANGE 
+  * AT ANY TIME WITHOUT PRIOR NOTICE.
+  *
+  ******************************************************************************
+  *                 COPYRIGHT 2017 NORTHWESTERN UNIVERSITY
+  *****************************************************************************/
+
 #ifndef DAPHNE_HARDWARE_CONFIG_H
 #define DAPHNE_HARDWARE_CONFIG_H
 
-#include "stm8l15x_conf.h"
+// INCLUDES  ===================================================================
 
-// GPIO pin/port nicknames
-#define LED_YELLOW_PORT GPIOB
-#define LED_YELLOW_PIN  GPIO_Pin_0
-#define LED_GREEN_PORT  GPIOB
-#define LED_GREEN_PIN   GPIO_Pin_1
-#define PULSE_POL_PORT  GPIOB
-#define PULSE_POL_PIN   GPIO_Pin_0
-#define PULSE_TIM_PORT  GPIOD
-#define PULSE_TIM_PIN   GPIO_Pin_2
-#define PULSE_AMP_PORT  GPIOF
-#define PULSE_AMP_PIN   GPIO_Pin_0
+#include "daphne_include.h"
 
-// Hardware configuration values
-#define RTC_INIT_TIME                   10
-#define TIM1_ARR_ADDRESS                0x52C3
-#define TIM2_OC1_ADDRESS                0x5261
-#define DAC_CH1RDHRH_ADDRESS            0x5388
-#define TIM1_PERIOD                     25000
-#define TIM1_REPTETION_COUNTER          0
-#define TIM1_PRESCALER                  1
-#define TIM1_PULSE_INIT                 0
-#define TIM2_PERIOD                     0xFFFF
-#define TIM2_PULSE_INIT                 0
-#define TIM4_PERIOD                     1
-#define BUFSIZE                         4
+// FUNCTION PROTOTYPES  ========================================================
 
-// Function prototypes
-void    CLK_Config(void);
-void    GPIO_Config(void);
-void    TIM1_Config(void);
-void    TIM2_Config(void);
-void    TIM4_Config(void);
-void    DMA1_Config(void);
-void    DAC_Config(void);
-void    RTC_Config(void);
-void    PWR_Config(void);
-void    DeInitGPIO(void);
-void    DeInitClock(void);
+void            CLK_Config(void);
+void            GPIO_Config(void);
+void            TIM1_Config(void);
+void            TIM2_Config(void);
+void            TIM4_Config(void);
+void            DMA1_Config(void);
+void            DAC_Config(void);
+void            RTC_Config(void);
+void            PWR_Config(void);
+void            DeInitGPIO(void);
+void            DeInitClock(void);
 
-#endif /* DAPHNE_HARDWARE_CONFIG_H */
+#endif // DAPHNE_HARDWARE_CONFIG_H

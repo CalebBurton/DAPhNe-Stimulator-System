@@ -1,80 +1,55 @@
-/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%                                                                        %%%%
-%%%%          BME 390: Phrenic Nerve Stimulation: Implant Program           %%%%
-%%%%                             stm8l15x_it.c                              %%%%
-%%%%                                                                        %%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-********************************************************************************
-*	Author:		Alexey Revinski
-*	Last Revised:	05/16/2017
-*******************************************************************************/
+/*
+  ******************************************************************************
+  * @file    stm8l15x_it.c
+  * @author  Alexey Revinski
+  * @date    09/10/2017
+  * @brief   Interrupt handler file based on stm8l15x_it.c provided with the
+  *          standard peripheral library by STMicroelectronics
+  ******************************************************************************
+  * @copy
+  *
+  * DAPHNE STIMULATOR SYSTEM FIRMWARE IS COPYRIGHTED AND IS OWNED BY
+  * NORTHWESTERN UNIVERSITY, AN ILLINOIS NOT-FOR-PROFIT CORPORATION, HAVING A
+  * PLACE OF BUSINESS AT 633 CLARK STREET, EVANSTON, ILLINOIS  60208. IT CAN BE 
+  * FREELY USED FOR EDUCATIONAL AND RESEARCH PURPOSES BY NON-PROFIT INSTITUTIONS
+  * AND US GOVERNMENT AGENCIES ONLY. OTHER ORGANIZATIONS ARE ALLOWED TO USE 
+  * DAPHNE STIMULATOR SYSTEM FIRMWARE ONLY FOR EVALUATION PURPOSES, AND ANY 
+  * FURTHER USES WILL REQUIRE PRIOR APPROVAL. THE SOFTWARE MAY NOT BE SOLD OR 
+  * REDISTRIBUTED WITHOUT PRIOR APPROVAL. ONE MAY MAKE COPIES OF THE SOFTWARE 
+  * FOR THEIR USE PROVIDED THAT THE COPIES, ARE NOT SOLD OR DISTRIBUTED, ARE 
+  * USED UNDER THE SAME TERMS AND CONDITIONS.
+  * 
+  * AS UNESTABLISHED RESEARCH SOFTWARE, THIS CODE IS PROVIDED ON AN "AS IS" 
+  * BASIS WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED. THE
+  * DOWNLOADING, OR EXECUTING ANY PART OF THIS SOFTWARE CONSTITUTES AN IMPLICIT
+  * AGREEMENT TO THESE TERMS. THESE TERMS AND CONDITIONS ARE SUBJECT TO CHANGE 
+  * AT ANY TIME WITHOUT PRIOR NOTICE.
+  *
+  ******************************************************************************
+  *                 COPYRIGHT 2017 NORTHWESTERN UNIVERSITY
+  *****************************************************************************/
+
+// INCLUDES  ===================================================================
 
 #include "daphne_utilities.h"
 
-/*******************************************************************************
-*  GLOBAL FLAGS
-*******************************************************************************/
+// VARIABLES  ==================================================================
+
 uint16_t end_timer = 0;         // Count of phases left to compete pulse cycle
+
+// EXTERNAL VARIABLES  =========================================================
+
 extern state_t daphne;          // External state variable
 extern uint16_t time_in;        // External counter variable (inspiratory time)
 extern uint16_t time_ex;        // External counter variable (expiratory time)
 extern uint16_t TI1Buffer[];    // External buffer (TIM1 overflow values)
 
-// INTERRUPT HANDLERS (only EXTI3 and TIM4 are currently used)
-
-/**
-  * @brief  TRAP interrupt routine
-  * @param  None
-  * @retval None
-*/
-INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  FLASH Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(FLASH_IRQHandler, 1)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  DMA1 channel0 and channel1 Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(DMA1_CHANNEL0_1_IRQHandler, 2)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  DMA1 channel2 and channel3 Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(DMA1_CHANNEL2_3_IRQHandler, 3)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  RTC Interrupt routine.
-  * @param  None
-  * @retval None
-  */
+/*==============================================================================
+INTERRUPT HANDLER:      RTC
+--------------------------------------------------------------------------------
+  - Triggers on RTC interrupts
+  - Used to transition between IM/EM and EM/IM
+==============================================================================*/
 INTERRUPT_HANDLER(RTC_IRQHandler, 4)
 {
   /* In order to detect unexpected events during development,
@@ -104,179 +79,12 @@ INTERRUPT_HANDLER(RTC_IRQHandler, 4)
   enableInterrupts();
 }
 
-/**
-  * @brief  External IT PORTE/F and PVD Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(EXTIE_F_PVD_IRQHandler, 5)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  External IT PORTB Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(EXTIB_IRQHandler, 6)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  External IT PORTD Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(EXTID_IRQHandler, 7)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  External IT PIN0 Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(EXTI0_IRQHandler, 8)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  External IT PIN1 Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(EXTI1_IRQHandler, 9)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  External IT PIN2 Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(EXTI2_IRQHandler, 10)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  External IT PIN3 Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(EXTI3_IRQHandler, 11)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  External IT PIN4 Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(EXTI4_IRQHandler, 12)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  External IT PIN5 Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(EXTI5_IRQHandler, 13)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  External IT PIN6 Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(EXTI6_IRQHandler, 14)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  External IT PIN7 Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(EXTI7_IRQHandler, 15)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  LCD start of new frame Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(LCD_IRQHandler, 16)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  CLK switch/CSS/TIM1 break Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(SWITCH_CSS_BREAK_DAC_IRQHandler, 17)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  ADC1/Comparator Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(ADC1_COMP_IRQHandler, 18)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  TIM2 Update/Overflow/Trigger/Break Interrupt routine.
-  * @param  None
-  * @retval None
-  */
+/*==============================================================================
+INTERRUPT HANDLER:      TIM2 Update
+--------------------------------------------------------------------------------
+  - Triggers on TIM2 update interrupts
+  - Used to count down pulse phases to end IM safely
+==============================================================================*/
 INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19)
 {
   /* In order to detect unexpected events during development,
@@ -294,125 +102,4 @@ INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19)
     TIM2_Cmd(DISABLE);                          // Disable TIM2
     TIM1_Cmd(DISABLE);                          // Disable TIM1
   }
-}
-
-/**
-  * @brief  Timer2 Capture/Compare Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  Timer3 Update/Overflow/Trigger/Break Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  Timer3 Capture/Compare Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  TIM1 Update/Overflow/Trigger/Commutation Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(TIM1_UPD_OVF_TRG_COM_IRQHandler, 23)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  TIM1 Capture/Compare Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(TIM1_CAP_IRQHandler, 24)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  TIM4 Update/Overflow/Trigger Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(TIM4_UPD_OVF_TRG_IRQHandler, 25)
-{
-  /* In order to detect unexpected events during development,
-     it is recommiended to set a breakpoint on the following instruction.
-  */
-  
-}
-
-/**
-  * @brief  SPI1 Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(SPI1_IRQHandler, 26)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  USART1 TX Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(USART1_TX_IRQHandler, 27)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  USART1 RX Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(USART1_RX_IRQHandler, 28)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
-}
-
-/**
-  * @brief  I2C1 Interrupt routine.
-  * @param  None
-  * @retval None
-  */
-INTERRUPT_HANDLER(I2C1_IRQHandler, 29)
-{
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
 }

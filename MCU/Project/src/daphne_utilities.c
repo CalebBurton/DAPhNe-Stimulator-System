@@ -1,19 +1,39 @@
-/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%                                                                        %%%%
-%%%%             DAPhNe Stimulator System Firmware: IPNS_v0.1               %%%%
-%%%%                           daphne_utilities.c                           %%%%
-%%%%                                                                        %%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-********************************************************************************
-*       Author:		Alexey Revinski
-*	Last Revised:	05/16/2017
-*******************************************************************************/
+/*
+  ******************************************************************************
+  * @file    daphne_utilities.c
+  * @author  Alexey Revinski
+  * @date    09/10/2017
+  * @brief   Utility and data functions source code file
+  ******************************************************************************
+  * @copy
+  *
+  * DAPHNE STIMULATOR SYSTEM FIRMWARE IS COPYRIGHTED AND IS OWNED BY
+  * NORTHWESTERN UNIVERSITY, AN ILLINOIS NOT-FOR-PROFIT CORPORATION, HAVING A
+  * PLACE OF BUSINESS AT 633 CLARK STREET, EVANSTON, ILLINOIS  60208. IT CAN BE 
+  * FREELY USED FOR EDUCATIONAL AND RESEARCH PURPOSES BY NON-PROFIT INSTITUTIONS
+  * AND US GOVERNMENT AGENCIES ONLY. OTHER ORGANIZATIONS ARE ALLOWED TO USE 
+  * DAPHNE STIMULATOR SYSTEM FIRMWARE ONLY FOR EVALUATION PURPOSES, AND ANY 
+  * FURTHER USES WILL REQUIRE PRIOR APPROVAL. THE SOFTWARE MAY NOT BE SOLD OR 
+  * REDISTRIBUTED WITHOUT PRIOR APPROVAL. ONE MAY MAKE COPIES OF THE SOFTWARE 
+  * FOR THEIR USE PROVIDED THAT THE COPIES, ARE NOT SOLD OR DISTRIBUTED, ARE 
+  * USED UNDER THE SAME TERMS AND CONDITIONS.
+  * 
+  * AS UNESTABLISHED RESEARCH SOFTWARE, THIS CODE IS PROVIDED ON AN "AS IS" 
+  * BASIS WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED. THE
+  * DOWNLOADING, OR EXECUTING ANY PART OF THIS SOFTWARE CONSTITUTES AN IMPLICIT
+  * AGREEMENT TO THESE TERMS. THESE TERMS AND CONDITIONS ARE SUBJECT TO CHANGE 
+  * AT ANY TIME WITHOUT PRIOR NOTICE.
+  *
+  ******************************************************************************
+  *                 COPYRIGHT 2017 NORTHWESTERN UNIVERSITY
+  *****************************************************************************/
 
-//INCLUDES
+//INCLUDES  ====================================================================
+
 #include "daphne_utilities.h"
 
+// GLOBAL VARIABLES  ===========================================================
 
-// GLOBAL VARIABLES
 // Physiological values (changed at run-time if NFC memory is present)
 uint32_t        pulse_width             = 150;  //1000 = 1000 us
 uint32_t        pulse_amplitude         = 50;   //1000 = 10.00 mA
@@ -28,7 +48,7 @@ uint16_t DACBuffer[] = {0,0,0,0};       // Pulse amplitude phase values (DAC1)
 
 // Data structure
 static uint32_t data[5] = {0,0,0,0,0};  // DAPhNe incoming data
-static uint32_t prev_data[5] = {0,0,0,0,0}; // Save buffer
+//static uint32_t prev_data[5] = {0,0,0,0,0}; // Save buffer
 
 // NFC variables
 uint8_t NDEFmessage[0x40];              // NDEF message for NFC
@@ -41,7 +61,7 @@ uint16_t        breath_period = RESET;  // One breath period
 uint32_t        one_period = RESET;     // Interpulse period
 
 /*==============================================================================
-  PRIVATE FUNCTION:    initialize()
+  FUNCTION:    initialize
 --------------------------------------------------------------------------------
   - Initializes software data structures
   - Configures hardware
@@ -54,11 +74,11 @@ void    initialize(void)
   data[2]= breathing_rate;
   data[3]= inspiratory_time;
   data[4]= interpulse_interval;
-  prev_data[0] = data[0];
-  prev_data[1] = data[1];
-  prev_data[2] = data[2];
-  prev_data[3] = data[3];
-  prev_data[4] = data[4];
+  //prev_data[0] = data[0];
+  //prev_data[1] = data[1];
+  //prev_data[2] = data[2];
+  //prev_data[3] = data[3];
+  //prev_data[4] = data[4];
   
   // Implement software buffers for DMA updates
   update();
@@ -76,7 +96,7 @@ void    initialize(void)
 }
 
 /*==============================================================================
-  PRIVATE FUNCTION:    get_new_settings()
+  FUNCTION:    get_new_settings
 --------------------------------------------------------------------------------
   - Fetches new data
   - If successful, checks data for errors
@@ -99,7 +119,7 @@ void get_new_settings(void)
 }
 
 /*==============================================================================
-  PRIVATE FUNCTION:    fetch_data()
+  FUNCTION:    fetch_data
 --------------------------------------------------------------------------------
   - Uses M24LR04 library function to read data from NFC memory
 ==============================================================================*/
@@ -110,7 +130,7 @@ ErrorStatus fetch_data(void)
 }
 
 /*==============================================================================
-  PRIVATE FUNCTION:    check_data()
+  FUNCTION:    check_data
 --------------------------------------------------------------------------------
   - Checks if character array has commas in correct places
   - Checks if other characters are digits
@@ -134,7 +154,7 @@ ErrorStatus check_data(void)
 
 
 /*==============================================================================
-  PRIVATE FUNCTION:    parse_data()
+  FUNCTION:    parse_data
 --------------------------------------------------------------------------------
   - Delimits data by commas
   - Bit shifts ASCII characters to obtain actual integer values
@@ -147,7 +167,7 @@ void parse_data(void)
   uint32_t digit = 0;                   // value holder
   for (uint8_t i=0;i<5;i++)             // 5 values
   {
-    prev_data[i] = data[i];             // save data into prev_data
+    //prev_data[i] = data[i];             // save data into prev_data
     data[i] = 0;                        // clear data value
     // convert to ints; each value is 4 digits long; comma skipped (j=1)
     for (uint8_t j=1;j<5;j++)   
@@ -163,7 +183,7 @@ void parse_data(void)
 
 
 /*==============================================================================
-  PRIVATE FUNCTION:    limit_data()
+  FUNCTION:    limit_data
 --------------------------------------------------------------------------------
   - Clamps obtained pulse control values to physiologically feasible values
 ==============================================================================*/
@@ -198,7 +218,7 @@ void limit_data(void)
 
 
 /*==============================================================================
-  PRIVATE FUNCTION:    update()
+  FUNCTION:    update
 --------------------------------------------------------------------------------
   - Translates decimal physiological values into values used by hardware
   - Updates DMA memory buffers

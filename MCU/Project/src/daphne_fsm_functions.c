@@ -1,25 +1,46 @@
-/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%                                                                        %%%%
-%%%%             DAPhNe Stimulator System Firmware: IPNS_v0.1               %%%%
-%%%%                        daphne_fsm_functions.c                          %%%%
-%%%%                                                                        %%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-********************************************************************************
-*       Author:		Alexey Revinski
-*	Last Revised:	05/16/2017
-*******************************************************************************/
+/*
+  ******************************************************************************
+  * @file    daphne_fsm_functions.c
+  * @author  Alexey Revinski
+  * @date    09/10/2017
+  * @brief   FSM functions source code file
+  ******************************************************************************
+  * @copy
+  *
+  * DAPHNE STIMULATOR SYSTEM FIRMWARE IS COPYRIGHTED AND IS OWNED BY
+  * NORTHWESTERN UNIVERSITY, AN ILLINOIS NOT-FOR-PROFIT CORPORATION, HAVING A
+  * PLACE OF BUSINESS AT 633 CLARK STREET, EVANSTON, ILLINOIS  60208. IT CAN BE 
+  * FREELY USED FOR EDUCATIONAL AND RESEARCH PURPOSES BY NON-PROFIT INSTITUTIONS
+  * AND US GOVERNMENT AGENCIES ONLY. OTHER ORGANIZATIONS ARE ALLOWED TO USE 
+  * DAPHNE STIMULATOR SYSTEM FIRMWARE ONLY FOR EVALUATION PURPOSES, AND ANY 
+  * FURTHER USES WILL REQUIRE PRIOR APPROVAL. THE SOFTWARE MAY NOT BE SOLD OR 
+  * REDISTRIBUTED WITHOUT PRIOR APPROVAL. ONE MAY MAKE COPIES OF THE SOFTWARE 
+  * FOR THEIR USE PROVIDED THAT THE COPIES, ARE NOT SOLD OR DISTRIBUTED, ARE 
+  * USED UNDER THE SAME TERMS AND CONDITIONS.
+  * 
+  * AS UNESTABLISHED RESEARCH SOFTWARE, THIS CODE IS PROVIDED ON AN "AS IS" 
+  * BASIS WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED. THE
+  * DOWNLOADING, OR EXECUTING ANY PART OF THIS SOFTWARE CONSTITUTES AN IMPLICIT
+  * AGREEMENT TO THESE TERMS. THESE TERMS AND CONDITIONS ARE SUBJECT TO CHANGE 
+  * AT ANY TIME WITHOUT PRIOR NOTICE.
+  *
+  ******************************************************************************
+  *                 COPYRIGHT 2017 NORTHWESTERN UNIVERSITY
+  *****************************************************************************/
 
-// INCLUDES
+// INCLUDES  ===================================================================
+
 #include "daphne_fsm_functions.h"
 
-// EXTERNAL VARIABLES
+// EXTERNAL VARIABLES  =========================================================
+
 extern uint16_t TI1Buffer[];            // Pulse timing         (TIM1)
 extern uint16_t time_in;                // Inspiratory time
 extern uint16_t time_ex;                // Expiratory time
 extern uint16_t end_timer;
 
 /*==============================================================================
-  PRIVATE FUNCTION:    startInspiration()
+  FUNCTION:    startInspiration
 --------------------------------------------------------------------------------
   - Resets RTC timer to interrupt at end of inspiratory time
   - Enables pulse timing and polarity outputs
@@ -48,7 +69,7 @@ void start_Inspiration(void)
 }
 
 /*==============================================================================
-  PRIVATE FUNCTION:    startExpiration()
+  FUNCTION:    startExpiration
 --------------------------------------------------------------------------------
   - Resets RTC timer to interrupt at end of expiratory time
   - Disables pulse timing and polarity outputs

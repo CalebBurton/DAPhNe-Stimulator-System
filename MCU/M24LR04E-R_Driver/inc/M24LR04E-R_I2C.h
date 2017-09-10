@@ -27,7 +27,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm8l15x.h"
 #include "stm8l15x_i2c.h"
-#include "private_functions.h"
 
 
 /** @addtogroup Utilities

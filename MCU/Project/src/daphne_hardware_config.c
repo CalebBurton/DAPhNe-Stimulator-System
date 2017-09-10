@@ -1,25 +1,46 @@
-/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%                                                                        %%%%
-%%%%             DAPhNe Stimulator System Firmware: IPNS_v0.1               %%%%
-%%%%                        daphne_hardware_config.c                        %%%%
-%%%%                                                                        %%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-********************************************************************************
-*       Author:		Alexey Revinski
-*	Last Revised:	05/16/2017
-*******************************************************************************/
+/*
+  ******************************************************************************
+  * @file    daphne_hardware_config.c
+  * @author  Alexey Revinski
+  * @date    09/10/2017
+  * @brief   STM8L152 hardware configuration source code file
+  ******************************************************************************
+  * @copy
+  *
+  * DAPHNE STIMULATOR SYSTEM FIRMWARE IS COPYRIGHTED AND IS OWNED BY
+  * NORTHWESTERN UNIVERSITY, AN ILLINOIS NOT-FOR-PROFIT CORPORATION, HAVING A
+  * PLACE OF BUSINESS AT 633 CLARK STREET, EVANSTON, ILLINOIS  60208. IT CAN BE 
+  * FREELY USED FOR EDUCATIONAL AND RESEARCH PURPOSES BY NON-PROFIT INSTITUTIONS
+  * AND US GOVERNMENT AGENCIES ONLY. OTHER ORGANIZATIONS ARE ALLOWED TO USE 
+  * DAPHNE STIMULATOR SYSTEM FIRMWARE ONLY FOR EVALUATION PURPOSES, AND ANY 
+  * FURTHER USES WILL REQUIRE PRIOR APPROVAL. THE SOFTWARE MAY NOT BE SOLD OR 
+  * REDISTRIBUTED WITHOUT PRIOR APPROVAL. ONE MAY MAKE COPIES OF THE SOFTWARE 
+  * FOR THEIR USE PROVIDED THAT THE COPIES, ARE NOT SOLD OR DISTRIBUTED, ARE 
+  * USED UNDER THE SAME TERMS AND CONDITIONS.
+  * 
+  * AS UNESTABLISHED RESEARCH SOFTWARE, THIS CODE IS PROVIDED ON AN "AS IS" 
+  * BASIS WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED. THE
+  * DOWNLOADING, OR EXECUTING ANY PART OF THIS SOFTWARE CONSTITUTES AN IMPLICIT
+  * AGREEMENT TO THESE TERMS. THESE TERMS AND CONDITIONS ARE SUBJECT TO CHANGE 
+  * AT ANY TIME WITHOUT PRIOR NOTICE.
+  *
+  ******************************************************************************
+  *                 COPYRIGHT 2017 NORTHWESTERN UNIVERSITY
+  *****************************************************************************/
 
-// INCLUDES
+// INCLUDES  ===================================================================
+
 #include "daphne_hardware_config.h"
 
-// EXTERNAL VARIABLES
+// EXTERNAL VARIABLES  =========================================================
+
 extern uint16_t TI1Buffer[];                    // Pulse timing buffer  (TIM1)
 extern uint16_t TI2Buffer[];                    // Polarity buffer      (TIM2)
 extern uint16_t DACBuffer[];                    // Amplitude buffer     (DAC1)
 extern uint16_t time_in;                        // Inspiration time
 
 /*==============================================================================
-  PRIVATE FUNCTION:    CLK_Config()
+  FUNCTION:    CLK_Config
 --------------------------------------------------------------------------------
   - Prescales HSE clock (16MHz) by 16 ==>1MHz
   - Clocks TIM1, TIM2, TIM4, DMA, DAC, RTC
@@ -27,7 +48,6 @@ extern uint16_t time_in;                        // Inspiration time
 ==============================================================================*/
 void    CLK_Config(void)
 {
-  DeInitClock();                                        // Gate all clocks
   CLK_DeInit();                                         // Reset to HSI
   CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_16);                // 1MHz
   CLK_PeripheralClockConfig(CLK_Peripheral_TIM1,ENABLE);// Enable TIM1 clock
@@ -41,11 +61,11 @@ void    CLK_Config(void)
 }
 
 /*==============================================================================
-  PRIVATE FUNCTION:    GPIO_Config()
+  FUNCTION:    GPIO_Config
 --------------------------------------------------------------------------------
   - Configures pin inputs and outputs
 ==============================================================================*/
-void    GPIO_Config(void) // SEE GUIDE
+void    GPIO_Config(void)
 {
   DeInitGPIO();                                         // Deinitialize all pins
   GPIO_Init(PULSE_TIM_PORT,PULSE_TIM_PIN,               // TIM1 Channel 1
@@ -59,7 +79,7 @@ void    GPIO_Config(void) // SEE GUIDE
 }
 
 /*==============================================================================
-  PRIVATE FUNCTION:    TIM1_Config()
+  FUNCTION:    TIM1_Config
 --------------------------------------------------------------------------------
   - Prescales 1MHz TIM1 source clock by 1; TIM1 counter updates at 500kHz
   - On overflow, TIM1
@@ -69,13 +89,13 @@ void    GPIO_Config(void) // SEE GUIDE
   - Autoreload register is able to be written to at any time
   - DMA updates the autoreload register at the beginning of each pulse phase
 ==============================================================================*/
-void    TIM1_Config(void) // SEE GUIDE
+void    TIM1_Config(void)
 {
   TIM1_DeInit();                                        // Deinitialize TIM1
   TIM1_TimeBaseInit(TIM1_PRESCALER,
                     TIM1_CounterMode_Up,
                     TIM1_PERIOD,
-                    TIM1_REPTETION_COUNTER);
+                    TIM1_REPETITION_COUNTER);
   TIM1_OC1Init(TIM1_OCMode_Toggle,                      // Toggles on overflow
                TIM1_OutputState_Enable,
                TIM1_OutputNState_Disable,
@@ -90,7 +110,7 @@ void    TIM1_Config(void) // SEE GUIDE
 }
 
 /*==============================================================================
-  PRIVATE FUNCTION:    TIM2_Config()
+  FUNCTION:    TIM2_Config
 --------------------------------------------------------------------------------
   - Prescales 1MHz TIM2 source clock by 1; TIM2 counter updates at 500kHz
   - When counter reaches value in capture/compare, TIM2 toggles its OC1 output
@@ -99,7 +119,7 @@ void    TIM1_Config(void) // SEE GUIDE
   - TIM1 triggers TIM2 pulse
   - DMA channel updates capture/compare register
 ==============================================================================*/
-void    TIM2_Config(void) // SEE GUIDE
+void    TIM2_Config(void)
 {
   TIM2_DeInit();                                        // Deinitialize TIM2
   TIM2_TimeBaseInit(TIM2_Prescaler_1,                   // Initialize time base
@@ -118,7 +138,7 @@ void    TIM2_Config(void) // SEE GUIDE
 }
 
 /*==============================================================================
-  PRIVATE FUNCTION:    TIM4_Config()
+  FUNCTION:    TIM4_Config
 --------------------------------------------------------------------------------
   - Prescales 1MHz TIM4 source clock by 1; TIM4 counter updates at 500kHz
   - TIM4 operates by single pulses
@@ -126,7 +146,7 @@ void    TIM2_Config(void) // SEE GUIDE
   - TIM1 triggers TIM4 count
   - TIM4 overflows right away and triggers DAC conversion
 ==============================================================================*/
-void    TIM4_Config(void) // SEE GUIDE
+void    TIM4_Config(void)
 {
   TIM4_DeInit();        
   TIM4_TimeBaseInit(TIM4_Prescaler_1,TIM4_PERIOD);      // Deinitialize TIM4
@@ -138,14 +158,14 @@ void    TIM4_Config(void) // SEE GUIDE
 }
 
 /*==============================================================================
-  PRIVATE FUNCTION:    DMA1_Config()
+  FUNCTION:    DMA1_Config
 --------------------------------------------------------------------------------
   - Channel 1 is used for updating TIM2_CCR1 registers - update on TIM2 overflow
   - Channel 2 is used for updating TIM1_ARR registers - update on TIM1 overflow
   - Channel 3 is used for updating DAC_RDHR registers - update on DAC conversion
   - Enables DMA channels
 ==============================================================================*/
-void    DMA1_Config(void) // SEE GUIDE
+void    DMA1_Config(void)
 {
   // Deinitialize DMA
   DMA_GlobalDeInit();
@@ -175,13 +195,13 @@ void    DMA1_Config(void) // SEE GUIDE
 }
 
 /*==============================================================================
-  PRIVATE FUNCTION:    DAC_Config()
+  FUNCTION:    DAC_Config
 --------------------------------------------------------------------------------
   - DAC converts on TIM4 trigger
   - On conversion, DMA update is requested
   - Enables DAC conversion
 ==============================================================================*/
-void    DAC_Config(void) // SEE GUIDE
+void    DAC_Config(void)
 {
   DAC_DeInit();                                 // Deinitialize DAC
   // Initialize DAC to convert on TIM4 overflow
@@ -192,12 +212,12 @@ void    DAC_Config(void) // SEE GUIDE
 }
 
 /*==============================================================================
-  PRIVATE FUNCTION:    RTC_Config()
+  FUNCTION:    RTC_Config
 --------------------------------------------------------------------------------
   - RTC uses LSE (32.768kHz), prescaled by 4 (8192 Hz)
   - RTC interrupts are used to transition between insp. and exp. states
 ==============================================================================*/
-void    RTC_Config(void) // SEE GUIDE
+void    RTC_Config(void)
 {
   RTC_WakeUpCmd(DISABLE);                               // Disable WakeUp unit
   RTC_RatioCmd(ENABLE);                                 // No sync(fclk=frtc)
@@ -208,64 +228,33 @@ void    RTC_Config(void) // SEE GUIDE
 }
 
 /*==============================================================================
-  PRIVATE FUNCTION:    PWR_Config()
+  FUNCTION:    PWR_Config
 --------------------------------------------------------------------------------
   - Fast wake ups are disabled (fast - unreliable results)
   - Ultra Low Power mode is enabled
 ==============================================================================*/
-void    PWR_Config(void) // SEE GUIDE
+void    PWR_Config(void)
 {
   PWR_FastWakeUpCmd(DISABLE);                           // FastWakeUp disable
   PWR_UltraLowPowerCmd(ENABLE);                         // Ultra low power mode
 }
 
 /*==============================================================================
-  PRIVATE FUNCTION:    DeInitGPIO()
+  FUNCTION:    DeInitGPIO
 --------------------------------------------------------------------------------
   - All unused general pin inputs/outputs are set to Output Low
 ==============================================================================*/
-static void DeInitGPIO ( void )
+static void DeInitGPIO(void)
 {
-  GPIO_Init( GPIOA, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
-  GPIO_Init( GPIOB, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
-  GPIO_Init( GPIOC, GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6, GPIO_Mode_Out_OD_Low_Fast);
-  GPIO_Init( GPIOD, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
-  GPIO_Init( GPIOE, GPIO_Pin_All, GPIO_Mode_Out_OD_Low_Fast);
+  GPIO_Init(GPIOA,GPIO_Pin_All,GPIO_Mode_Out_OD_Low_Fast);
+  GPIO_Init(GPIOB,GPIO_Pin_All,GPIO_Mode_Out_OD_Low_Fast);
+  GPIO_Init(GPIOC,GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6,
+            GPIO_Mode_Out_OD_Low_Fast);
+  GPIO_Init(GPIOD,GPIO_Pin_All,GPIO_Mode_Out_OD_Low_Fast);
+  GPIO_Init(GPIOE,GPIO_Pin_All,GPIO_Mode_Out_OD_Low_Fast);
   GPIOA->ODR = 0xFF;
   GPIOB->ODR = 0xFF;
   GPIOC->ODR = 0xFF;
   GPIOD->ODR = 0xFF;
   GPIOE->ODR = 0xFF;
-}
-
-/*==============================================================================
-  PRIVATE FUNCTION:    DeInitClock()
---------------------------------------------------------------------------------
-  - Gates all peripheral clocks to reduce power consumption
-==============================================================================*/
-static void DeInitClock ( void )
-{
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM2, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM3, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM4, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_I2C1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_SPI1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_USART1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_BEEP, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_DAC, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_RTC, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_LCD, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_BOOTROM, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_AES, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM5, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_SPI2, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_USART2, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_USART3, DISABLE);
-  CLK_PeripheralClockConfig(CLK_Peripheral_CSSLSE, DISABLE);
 }

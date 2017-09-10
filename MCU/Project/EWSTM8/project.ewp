@@ -258,8 +258,8 @@
         <option>
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$\..\inc</state>
-          <state>$PROJ_DIR$\..\..\..\Implant STM8L Program NFC+Pulse\STM8L15x_StdPeriph_Driver\inc</state>
-          <state>$PROJ_DIR$\..\..\..\Implant STM8L Program NFC+Pulse\M24LR04E-R_Driver\inc</state>
+          <state>$PROJ_DIR$\..\..\STM8L15x_StdPeriph_Driver\inc</state>
+          <state>$PROJ_DIR$\..\..\M24LR04E-R_Driver\inc</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1722,6 +1722,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\inc\daphne_hardware_config.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\inc\daphne_include.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\inc\daphne_utilities.h</name>
