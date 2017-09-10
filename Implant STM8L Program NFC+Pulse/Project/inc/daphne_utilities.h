@@ -10,9 +10,9 @@
 #define MIN_PW  (uint32_t) 10
 #define MAX_PA  (uint32_t) 7000
 #define MIN_PA  (uint32_t) 10
-#define MAX_BR  (uint32_t) 5000
+#define MAX_BR  (uint32_t) 3500
 #define MIN_BR  (uint32_t) 1000
-#define MAX_IT  (uint32_t) 3000                 //!!!!!
+#define MAX_IT  (uint32_t) 2000                 //!!!!!
 #define MIN_IT  (uint32_t) 800                  //!!!!!
 #define MAX_II  (uint32_t) 1200
 #define MIN_II  (uint32_t) 100

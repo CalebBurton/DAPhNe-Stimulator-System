@@ -102,7 +102,7 @@ void    TIM1_Config(void) // SEE GUIDE
 void    TIM2_Config(void) // SEE GUIDE
 {
   TIM2_DeInit();                                        // Deinitialize TIM2
-  TIM2_TimeBaseInit(TIM2_Prescaler_1,                   // Initizlie time base
+  TIM2_TimeBaseInit(TIM2_Prescaler_1,                   // Initialize time base
                     TIM2_CounterMode_Up,
                     TIM2_PERIOD);
   TIM2_OC1Init(TIM2_OCMode_Toggle,                      // Toggles on overflow

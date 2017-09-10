@@ -1,22 +1,22 @@
-"C:\Users\Alexey Revinski\Documents\CLASS\BME 390-2\Repo\BME390\Implant STM8L Program NFC+Pulse\STM8L15x_StdPeriph_Driver\src\stm8l15x_clk.c"
+"C:\Users\Alexey Revinski\Documents\SENIOR\Repo\BME390\Implant STM8L Program NFC+Pulse\STM8L15x_StdPeriph_Driver\src\stm8l15x_clk.c"
 -std=c99
 -ferror-limit=100
 -I
-C:\Users\Alexey Revinski\Documents\CLASS\BME 390-2\Repo\BME390\Implant STM8L Program NFC+Pulse\Project\EWSTM8\..\inc
+C:\Users\Alexey Revinski\Documents\SENIOR\Repo\BME390\Implant STM8L Program NFC+Pulse\Project\EWSTM8\..\inc
 -I
-C:\Users\Alexey Revinski\Documents\CLASS\BME 390-2\Repo\BME390\Implant STM8L Program NFC+Pulse\Project\EWSTM8\..\..\..\Implant STM8L Program NFC+Pulse\STM8L15x_StdPeriph_Driver\inc
+C:\Users\Alexey Revinski\Documents\SENIOR\Repo\BME390\Implant STM8L Program NFC+Pulse\Project\EWSTM8\..\..\..\Implant STM8L Program NFC+Pulse\STM8L15x_StdPeriph_Driver\inc
 -I
-C:\Users\Alexey Revinski\Documents\CLASS\BME 390-2\Repo\BME390\Implant STM8L Program NFC+Pulse\Project\EWSTM8\..\..\..\Implant STM8L Program NFC+Pulse\M24LR04E-R_Driver\inc
+C:\Users\Alexey Revinski\Documents\SENIOR\Repo\BME390\Implant STM8L Program NFC+Pulse\Project\EWSTM8\..\..\..\Implant STM8L Program NFC+Pulse\M24LR04E-R_Driver\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\inc\c
 -I
-C:\Users\Alexey Revinski\Documents\CLASS\BME 390-2\Repo\BME390\Implant STM8L Program NFC+Pulse\Project\inc
+C:\Users\Alexey Revinski\Documents\SENIOR\Repo\BME390\Implant STM8L Program NFC+Pulse\Project\inc
 -I
-C:\Users\Alexey Revinski\Documents\CLASS\BME 390-2\Repo\BME390\Implant STM8L Program NFC+Pulse\STM8L15x_StdPeriph_Driver\inc
+C:\Users\Alexey Revinski\Documents\SENIOR\Repo\BME390\Implant STM8L Program NFC+Pulse\STM8L15x_StdPeriph_Driver\inc
 -I
-C:\Users\Alexey Revinski\Documents\CLASS\BME 390-2\Repo\BME390\Implant STM8L Program NFC+Pulse\M24LR04E-R_Driver\inc
+C:\Users\Alexey Revinski\Documents\SENIOR\Repo\BME390\Implant STM8L Program NFC+Pulse\M24LR04E-R_Driver\inc
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0
@@ -220,7 +220,7 @@ C:\Users\Alexey Revinski\Documents\CLASS\BME 390-2\Repo\BME390\Implant STM8L Pro
 -D_RTSL_COMPARE_T=unsigned char
 -D__CODE_MODEL__=__SMALL_CODE_MODEL__
 -D__CORE__=__STM8__
--D__DATA_MODEL__=__MEDIUM_DATA_MODEL__
+-D__DATA_MODEL__=__SMALL_DATA_MODEL__
 -D__ICCSTM8__=1
 -D__LARGE_CODE_MODEL__=3
 -D__LARGE_DATA_MODEL__=3
@@ -260,8 +260,8 @@ C:\Users\Alexey Revinski\Documents\CLASS\BME 390-2\Repo\BME390\Implant STM8L Pro
 -D__EDG_SYSV=0
 -D__EDG_ANSIC=1
 -D__EDG_CPP11_IL_EXTENSIONS_SUPPORTED=1
--D_DLIB_CONFIG_FILE_HEADER_NAME="C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\LIB\dlstm8smn.h"
--D_DLIB_CONFIG_FILE_STRING="C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 7.3\\stm8\\LIB\\dlstm8smn.h"
+-D_DLIB_CONFIG_FILE_HEADER_NAME="C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\LIB\dlstm8ssn.h"
+-D_DLIB_CONFIG_FILE_STRING="C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 7.3\\stm8\\LIB\\dlstm8ssn.h"
 -D__VERSION__="IAR C/C++ Compiler V2.20.1.176 for STM8"
 -D__CODE_MEMORY_LIST1__()=__CODE_MEM_HELPER1__(__code, 0 )
 -D__CODE_MEMORY_LIST2__(_P1)=__CODE_MEM_HELPER2__(__code, 0 ,  _P1 )
