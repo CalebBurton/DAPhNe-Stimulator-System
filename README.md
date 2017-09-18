@@ -12,8 +12,9 @@ Most recent documentation:
 
 [**Digitally Adjustable Phrenic Nerve (DAPhNe) Stimulator - Technical Reference, Rev 1.1**](https://github.com/AlexeyRevinski/DAPhNe-Stimulator-System/blob/master/Reference%20Documentation/DAPhNe_Technical_Reference_v_1_1.pdf)
 
+<br></br>
 
-The focus of this project is the development and testing of a novel implantable phrenic nerve stimulator, to be used in patients with Congenital Central Hypoventilation Syndrome (CCHS) - specifically, children. The following sections summarize the project; to get to kjnow the project in extensive detail, please refer to project documents under "Reference Documentation".
+The focus of this project is the development and testing of a novel implantable phrenic nerve stimulator, to be used in patients with Congenital Central Hypoventilation Syndrome (CCHS) - specifically, children. The following sections summarize the project; to get to know the project in extensive detail, please refer to project documents under "Reference Documentation".
 
 <br></br>
 
