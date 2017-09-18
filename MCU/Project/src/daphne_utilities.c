@@ -112,7 +112,7 @@ void get_new_settings(void)
     if(check_data()==SUCCESS)           // If data is properly formatted
     {
       parse_data();                     // Translate data into ints
-      limit_data();                     // Limit values to physiological limits
+      limit_data();                     // Limit values to physiological limits //NO EFFECT
       update();                         // Update software buffers with new data
     }
   }
