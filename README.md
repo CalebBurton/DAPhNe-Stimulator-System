@@ -43,5 +43,5 @@ Currently, the DAPhNe Stimulator System consists of two custom-designed PCB prot
   <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/Collage.png" width="750"/>
 </p>
 <p align="right">
-  <img src="https://github.com/AlexeyRevinski/BME390/blob/master/Visuals/Overall%20Circuit%20Diagram-1.png" width="800"/>
+  <img src="https://github.com/AlexeyRevinski/DAPhNe-Stimulator-System/blob/master/Visuals/BME390-v0.1-1.png" width="800"/>
 </p>
