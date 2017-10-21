@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\common\bin\cspybat" -f "C:\Users\Alexey Revinski\Documents\SENIOR\Repo\BME390\MCU\Project\EWSTM8\settings\project.Debug.general.xcl" --backend -f "C:\Users\Alexey Revinski\Documents\SENIOR\Repo\BME390\MCU\Project\EWSTM8\settings\project.Debug.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "\\.psf\Home\Documents\GitHub\DAPhNe-Stimulator-System\MCU\Project\EWSTM8\settings\project.Debug.general.xcl" --backend -f "\\.psf\Home\Documents\GitHub\DAPhNe-Stimulator-System\MCU\Project\EWSTM8\settings\project.Debug.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\common\bin\cspybat" -f "C:\Users\Alexey Revinski\Documents\SENIOR\Repo\BME390\MCU\Project\EWSTM8\settings\project.Debug.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\Alexey Revinski\Documents\SENIOR\Repo\BME390\MCU\Project\EWSTM8\settings\project.Debug.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "\\.psf\Home\Documents\GitHub\DAPhNe-Stimulator-System\MCU\Project\EWSTM8\settings\project.Debug.general.xcl" "--debug_file=%~1" --backend -f "\\.psf\Home\Documents\GitHub\DAPhNe-Stimulator-System\MCU\Project\EWSTM8\settings\project.Debug.driver.xcl" 
 
 @echo off 
 :end
